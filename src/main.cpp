@@ -1,17 +1,8 @@
 #include <iostream>
 #include <gtk/gtk.h>
-#include <clasp/config.h>
-#include <clasp/logic_program.h>
-#include <clasp/shared_context.h>
-#include <clasp/unfounded_check.h>
-#include <clasp/model_enumerators.h>
-#include <clasp/solve_algorithms.h>
 
-namespace Clasp{
-        struct Model;
-        class  OutputTable;
-        namespace Asp { class  LogicProgram; }
-}
+
+
 
 static void activate (GtkApplication* app,gpointer user_data) {
     GtkWidget *window;
@@ -31,6 +22,4 @@ int main(int argc, char **argv) {
     g_object_unref (app);
 
     return status;
-
-
 }

@@ -72,12 +72,12 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build cmake_object_order_depends_target_Project3: phony || CMakeFiles/Project3.dir
 
-build CMakeFiles/Project3.dir/main.cpp.o: CXX_COMPILER__Project3_Debug /home/nolan/CLionProjects/Project3/main.cpp || cmake_object_order_depends_target_Project3
-  DEP_FILE = CMakeFiles/Project3.dir/main.cpp.o.d
+build CMakeFiles/Project3.dir/src/main.cpp.o: CXX_COMPILER__Project3_Debug /home/nolan/CLionProjects/Project3/src/main.cpp || cmake_object_order_depends_target_Project3
+  DEP_FILE = CMakeFiles/Project3.dir/src/main.cpp.o.d
   FLAGS = -g   -pthread -std=gnu++23
   INCLUDES = -I/usr/include/gtk-3.0 -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/gio-unix-2.0 -I/usr/include/atk-1.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/at-spi-2.0 -I/home/nolan/CLionProjects/Project3/include
   OBJECT_DIR = CMakeFiles/Project3.dir
-  OBJECT_FILE_DIR = CMakeFiles/Project3.dir
+  OBJECT_FILE_DIR = CMakeFiles/Project3.dir/src
 
 
 # =============================================================================
@@ -87,7 +87,7 @@ build CMakeFiles/Project3.dir/main.cpp.o: CXX_COMPILER__Project3_Debug /home/nol
 #############################################
 # Link the executable Project3
 
-build Project3: CXX_EXECUTABLE_LINKER__Project3_Debug CMakeFiles/Project3.dir/main.cpp.o | ../lib/libclasp.a ../lib/libpotassco.a
+build Project3: CXX_EXECUTABLE_LINKER__Project3_Debug CMakeFiles/Project3.dir/src/main.cpp.o | ../lib/libclasp.a ../lib/libpotassco.a
   FLAGS = -g
   LINK_LIBRARIES = -lgtk-3  -lgdk-3  -lpangocairo-1.0  -lpango-1.0  -lharfbuzz  -latk-1.0  -lcairo-gobject  -lcairo  -lgdk_pixbuf-2.0  -lgio-2.0  -lgobject-2.0  -lglib-2.0  ../lib/libclasp.a  ../lib/libpotassco.a
   OBJECT_DIR = CMakeFiles/Project3.dir
