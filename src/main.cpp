@@ -1,6 +1,7 @@
 #include <iostream>
 #include <gtk/gtk.h>
 #include <clasp/config.h>
+#include <clasp/logic_program.h>
 
 
 

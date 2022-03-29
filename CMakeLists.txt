@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 project(Project3)
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 11)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
