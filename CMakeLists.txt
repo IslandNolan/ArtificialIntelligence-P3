@@ -15,5 +15,5 @@ find_library(LIB2 potassco ${CMAKE_SOURCE_DIR}/lib)
 find_path(LIB_INCLUDE clasp/config.h potassco/platform.h ${CMAKE_SOURCE_DIR}/include)
 include_directories(${LIB_INCLUDE})
 
-add_executable(Project3 src/main.cpp)
+add_executable(Project3 src/sources/main.cpp src/sources/utility.cpp include/p3/p3.h)
 target_link_libraries(Project3 PUBLIC ${GTK3_LIBRARIES} ${LIB1} ${LIB2})
