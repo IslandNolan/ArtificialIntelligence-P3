@@ -94,10 +94,10 @@ void testing2(std::vector<std::vector<std::pair<int,int>>> hardConstraints) {
 }
 
 /**
- *
- * @param attributeNames
- * @param hardConstraints
- * @return
+ * finds all states which violate the hard constraints
+ * @param attributeCount how many attributes in the state
+ * @param hardConstraints the constraints themselves
+ * @return a list of all states violating the constraints, in integer form.
  */
 std::vector<int> blacklistFunction(int attributeCount, std::vector<std::vector<std::pair<int,int>>> hardConstraints) {
     /*
@@ -124,8 +124,14 @@ std::vector<int> blacklistFunction(int attributeCount, std::vector<std::vector<s
     }
     return blacklist;
 }
-/** Calculates Penalty Logic, */
-void penaltiesFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<std::vector<std::pair<int,int>>> hardConstraints, std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyCosts) {
+/**
+ * Calculates Penalty Logic
+ * @param attributeNames names of attributes, for later displaying in a pretty format
+ * @param blacklist states to skip over
+ * @param penalties penalty conditions to check for, second in first pair is which cost is associated with this penalty
+ * @param penaltyCosts costs of penalties
+ */
+void penaltiesFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<int> blacklist, std::vector<std::pair<std::vector<std::pair<int,int>>,int>> penalties, std::vector<int> penaltyCosts) {
 
     //Construct texting binary numbers;
     /*
