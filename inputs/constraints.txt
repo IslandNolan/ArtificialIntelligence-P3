@@ -1,2 +1,2 @@
-NOT soup OR NOT ice-cream
-NOT beef OR salad
+!2a3a!2a3
+!0o!1
