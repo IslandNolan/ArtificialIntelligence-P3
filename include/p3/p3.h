@@ -1,7 +1,3 @@
-//
-// Created by nolan on 3/30/22.
-//
-
 #ifndef PROJECT3_P3_H
 #define PROJECT3_P3_H
 
@@ -23,7 +19,8 @@ void printModel(const Clasp::OutputTable& out, const Clasp::Model& model);
 void addSimpleProgram(Clasp::Asp::LogicProgram& prg);
 int checkOr(std::bitset<maxAttributes> toCheck, std::vector<std::vector<std::pair<int, int>>> values);
 int checkAnd(std::bitset<maxAttributes> toCheck, std::vector<std::pair<int, int>> values);
-void testing(void);
+void testing();
+void penaltiesFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames,std::vector<std::vector<std::pair<int,int>>> hardConstraints,std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyCosts);
 
 
 
