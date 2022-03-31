@@ -23,7 +23,7 @@ int checkOr(std::bitset<maxAttributes> toCheck, std::vector<std::vector<std::pai
 int checkAnd(std::bitset<maxAttributes> toCheck, std::vector<std::pair<int, int>> values);
 void testing();
 void testing2(std::vector<std::vector<std::pair<int,int>>> hardConstraints);
-void penaltiesFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<int> blacklist, std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyStack, std::vector<int> penaltyCosts);
+std::vector<std::vector<std::string>> penaltiesFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<std::string> penaltyStrings, std::vector<int> blacklist, std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyStack, std::vector<int> penaltyCosts);
 std::vector<int> blacklistFunction(int attributeCount, std::vector<std::vector<std::pair<int,int>>> hardConstraints);
 
 

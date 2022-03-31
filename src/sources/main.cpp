@@ -13,6 +13,7 @@ using namespace std;
 unordered_map<string, pair<string,string>> attributeNames;
 vector<vector<pair<int,int>>> constraints;
 vector<vector<pair<int,int>>> penalties;
+vector<string> penaltyStrings;
 vector<int> penaltiesStack;
 vector<int> penaltyCost;
 // storing blacklisted values as ints so we can easily check before instantiating a bitset
@@ -165,6 +166,7 @@ int main(int argc, char **argv) {
     if (penaltyFile.is_open())
         while(penaltyFile.good()) {
             getline(penaltyFile, rawInput);
+            penaltyStrings.emplace_back(rawInput);
             vector<pair<int, int>> cur;
             for (int i = 0; i < rawInput.size(); i++) {
                 int penalty=0;
@@ -172,7 +174,6 @@ int main(int argc, char **argv) {
                     case ',':
                         penaltiesStack.emplace_back(penaltyStack);
                         penalties.emplace_back(cur);
-
                         penalty = stoi(rawInput.substr(i+1,rawInput.size()-1));
                         penaltyCost.emplace_back(penalty);
                         penaltyStack++;
@@ -217,7 +218,7 @@ int main(int argc, char **argv) {
     if(!constraints.empty())
         blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
 
-    penaltiesFunction(attributeNames, blacklistedBinaries, penalties, penaltiesStack, penaltyCost);
+    penaltiesFunction(attributeNames, penaltyStrings, blacklistedBinaries, penalties, penaltiesStack, penaltyCost);
 
     return status;
 }
