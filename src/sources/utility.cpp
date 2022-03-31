@@ -128,38 +128,37 @@ std::vector<int> blacklistFunction(int attributeCount, std::vector<std::vector<s
  * Calculates Penalty Logic
  * @param attributeNames names of attributes, for later displaying in a pretty format
  * @param blacklist states to skip over
- * @param penalties penalty conditions to check for, second in first pair is which cost is associated with this penalty
+ * @param penalties penalty conditions to check for
+ * @param penaltyStack which term belongs to which penalty
  * @param penaltyCosts costs of penalties
  */
-void penaltiesFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<int> blacklist, std::vector<std::pair<std::vector<std::pair<int,int>>,int>> penalties, std::vector<int> penaltyCosts) {
-
-    //Construct texting binary numbers;
-    /*
-     *
-     * /std::cout << hardConstraints[j][k].first << ' ';
-                //
-                // td::cout << hardConstraints[j][k].second << '\n';
-                if(s[hardConstraints[j][k].first]==hardConstraints[j][k].second){
-                    //checkOr(bTest,)
-                    //std::cout << "Hard constraint detected!" << s << std::endl;
-
-                }
-                //std::cout << "Hard constraint legit " << s[hardConstraints[j][k].first] << std::endl;
-     */
-
-
-    /*
+void penaltiesFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<int> blacklist, std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyStack, std::vector<int> penaltyCosts) {
+    std::vector<std::vector<std::string>> matrix(attributeNames.size()*attributeNames.size()-blacklist.size()+1, std::vector<std::string>(penaltyStack.size()));
+    std::vector<int> detected(penaltyCosts.size(), 0);
     for(int i = 0; i < attributeNames.size()*attributeNames.size();i++){
-        std::bitset<maxAttributes> bTest(i);
-        std::string s = bTest.to_string();
-        std::reverse(s.begin(),s.end());
-        //std::cout << "Test S: " << s << std::endl;
-        for(int j=0;j<hardConstraints.size()-1;j++){
-            for(int k=0;k<hardConstraints[j].size();k++){
+        std::bitset<maxAttributes> state(i);
+        std::string s = state.to_string();
 
+        // should have made a set to check if xyz is blacklisted but have this spaghetti insteal
+        for(int j : blacklist)
+            if(i == j)
+                goto skip;
+
+
+        for(int j = 0; j < penalties.size(); j++){
+            if(checkAnd(state, penalties[j])){
+                //std::cout << "Detected Penalty for: "
             }
         }
+        std::cout << "Test S: " << s << std::endl;
+        skip:;
     }
-    */
+    for(int i = 0; i < attributeNames.size()*attributeNames.size()-blacklist.size()+1; i++){
+        for(int j = 0; j < penaltyStack.size(); j++){
+            std::cout << matrix[i][j] << ' ';
+        }
+        std::cout << std::endl;
+    }
+
 
 }

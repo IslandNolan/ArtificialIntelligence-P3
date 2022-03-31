@@ -12,7 +12,8 @@ using namespace std;
 
 unordered_map<string, pair<string,string>> attributeNames;
 vector<vector<pair<int,int>>> constraints;
-vector<pair<vector<pair<int,int>>,int>> penalties;
+vector<vector<pair<int,int>>> penalties;
+vector<int> penaltiesStack;
 vector<int> penaltyCost;
 // storing blacklisted values as ints so we can easily check before instantiating a bitset
 vector<int> blacklistedBinaries;
@@ -169,7 +170,9 @@ int main(int argc, char **argv) {
                 int penalty=0;
                 switch (rawInput[i]) {
                     case ',':
-                        penalties.emplace_back(cur, penaltyStack);
+                        penaltiesStack.emplace_back(penaltyStack);
+                        penalties.emplace_back(cur);
+
                         penalty = stoi(rawInput.substr(i+1,rawInput.size()-1));
                         penaltyCost.emplace_back(penalty);
                         penaltyStack++;
@@ -179,10 +182,12 @@ int main(int argc, char **argv) {
                     case '!':
                         //cout << "emplaced not, false: " << rawInput[i + 1] << endl;
                         cur.emplace_back(make_pair(rawInput[i + 1] - 48, 0));
+                        //penaltiesStack.emplace_back(penaltyStack);
                         i++;
                         break;
                     case 'o':
-                        penalties.emplace_back(cur, penaltyStack);
+                        penalties.emplace_back(cur);
+                        penaltiesStack.emplace_back(penaltyStack);
                         cur.clear();
                         break;
                     case 'a':
@@ -191,6 +196,7 @@ int main(int argc, char **argv) {
                     default:
                         //cout << "penalty default, true: " << rawInput[i] << endl;
                         cur.emplace_back(make_pair(rawInput[i] - 48, 1));
+                        //penaltiesStack.emplace_back(penaltyStack);
                         break;
 
                 }
@@ -202,16 +208,16 @@ int main(int argc, char **argv) {
     //endregion
 
     for(int i = 0; i < penalties.size(); i++){
-        for(int j = 0; j < penalties[i].first.size(); j++){
-            cout << penalties[i].first[j].first << ' ' << penalties[i].first[j].second << ' ';
+        for(int j = 0; j < penalties[i].size(); j++){
+            cout << penalties[i][j].first << ' ' << penalties[i][j].second << ' ' << penaltiesStack[i] << '\n';
         }
-        cout << "Penalty val = " << penaltyCost[penalties[i].second] << endl;
+        cout << "Penalty val = " << penaltyCost[penaltiesStack[i]] << endl;
     }
     // if its empty it blacklists everything since the empty set fits in everything
     if(!constraints.empty())
         blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
 
-    penaltiesFunction(attributeNames, blacklistedBinaries, penalties, penaltyCost);
+    penaltiesFunction(attributeNames, blacklistedBinaries, penalties, penaltiesStack, penaltyCost);
 
     return status;
 }
