@@ -1,6 +1,6 @@
 #define maxAttributes 10
 #include <bits/stdc++.h>
-
+#include <algorithm>
 /**
  * Feed it a list of positions and bools, it will return true if all are true,
  * else returns false;
@@ -177,6 +177,74 @@ std::vector<std::vector<std::string>> penaltiesFunction(std::unordered_map<std::
             if(detected[j]){
                 total += penaltyCosts[j];
             }
+        }
+        matrix[iteration][detected.size()+1] = std::to_string(total);
+        std::cout << std::endl;
+        //matrix[i][penalties.size()-1] = std::to_string(total);
+        //std::cout << "Detect Test ";
+        for(int j = 0; j < penaltyStack.size(); j++){
+            //int ree = std:stoi
+        }
+        skip:;
+    }
+    for(int i = 0; i < attributeNames.size()*attributeNames.size()-blacklist.size()+1; i++){
+        for(int j = 0; j < penaltyStack.size(); j++){
+            std::cout << matrix[i][j] << ' ';
+        }
+        std::cout << std::endl;
+    }
+    return matrix;
+}
+
+std::vector<std::vector<std::string>> possibilisticFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<std::string> penaltyStrings, std::vector<int> blacklist, std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyStack, std::vector<int> penaltyCosts) {
+    std::vector<std::vector<std::string>> matrix(attributeNames.size()*attributeNames.size()-blacklist.size()+1, std::vector<std::string>(penaltyStack.size()+1));
+    std::string toInsert;
+    //std::cout << "checking size: " << penaltyStack.size();
+    matrix[0][0] = "state";
+    for(int i = 0; i < penaltyStrings.size();i++){
+        matrix[0][i+1] = penaltyStrings[i];
+        matrix[0][i+2] = "total penalty";
+    }
+    int iteration = 0; // for first column to deal with blacklisting
+    std::cout << std::endl;
+    for(int i = 0; i < attributeNames.size()*attributeNames.size()-blacklist.size(); i++){
+
+        for(int j = 0; j < penaltyStack.size(); j++){
+            //std::cout << "Science: " << penaltyCosts[j] << std::endl;
+            matrix[i + 1][j + 1] = "1";
+        }
+        //std::cout << std::endl;
+    }
+    for(int i = 0; i < attributeNames.size()*attributeNames.size();i++){
+        std::vector<int> detected(penaltyCosts.size(), 0);
+        std::bitset<maxAttributes> state(i);
+        std::string s = state.to_string();
+        double total = 1;
+        // should have made a set to check if xyz is blacklisted but have this spaghetti insteal
+        for(int j : blacklist)
+            if(i == j)
+                goto skip;
+        toInsert = std::bitset<maxAttributes>(i).to_string().substr(maxAttributes-attributeNames.size(), maxAttributes);
+        iteration++;
+        matrix[iteration][0] = toInsert;
+
+        for(int j = 0; j < penalties.size(); j++){
+            if(checkAnd(state, penalties[j])){
+                detected[penaltyStack[j]] = 1;
+                matrix[iteration][penaltyStack[j]+1] = std::to_string(1-(double)penaltyCosts[penaltyStack[j]]/10.0);
+
+                //std::cout << "Detected Penalty for: "
+            }
+        }
+        for(int j = 0; j < detected.size(); j++){
+            //std::cout << detected[j] << ' ';
+
+            if(detected[j]){
+                total = fmin(total, 1-(double)penaltyCosts[j]/10.0);
+                //cout << "science: total"
+                //total = penaltyCosts[j];
+            }
+            std::cout << total << ' ';
         }
         matrix[iteration][detected.size()+1] = std::to_string(total);
         std::cout << std::endl;

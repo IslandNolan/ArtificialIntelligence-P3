@@ -16,12 +16,12 @@ vector<vector<pair<int,int>>> penalties;
 vector<string> penaltyStrings;
 vector<int> penaltiesStack;
 vector<int> penaltyCost;
+
 // storing blacklisted values as ints so we can easily check before instantiating a bitset
 vector<int> blacklistedBinaries;
 
 ifstream attributesFile("inputs/attributes.txt");
 ifstream constraintsFile("inputs/constraints.txt");
-ifstream penaltyFile("inputs/penalty.txt");
 ifstream possibilisticFile("inputs/possibilistic.txt");
 ifstream qualitativeFile("inputs/qualitative.txt");
 
@@ -57,7 +57,63 @@ ifstream qualitativeFile("inputs/qualitative.txt");
 
     todo::Omni-optimization: find all optimal objects w.r.t T
 */
+/**
+ * does logic and possibilistic parsing
+ * @param which 0 for penalty, 1 for possibilistic
+ */
+void logicProcessing(int which){
+    ifstream penaltyFile;
+    if(which == 0){
+        penaltyFile.open("inputs/penalty.txt");
+    } else{
+        penaltyFile.open("inputs/possibilistic.txt");
+    }
+    string rawInput = "";
+    int penaltyStack = 0;
+    if (penaltyFile.is_open())
+        while(penaltyFile.good()) {
+            getline(penaltyFile, rawInput);
+            penaltyStrings.emplace_back(rawInput);
+            vector<pair<int, int>> cur;
+            for (int i = 0; i < rawInput.size(); i++) {
+                int penalty=0;
+                switch (rawInput[i]) {
+                    case ',':
+                        penaltiesStack.emplace_back(penaltyStack);
+                        penalties.emplace_back(cur);
+                        penalty = stoi(rawInput.substr(i+1,rawInput.size()-1));
+                        penaltyCost.emplace_back(penalty);
+                        penaltyStack++;
+                        //cout << "Penalty: " << penalty << endl;
+                        i = rawInput.size();
+                        break;
+                    case '!':
+                        //cout << "emplaced not, false: " << rawInput[i + 1] << endl;
+                        cur.emplace_back(make_pair(rawInput[i + 1] - 48, 0));
+                        //penaltiesStack.emplace_back(penaltyStack);
+                        i++;
+                        break;
+                    case 'o':
+                        penalties.emplace_back(cur);
+                        penaltiesStack.emplace_back(penaltyStack);
+                        cur.clear();
+                        break;
+                    case 'a':
+                        //penalties.push_back(cur);
+                        break;
+                    default:
+                        //cout << "penalty default, true: " << rawInput[i] << endl;
+                        cur.emplace_back(make_pair(rawInput[i] - 48, 1));
+                        //penaltiesStack.emplace_back(penaltyStack);
+                        break;
 
+                }
+            }
+            cur.clear();
+            //cout << "----" << endl;
+        }
+    penaltyFile.close();
+}
 static void activate (GtkApplication* app,gpointer user_data) {
     GtkWidget *window;
     window = gtk_application_window_new(app);
@@ -161,52 +217,20 @@ int main(int argc, char **argv) {
      */
     //endregion
 
-    //region Penalty Logic
-    int penaltyStack = 0;
-    if (penaltyFile.is_open())
-        while(penaltyFile.good()) {
-            getline(penaltyFile, rawInput);
-            penaltyStrings.emplace_back(rawInput);
-            vector<pair<int, int>> cur;
-            for (int i = 0; i < rawInput.size(); i++) {
-                int penalty=0;
-                switch (rawInput[i]) {
-                    case ',':
-                        penaltiesStack.emplace_back(penaltyStack);
-                        penalties.emplace_back(cur);
-                        penalty = stoi(rawInput.substr(i+1,rawInput.size()-1));
-                        penaltyCost.emplace_back(penalty);
-                        penaltyStack++;
-                        //cout << "Penalty: " << penalty << endl;
-                        i = rawInput.size();
-                        break;
-                    case '!':
-                        //cout << "emplaced not, false: " << rawInput[i + 1] << endl;
-                        cur.emplace_back(make_pair(rawInput[i + 1] - 48, 0));
-                        //penaltiesStack.emplace_back(penaltyStack);
-                        i++;
-                        break;
-                    case 'o':
-                        penalties.emplace_back(cur);
-                        penaltiesStack.emplace_back(penaltyStack);
-                        cur.clear();
-                        break;
-                    case 'a':
-                        //penalties.push_back(cur);
-                        break;
-                    default:
-                        //cout << "penalty default, true: " << rawInput[i] << endl;
-                        cur.emplace_back(make_pair(rawInput[i] - 48, 1));
-                        //penaltiesStack.emplace_back(penaltyStack);
-                        break;
+    logicProcessing(0);
 
-                }
-            }
-            cur.clear();
-            //cout << "----" << endl;
-        }
-        penaltyFile.close();
-    //endregion
+    // if its empty it blacklists everything since the empty set fits in everything
+    if(!constraints.empty())
+        blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
+
+    penaltiesFunction(attributeNames, penaltyStrings, blacklistedBinaries, penalties, penaltiesStack, penaltyCost);
+
+    penalties.clear();
+    penaltyStrings.clear();
+    penaltiesStack.clear();
+    penaltyCost.clear();
+
+    logicProcessing(1);
 
     for(int i = 0; i < penalties.size(); i++){
         for(int j = 0; j < penalties[i].size(); j++){
@@ -214,11 +238,6 @@ int main(int argc, char **argv) {
         }
         cout << "Penalty val = " << penaltyCost[penaltiesStack[i]] << endl;
     }
-    // if its empty it blacklists everything since the empty set fits in everything
-    if(!constraints.empty())
-        blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
-
-    penaltiesFunction(attributeNames, penaltyStrings, blacklistedBinaries, penalties, penaltiesStack, penaltyCost);
-
+    possibilisticFunction(attributeNames, penaltyStrings, blacklistedBinaries, penalties, penaltiesStack, penaltyCost);
     return status;
 }
