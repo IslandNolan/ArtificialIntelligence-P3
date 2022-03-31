@@ -14,8 +14,8 @@ unordered_map<string, pair<string,string>> attributeNames;
 vector<vector<pair<int,int>>> constraints;
 vector<vector<pair<int,int>>> penalties;
 vector<int> penaltyCost;
-vector<string> blacklistedConditions;
-
+// storing blacklisted values as ints so we can easily check before instantiating a bitset
+vector<int> blacklistedBinaries;
 
 ifstream attributesFile("inputs/attributes.txt");
 ifstream constraintsFile("inputs/constraints.txt");
@@ -64,7 +64,7 @@ static void activate (GtkApplication* app,gpointer user_data) {
     gtk_widget_show_all(window);
 }
 int main(int argc, char **argv) {
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << "Hello, Gamer!" << std::endl;
     GtkApplication *app;
     int status;
 
@@ -73,18 +73,16 @@ int main(int argc, char **argv) {
     status = g_application_run(G_APPLICATION (app), argc, argv);
     g_object_unref(app);
 
-    string task;
-    getline(cin, task);
+    //string task;
+    //getline(cin, task);
 
-
-
-
-    testing();
+    //testing();
     string rawInput;
 
 
 
     //region Attributes
+    attributeNames.clear();
     if (attributesFile.is_open())
         while (attributesFile.good()) {
             getline(attributesFile, rawInput);
@@ -98,14 +96,15 @@ int main(int argc, char **argv) {
             iss >> attribute >> zero >> one;
             attributeNames[attribute] = make_pair(zero, one);
 
-            cout << "recording: " << attribute << ' ' << zero << ' ' << one << endl;
+            // cout << "recording: " << attribute << ' ' << zero << ' ' << one << endl;
         }
     else
         cout << "Couldnt open attributes file";
-
+    /*
     for(auto it=attributeNames.begin(); it != attributeNames.end(); it++){
         cout << "Key: " << it->first << "  Value: "  << it->second.first << "," << it->second.second <<  endl;
     }
+    */
     attributesFile.close();
 
     //endregion
@@ -122,17 +121,16 @@ int main(int argc, char **argv) {
             cur.clear();
 
             for (int i = 0; i < rawInput.size(); i++) {
-
                 switch (rawInput[i]) {
                     default:
-                        cout << "emplaced default, true: " << rawInput[i] << endl;
-                        cout << "Science true: " << std::stoi(to_string(rawInput[i])) - 48 << endl;
-                        cur.push_back(make_pair(std::stoi(to_string(rawInput[i])) - 48, 1));
+                        //cout << "emplaced default, true: " << rawInput[i] << endl;
+                        //cout << "Science true: " << std::stoi(to_string(rawInput[i])) - 48 << endl;
+                        cur.emplace_back(std::stoi(to_string(rawInput[i])) - 48, 1);
                         break;
                     case '!':
-                        cout << "emplaced not, false: " << rawInput[i + 1] << endl;
-                        cout << "Science false: " << std::stoi(to_string(rawInput[i + 1])) - 48 << endl;
-                        cur.push_back(make_pair(std::stoi(to_string(rawInput[i+1])) - 48, 0));
+                        //cout << "emplaced not, false: " << rawInput[i + 1] << endl;
+                        //cout << "Science false: " << std::stoi(to_string(rawInput[i + 1])) - 48 << endl;
+                        cur.emplace_back(std::stoi(to_string(rawInput[i+1])) - 48, 0);
                         i++;
                         break;
                     case 'o':
@@ -148,7 +146,7 @@ int main(int argc, char **argv) {
             }
             constraints.push_back(cur);
             cur.clear();
-            cout << "----" << endl;
+            //cout << "----" << endl;
         }
     constraintsFile.close();
     /*
@@ -164,7 +162,6 @@ int main(int argc, char **argv) {
     //region Penalty Logic
 
     if (penaltyFile.is_open())
-
         while(penaltyFile.good()) {
             getline(penaltyFile, rawInput);
             vector<pair<int, int>> cur;
@@ -174,12 +171,12 @@ int main(int argc, char **argv) {
                     case ',':
                         penalty = stoi(rawInput.substr(i+1,rawInput.size()-1));
                         penaltyCost.emplace_back(penalty);
-                        cout << "Penalty: " << penalty << endl;
+                        //cout << "Penalty: " << penalty << endl;
                         i = rawInput.size();
                         break;
                     case '!':
-                        cout << "emplaced not, false: " << rawInput[i + 1] << endl;
-                        cur.emplace_back(make_pair(rawInput[i + 1], 0));
+                        //cout << "emplaced not, false: " << rawInput[i + 1] << endl;
+                        cur.emplace_back(make_pair(rawInput[i + 1] - 48, 0));
                         i++;
                         break;
                     case 'o':
@@ -190,22 +187,28 @@ int main(int argc, char **argv) {
                         //penalties.push_back(cur);
                         break;
                     default:
-                        cout << "emplaced default, true: " << rawInput[i] << endl;
-                        cur.emplace_back(make_pair(rawInput[i], 1));
+                        //cout << "penalty default, true: " << rawInput[i] << endl;
+                        cur.emplace_back(make_pair(rawInput[i] - 48, 1));
                         break;
 
                 }
             }
             cur.clear();
-            cout << "----" << endl;
+            //cout << "----" << endl;
         }
         penaltyFile.close();
-    penaltiesFunction(attributeNames,constraints,penalties,penaltyCost);
-
     //endregion
-    blacklistFunction(attributeNames, constraints);
+    for(int i = 0; i < penalties.size(); i++){
+        for(int j = 0; j < penalties[i].size(); j++){
+            //cout << penalties[i][j].first << ' ' << penalties[i][j].second << ' ';
+        }
+        //cout << "Penalty val = " << penaltyCost[i] << endl;
+    }
+    // if its empty it blacklists everything since the empty set fits in everything
+    if(!constraints.empty())
+        blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
 
-
+    penaltiesFunction(attributeNames,constraints,penalties,penaltyCost);
 
     return status;
 

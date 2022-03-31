@@ -7,6 +7,8 @@
 #define maxAttributes 10
 #include "clasp/config.h"
 #include <iostream>
+#include <unordered_map>
+
 namespace Clasp {
     struct Model;
     class  OutputTable;
@@ -20,8 +22,9 @@ void addSimpleProgram(Clasp::Asp::LogicProgram& prg);
 int checkOr(std::bitset<maxAttributes> toCheck, std::vector<std::vector<std::pair<int, int>>> values);
 int checkAnd(std::bitset<maxAttributes> toCheck, std::vector<std::pair<int, int>> values);
 void testing();
-void penaltiesFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames,std::vector<std::vector<std::pair<int,int>>> hardConstraints,std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyCosts);
-void blacklistFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<std::vector<std::pair<int,int>>> hardConstraints);
+void testing2(std::vector<std::vector<std::pair<int,int>>> hardConstraints);
+void penaltiesFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<std::vector<std::pair<int,int>>> hardConstraints, std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyCosts);
+std::vector<int> blacklistFunction(int attributeCount, std::vector<std::vector<std::pair<int,int>>> hardConstraints);
 
 
 #endif //PROJECT3_P3_H
