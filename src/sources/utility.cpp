@@ -40,17 +40,30 @@ void testing() {
     test1.push_back(std::make_pair(2, 1));
     test1.push_back(std::make_pair(3, 1));
 
-
     /** test2 test data: "1001" */
     test2.push_back(std::make_pair(0, 1));
     test2.push_back(std::make_pair(1, 0));
     test2.push_back(std::make_pair(2, 0));
     test2.push_back(std::make_pair(3, 1));
 
-
-    checkAnd(bTest, test1);
-
 }
 
+void penaltiesFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<std::vector<std::pair<int,int>>> hardConstraints, std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyCosts) {
+
+    //Construct texting binary numbers;
+
+    /*
+    for(int i = 0; i < pow(attributeNames.size(),2);i++){
+        std::bitset<maxAttributes> bTest(i);
+        std::string s = bTest.to_string();
+        for(int j=0;j<hardConstraints.size();j++){
+            for(int k=0;k<hardConstraints[j].size();k++){
+                if(s[hardConstraints[j][k].first]==hardConstraints[j][k].second){
+                    //checkOr(bTest,)
+                }
+            }
+        }
+    }*/
 
 
+}
