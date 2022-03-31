@@ -10,20 +10,23 @@
  * @return
  */
 int checkAnd(std::bitset<maxAttributes> toCheck, std::vector<std::pair<int, int>> values) {
-    for (int i = 0; i < values.size(); i++)
+    for (int i = 0; i < values.size(); i++){
         if (toCheck.test(i) != values[i].second) {
-            printf("Test Rejecting: %s at %d %d\n", toCheck.to_string().c_str(),
-                   values[i].first, values[i].second);
+            //printf("Test Rejecting: %s at %d %d\n", toCheck.to_string().c_str(), values[i].first, values[i].second);
             return 0;
-        } else
-            printf("Test Accepting: %s at %d %d\n", toCheck.to_string().c_str(),
-                   values[i].first, values[i].second);
-    std::cout << "\n" << std::endl;
+        }
+    }
+    //printf("Test Accepting: %s at %d %d\n", toCheck.to_string().c_str(), values[i].first, values[i].second);
+    //std::cout << "\n" << std::endl;
     return 1;
 }
 int checkOr(std::bitset<maxAttributes> toCheck, std::vector<std::vector<std::pair<int, int>>> values) {
-    for (int i = 0; i < values.size(); i++)
-        if (checkAnd(toCheck, values[i])) return 1;
+    for (int i = 0; i < values.size(); i++) {
+        if (checkAnd(toCheck, values[i])) {
+            return 1;
+        }
+    }
+    //std::cout << "Fuck accept\n";
     return 0;
 }
 
@@ -48,22 +51,60 @@ void testing() {
 
 }
 
+
+void blacklistFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<std::vector<std::pair<int,int>>> hardConstraints) {
+    for (int i = 0; i < hardConstraints.size(); i++){
+        for (int j = 0; j < hardConstraints[i].size(); j++){
+            std::cout << hardConstraints[i][j].first << ' ' << hardConstraints[i][j].second << std::endl;
+        }
+        std::cout << std::endl;
+    }
+
+    for(int i = 0; i < attributeNames.size()*attributeNames.size();i++){
+        std::bitset<maxAttributes> bTest(i);
+        std::string s = bTest.to_string();
+        //std::reverse(s.begin(),s.end());
+        //std::cout << "Test S: " << s << std::endl;
+        int nolan = checkOr(bTest, hardConstraints);
+        if(nolan){
+            std::cout << "Reject: " << bTest.to_string() << std::endl;
+        }
+        else{
+            std::cout << "Accept: " << bTest.to_string() << std::endl;
+        }
+    }
+
+}
+/** Calculates Penalty Logic, */
 void penaltiesFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<std::vector<std::pair<int,int>>> hardConstraints, std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyCosts) {
 
     //Construct texting binary numbers;
-
     /*
-    for(int i = 0; i < pow(attributeNames.size(),2);i++){
-        std::bitset<maxAttributes> bTest(i);
-        std::string s = bTest.to_string();
-        for(int j=0;j<hardConstraints.size();j++){
-            for(int k=0;k<hardConstraints[j].size();k++){
+     *
+     * /std::cout << hardConstraints[j][k].first << ' ';
+                //
+                // td::cout << hardConstraints[j][k].second << '\n';
                 if(s[hardConstraints[j][k].first]==hardConstraints[j][k].second){
                     //checkOr(bTest,)
+                    //std::cout << "Hard constraint detected!" << s << std::endl;
+
                 }
+                //std::cout << "Hard constraint legit " << s[hardConstraints[j][k].first] << std::endl;
+     */
+
+
+    /*
+    for(int i = 0; i < attributeNames.size()*attributeNames.size();i++){
+        std::bitset<maxAttributes> bTest(i);
+        std::string s = bTest.to_string();
+        std::reverse(s.begin(),s.end());
+        //std::cout << "Test S: " << s << std::endl;
+        for(int j=0;j<hardConstraints.size()-1;j++){
+            for(int k=0;k<hardConstraints[j].size();k++){
+
             }
         }
-    }*/
-
+    }
+    */
 
 }

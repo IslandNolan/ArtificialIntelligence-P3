@@ -14,6 +14,7 @@ unordered_map<string, pair<string,string>> attributeNames;
 vector<vector<pair<int,int>>> constraints;
 vector<vector<pair<int,int>>> penalties;
 vector<int> penaltyCost;
+vector<string> blacklistedConditions;
 
 
 ifstream attributesFile("inputs/attributes.txt");
@@ -111,20 +112,27 @@ int main(int argc, char **argv) {
 
 
     //region Constraints
-
+    constraints.clear();
 
     if (constraintsFile.is_open())
-
         while(constraintsFile.good()) {
+            rawInput.clear();
             getline(constraintsFile, rawInput);
             vector<pair<int, int>> cur;
+            cur.clear();
 
             for (int i = 0; i < rawInput.size(); i++) {
 
                 switch (rawInput[i]) {
+                    default:
+                        cout << "emplaced default, true: " << rawInput[i] << endl;
+                        cout << "Science true: " << std::stoi(to_string(rawInput[i])) - 48 << endl;
+                        cur.push_back(make_pair(std::stoi(to_string(rawInput[i])) - 48, 1));
+                        break;
                     case '!':
                         cout << "emplaced not, false: " << rawInput[i + 1] << endl;
-                        cur.emplace_back(make_pair(rawInput[i + 1], 0));
+                        cout << "Science false: " << std::stoi(to_string(rawInput[i + 1])) - 48 << endl;
+                        cur.push_back(make_pair(std::stoi(to_string(rawInput[i+1])) - 48, 0));
                         i++;
                         break;
                     case 'o':
@@ -132,20 +140,25 @@ int main(int argc, char **argv) {
                         cur.clear();
                         break;
                     case 'a':
-                        constraints.push_back(cur);
+                        //constraints.push_back(cur);
                         break;
-                    default:
-                        cout << "emplaced default, true: " << rawInput[i] << endl;
-                        cur.emplace_back(make_pair(rawInput[i], 1));
-                        break;
+
 
                 }
             }
+            constraints.push_back(cur);
             cur.clear();
             cout << "----" << endl;
         }
     constraintsFile.close();
-
+    /*
+    for (int i = 0; i < constraints.size(); i++){
+        for (int j = 0; j < constraints[i].size(); j++){
+            std::cout << constraints[i][j].first << ' ' << constraints[i][j].second << std::endl;
+        }
+        std::cout << endl;
+    }
+     */
     //endregion
 
     //region Penalty Logic
@@ -155,7 +168,6 @@ int main(int argc, char **argv) {
         while(penaltyFile.good()) {
             getline(penaltyFile, rawInput);
             vector<pair<int, int>> cur;
-
             for (int i = 0; i < rawInput.size(); i++) {
                 int penalty=0;
                 switch (rawInput[i]) {
@@ -163,6 +175,7 @@ int main(int argc, char **argv) {
                         penalty = stoi(rawInput.substr(i+1,rawInput.size()-1));
                         penaltyCost.emplace_back(penalty);
                         cout << "Penalty: " << penalty << endl;
+                        i = rawInput.size();
                         break;
                     case '!':
                         cout << "emplaced not, false: " << rawInput[i + 1] << endl;
@@ -174,7 +187,7 @@ int main(int argc, char **argv) {
                         cur.clear();
                         break;
                     case 'a':
-                        penalties.push_back(cur);
+                        //penalties.push_back(cur);
                         break;
                     default:
                         cout << "emplaced default, true: " << rawInput[i] << endl;
@@ -186,11 +199,13 @@ int main(int argc, char **argv) {
             cur.clear();
             cout << "----" << endl;
         }
-        constraintsFile.close();
-
-
+        penaltyFile.close();
     penaltiesFunction(attributeNames,constraints,penalties,penaltyCost);
+
     //endregion
+    blacklistFunction(attributeNames, constraints);
+
+
 
     return status;
 
