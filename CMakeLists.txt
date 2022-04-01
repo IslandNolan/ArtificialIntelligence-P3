@@ -10,12 +10,13 @@ link_directories(${GTKMM_LIBRARY_DIRS})
 
 add_definitions(${GTKMM_CFLAGS_OTHER})
 
-find_path(LIB_INCLUDE  p3/p3.h ${CMAKE_SOURCE_DIR}/include)
+find_path(LIB_INCLUDE  p3/p3.h p3/App.h ${CMAKE_SOURCE_DIR}/include)
 include_directories(${LIB_INCLUDE})
 
 add_executable(Project3
   src/sources/main.cpp
   src/sources/utility.cpp
+  src/sources/App.cpp
   include/p3/p3.h
 )
 

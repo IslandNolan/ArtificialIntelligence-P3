@@ -8,9 +8,15 @@
 #include <iostream>
 #include <unordered_map>
 
+#include <gtkmm-3.0/gtkmm.h>
+#include <gtkmm-3.0/gtkmm/applicationwindow.h>
+#include <gtkmm-3.0/gtkmm/builder.h>
+
 namespace p3 {
     class utility;
+    class App;
 }
+int wininit(int argc, char **argv);
 int checkOr(std::bitset<maxAttributes> toCheck, std::vector<std::vector<std::pair<int, int>>> values);
 int checkAnd(std::bitset<maxAttributes> toCheck, std::vector<std::pair<int, int>> values);
 void testing();
