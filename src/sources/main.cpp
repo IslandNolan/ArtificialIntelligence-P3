@@ -1,19 +1,15 @@
-#include <iostream>
-#include <gtk/gtk.h>
-#include "clasp/config.h"
 #include <bits/stdc++.h>
+#include <iostream>
+#include <p3/p3.h>
 #include <string.h>
-#include "clasp/logic_program.h"
-#include "clasp/shared_context.h"
-#include "p3/p3.h"
 
 #define maxAttributes 10
 using namespace std;
 
-unordered_map<string, pair<string,string>> attributeNames;
-vector<vector<pair<int,int>>> constraints;
+unordered_map<string, pair<string, string>> attributeNames;
+vector<vector<pair<int, int>>> constraints;
 
-vector<vector<pair<int,int>>> penaltiesAndProbabilities;
+vector<vector<pair<int, int>>> penaltiesAndProbabilities;
 vector<string> penaltyAndPossibilityStrings;
 vector<int> penaltiesAndPossibilitiesStack;
 vector<int> penaltiesAndPossibilitiesCosts;
@@ -24,7 +20,8 @@ vector<vector<string>> penaltiesResult;
 vector<vector<string>> possibilisticResult;
 vector<vector<string>> qualitativeResult;
 
-// storing blacklisted values as ints so we can easily check before instantiating a bitset
+// storing blacklisted values as ints so we can easily check before
+// instantiating a bitset
 vector<int> blacklistedBinaries;
 
 ifstream attributesFile("inputs/attributes.txt");
@@ -128,22 +125,8 @@ void logicProcessing(int which){
     penaltyAndPossibilisticFile.close();
 }
 
-static void activate (GtkApplication* app,gpointer user_data) {
-    GtkWidget *window;
-    window = gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW (window), "Project 3");
-    gtk_window_set_default_size(GTK_WINDOW (window), 200, 200);
-    gtk_widget_show_all(window);
-}
 int main(int argc, char **argv) {
-    std::cout << "Hello, Gamer!" << std::endl;
-    GtkApplication *app;
-    int status;
-
-    app = gtk_application_new("org.gtk.example", G_APPLICATION_FLAGS_NONE);
-    g_signal_connect (app, "activate", G_CALLBACK(activate), NULL);
-    status = g_application_run(G_APPLICATION (app), argc, argv);
-    g_object_unref(app);
+  std::cout << "Hello, Gamer!" << std::endl;
 
     //string task;
     //getline(cin, task);
@@ -232,9 +215,9 @@ int main(int argc, char **argv) {
     //endregion
 
     logicProcessing(0);
-    // if its empty it blacklists everything since the empty set fits in everything
-    if(!constraints.empty())
-        blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
+    // if its empty it blacklists everything since the empty set fits in// everything
+  if (!constraints.empty())
+    blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
 
     penaltiesResult = penaltiesFunction(attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries, penaltiesAndProbabilities, penaltiesAndPossibilitiesStack, penaltiesAndPossibilitiesCosts);
 
@@ -268,5 +251,5 @@ int main(int argc, char **argv) {
         cout << "column = " << qualitativeColumn[i] << " cost = " << qualitativeCost[i] << endl;
     }
     qualitativeResult = qualitativeFunction(attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries, penaltiesAndProbabilities, penaltiesAndPossibilitiesStack, penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
-    return status;
+    return 0;
 }

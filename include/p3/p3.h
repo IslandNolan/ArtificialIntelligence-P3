@@ -5,20 +5,12 @@
 #include <vector>
 
 #define maxAttributes 10
-#include "clasp/config.h"
 #include <iostream>
 #include <unordered_map>
 
-namespace Clasp {
-    struct Model;
-    class  OutputTable;
-    namespace Asp { class  LogicProgram; }
-}
 namespace p3 {
     class utility;
 }
-void printModel(const Clasp::OutputTable& out, const Clasp::Model& model);
-void addSimpleProgram(Clasp::Asp::LogicProgram& prg);
 int checkOr(std::bitset<maxAttributes> toCheck, std::vector<std::vector<std::pair<int, int>>> values);
 int checkAnd(std::bitset<maxAttributes> toCheck, std::vector<std::pair<int, int>> values);
 void testing();
