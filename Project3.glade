@@ -685,9 +685,16 @@ Constraints</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkTextView" id="Attri_Prev">
+                          <object class="GtkScrolledWindow" id="ScrollWinAttriPrev">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
+                            <property name="shadow-type">in</property>
+                            <child>
+                              <object class="GtkTextView" id="Attri_Prev">
+                                <property name="visible">True</property>
+                                <property name="can-focus">True</property>
+                              </object>
+                            </child>
                           </object>
                           <packing>
                             <property name="expand">True</property>
@@ -707,9 +714,16 @@ Constraints</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkTextView" id="Constraint_Prev">
+                          <object class="GtkScrolledWindow" id="ScrollWinConstPrev">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
+                            <property name="shadow-type">in</property>
+                            <child>
+                              <object class="GtkTextView" id="Constraint_Prev">
+                                <property name="visible">True</property>
+                                <property name="can-focus">True</property>
+                              </object>
+                            </child>
                           </object>
                           <packing>
                             <property name="expand">True</property>
@@ -729,9 +743,16 @@ Constraints</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkTextView" id="Pref_Prev">
+                          <object class="GtkScrolledWindow" id="ScrollWinPrefPrev">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
+                            <property name="shadow-type">in</property>
+                            <child>
+                              <object class="GtkTextView" id="Pref_Prev">
+                                <property name="visible">True</property>
+                                <property name="can-focus">True</property>
+                              </object>
+                            </child>
                           </object>
                           <packing>
                             <property name="expand">True</property>
@@ -793,12 +814,16 @@ Constraints</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkTreeView" id="Result_TreeView">
+                      <object class="GtkScrolledWindow" id="ScrollWinResPrev">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
-                        <property name="enable-grid-lines">both</property>
-                        <child internal-child="selection">
-                          <object class="GtkTreeSelection" id="Result_Treeview_Internal"/>
+                        <property name="shadow-type">in</property>
+                        <child>
+                          <object class="GtkTreeView" id="Result_TreeView">
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="enable-grid-lines">both</property>
+                          </object>
                         </child>
                       </object>
                       <packing>

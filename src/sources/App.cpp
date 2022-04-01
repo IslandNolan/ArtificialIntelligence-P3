@@ -2,6 +2,7 @@
 #include <gtkmm-3.0/gtkmm/applicationwindow.h>
 #include <gtkmm-3.0/gtkmm/builder.h>
 #include <iostream>
+#include <ostream>
 #include <p3/p3.h>
 
 Gtk::ApplicationWindow *pAppWin = nullptr;
@@ -53,9 +54,8 @@ int wininit(int argc, char **argv) {
   }
   // tell refBuilder what the parent window is
   refBuilder->get_widget("Intelligent Application", pAppWin);
+  pAppWin->set_default_size(800, 500);
   if (pAppWin) {
-    // m_button1.signal_clicked().connect( sigc::bind<Glib::ustring>(
-    // sigc::mem_fun(*this, &HelloWorld::on_button_clicked), "button 1") );
     // TODO: EVENT HANDLER STUBS HERE
     // Get the GtkBuilder-instantiated Button, and connect a signal handler:
     // buttons for file upload
