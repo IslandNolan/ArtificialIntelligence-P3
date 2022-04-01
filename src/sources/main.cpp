@@ -17,13 +17,18 @@ vector<vector<pair<int,int>>> penaltiesAndProbabilities;
 vector<string> penaltyAndPossibilityStrings;
 vector<int> penaltiesAndPossibilitiesStack;
 vector<int> penaltiesAndPossibilitiesCosts;
+vector<int> qualitativeColumn;
+vector<int> qualitativeCost;
+
+vector<vector<string>> penaltiesResult;
+vector<vector<string>> possibilisticResult;
+vector<vector<string>> qualitativeResult;
 
 // storing blacklisted values as ints so we can easily check before instantiating a bitset
 vector<int> blacklistedBinaries;
 
 ifstream attributesFile("inputs/attributes.txt");
 ifstream constraintsFile("inputs/constraints.txt");
-ifstream qualitativeFile("inputs/qualitative.txt");
 
 /**
  * AI project 3
@@ -59,16 +64,19 @@ ifstream qualitativeFile("inputs/qualitative.txt");
 */
 /**
  * does logic and possibilistic parsing
- * @param which 0 for penalty, 1 for possibilistic
+ * @param which 0 for penalty, 1 for possibilistic, 2 for qualitative
  */
 void logicProcessing(int which){
     ifstream penaltyAndPossibilisticFile;
     if(which == 0){
         penaltyAndPossibilisticFile.open("inputs/penalty.txt");
-    } else{
+    } else if(which == 1){
         penaltyAndPossibilisticFile.open("inputs/possibilistic.txt");
+    } else{
+        penaltyAndPossibilisticFile.open("inputs/qualitative.txt");
     }
     string rawInput = "";
+    string col = "";
     int penaltyStack = 0;
     if (penaltyAndPossibilisticFile.is_open())
         while(penaltyAndPossibilisticFile.good()) {
@@ -84,6 +92,11 @@ void logicProcessing(int which){
                         penalty = stoi(rawInput.substr(i+1,rawInput.size()-1));
                         penaltiesAndPossibilitiesCosts.emplace_back(penalty);
                         penaltyStack++;
+                        col = "";
+                        col += rawInput[i+1];
+                        qualitativeColumn.push_back(stoi(col));
+                        if(which == 2)
+                            qualitativeCost.push_back(stoi(rawInput.substr(i+2,rawInput.size()-1)));
                         //cout << "Penalty: " << penalty << endl;
                         i = rawInput.size();
                         break;
@@ -114,6 +127,7 @@ void logicProcessing(int which){
         }
     penaltyAndPossibilisticFile.close();
 }
+
 static void activate (GtkApplication* app,gpointer user_data) {
     GtkWidget *window;
     window = gtk_application_window_new(app);
@@ -223,7 +237,7 @@ int main(int argc, char **argv) {
     if(!constraints.empty())
         blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
 
-    penaltiesFunction(attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries, penaltiesAndProbabilities, penaltiesAndPossibilitiesStack, penaltiesAndPossibilitiesCosts);
+    penaltiesResult = penaltiesFunction(attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries, penaltiesAndProbabilities, penaltiesAndPossibilitiesStack, penaltiesAndPossibilitiesCosts);
 
     penaltiesAndProbabilities.clear();
     penaltyAndPossibilityStrings.clear();
@@ -238,6 +252,22 @@ int main(int argc, char **argv) {
         }
         cout << "Penalty val = " << penaltiesAndPossibilitiesCosts[penaltiesAndPossibilitiesStack[i]] << endl;
     }
-    possibilisticFunction(attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries, penaltiesAndProbabilities, penaltiesAndPossibilitiesStack, penaltiesAndPossibilitiesCosts);
+    possibilisticResult = possibilisticFunction(attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries, penaltiesAndProbabilities, penaltiesAndPossibilitiesStack, penaltiesAndPossibilitiesCosts);
+
+    penaltiesAndProbabilities.clear();
+    penaltyAndPossibilityStrings.clear();
+    penaltiesAndPossibilitiesStack.clear();
+    penaltiesAndPossibilitiesCosts.clear();
+    qualitativeColumn.clear();
+
+    logicProcessing(2);
+
+    for(int i = 0; i < penaltiesAndProbabilities.size(); i++){
+        for(int j = 0; j < penaltiesAndProbabilities[i].size(); j++){
+            cout << penaltiesAndProbabilities[i][j].first << ' ' << penaltiesAndProbabilities[i][j].second << ' ' << penaltiesAndPossibilitiesStack[i] << '\n';
+        }
+        cout << "column = " << qualitativeColumn[i] << " cost = " << qualitativeCost[i] << endl;
+    }
+    //qualitativeResult = qualitativeFunction(attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries, penaltiesAndProbabilities, penaltiesAndPossibilitiesStack, penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
     return status;
 }
