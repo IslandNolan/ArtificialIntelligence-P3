@@ -276,26 +276,41 @@ std::vector<std::vector<std::string>> possibilisticFunction(std::unordered_map<s
  * @return
  */
 std::vector<std::vector<std::string>> qualitativeFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<std::string> penaltyStrings, std::vector<int> blacklist, std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyStack, std::vector<int> penaltyCosts, std::vector<int> qualitativeColumn, std::vector<int> qualitativeCost) {
-    std::vector<std::vector<std::string>> matrix(attributeNames.size()*attributeNames.size()-blacklist.size()+1, std::vector<std::string>(penaltyStack.size()+1));
+    std::unordered_set<int> distinct;
+    for(int i = 0; i < qualitativeCost.size(); i++)
+        distinct.insert(qualitativeColumn[i]);
+    int distinctCols = distinct.size();
+    std::vector<std::string> columnHeaders(distinctCols, "");
+    for(int i = 0; i < qualitativeColumn.size(); i++){
+        columnHeaders[qualitativeColumn[i]-1] += penaltyStrings[i].substr(0,penaltyStrings[i].size()-3) + '>';
+    }
+    std::cout << "science distinct size: " << distinctCols << std::endl;
+
+    std::vector<std::vector<std::string>> matrix(attributeNames.size()*attributeNames.size()-blacklist.size()+1, std::vector<std::string>(distinctCols+1));
+
     std::string toInsert;
     //std::cout << "checking size: " << penaltyStack.size();
     matrix[0][0] = "state";
-    for(int i = 0; i < penaltyStrings.size();i++){
-        matrix[0][i+1] = penaltyStrings[i];
-        matrix[0][i+2] = "total penalty";;
+    for(int i = 0; i < distinctCols;i++){
+        matrix[0][i+1] = columnHeaders[i].substr(0,columnHeaders[i].size()-1);
+    }
+    std::cout << std::endl;
+    std::cout << "Header test: " << distinctCols << std::endl;
+    for(int i = 0; i <= distinctCols;i++){
+        std::cout << matrix[0][i] << ' ';
     }
     int iteration = 0; // for first column to deal with blacklisting
     std::cout << std::endl;
-    for(int i = 0; i < attributeNames.size()*attributeNames.size()-blacklist.size(); i++){
 
-        for(int j = 0; j < penaltyStack.size(); j++){
+    for(int i = 0; i < attributeNames.size()*attributeNames.size()-blacklist.size(); i++){
+        matrix[i+1][0] = "binary";
+        for(int j = 0; j < distinctCols; j++){
             //std::cout << "Science: " << penaltyCosts[j] << std::endl;
-            matrix[i + 1][j + 1] = "0";
+            matrix[i + 1][j + 1] = "inf";
         }
         //std::cout << std::endl;
     }
     for(int i = 0; i < attributeNames.size()*attributeNames.size();i++){
-        std::vector<int> detected(penaltyCosts.size(), 0);
         std::bitset<maxAttributes> state(i);
         std::string s = state.to_string();
         int total = 0;
@@ -309,29 +324,15 @@ std::vector<std::vector<std::string>> qualitativeFunction(std::unordered_map<std
 
         for(int j = 0; j < penalties.size(); j++){
             if(checkAnd(state, penalties[j])){
-                detected[penaltyStack[j]] = 1;
-                matrix[iteration][penaltyStack[j]+1] = std::to_string(penaltyCosts[penaltyStack[j]]);
-
-                //std::cout << "Detected Penalty for: "
+                matrix[iteration][qualitativeColumn[j]] = std::to_string(qualitativeCost[j]);
             }
-        }
-        for(int j = 0; j < detected.size(); j++){
-            //std::cout << detected[j] << ' ';
-            if(detected[j]){
-                total += penaltyCosts[j];
-            }
-        }
-        matrix[iteration][detected.size()+1] = std::to_string(total);
-        std::cout << std::endl;
-        //matrix[i][penaltiesAndProbabilities.size()-1] = std::to_string(total);
-        //std::cout << "Detect Test ";
-        for(int j = 0; j < penaltyStack.size(); j++){
-            //int ree = std:stoi
         }
         skip:;
     }
+
+    std::cout << std::endl;
     for(int i = 0; i < attributeNames.size()*attributeNames.size()-blacklist.size()+1; i++){
-        for(int j = 0; j < penaltyStack.size(); j++){
+        for(int j = 0; j <= distinctCols; j++){
             std::cout << matrix[i][j] << ' ';
         }
         std::cout << std::endl;

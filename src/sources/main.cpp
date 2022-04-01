@@ -268,6 +268,6 @@ int main(int argc, char **argv) {
         }
         cout << "column = " << qualitativeColumn[i] << " cost = " << qualitativeCost[i] << endl;
     }
-    //qualitativeResult = qualitativeFunction(attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries, penaltiesAndProbabilities, penaltiesAndPossibilitiesStack, penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
+    qualitativeResult = qualitativeFunction(attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries, penaltiesAndProbabilities, penaltiesAndPossibilitiesStack, penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
     return status;
 }
