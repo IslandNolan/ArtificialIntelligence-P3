@@ -48,8 +48,25 @@ int wininit(int argc, char **argv) {
   if (pAppWin) {
     // TODO: EVENT HANDLER STUBS HERE
     // Get the GtkBuilder-instantiated Button, and connect a signal handler:
+    // TODO: change button string names to correspond to names in .glade file
     refBuilder->get_widget("Attri_FU_But", files.pAttri);
     if (files.pAttri) {
+      files.pAttri->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
+    }
+    refBuilder->get_widget("Attri_FU_But", files.pConst);
+    if (files.pConst) {
+      files.pAttri->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
+    }
+    refBuilder->get_widget("Attri_FU_But", files.pPenL);
+    if (files.pPenL) {
+      files.pAttri->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
+    }
+    refBuilder->get_widget("Attri_FU_But", files.pPossL);
+    if (files.pPossL) {
+      files.pAttri->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
+    }
+    refBuilder->get_widget("Attri_FU_But", files.pQual);
+    if (files.pQual) {
       files.pAttri->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
     }
 
