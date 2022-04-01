@@ -6,11 +6,6 @@
 
 Gtk::ApplicationWindow *pAppWin = nullptr;
 
-class p3::App {
-public:
-  int wininit(int argc, char **argv);
-};
-
 struct FileUp {
   Gtk::Button *pAttri = nullptr;
   Gtk::Button *pConst = nullptr;
@@ -31,7 +26,7 @@ typedef struct ManBut MB;
 
 static void on_button_clicked() { std::cout << "BUTTON CLICKED" << std::endl; }
 
-int p3::App::wininit(int argc, char **argv) {
+int wininit(int argc, char **argv) {
   auto app = Gtk::Application::create(argc, argv, "org.gtkmm.IntelliApp");
   auto refBuilder = Gtk::Builder::create();
   FUP files;
