@@ -12,17 +12,17 @@ using namespace std;
 
 unordered_map<string, pair<string,string>> attributeNames;
 vector<vector<pair<int,int>>> constraints;
-vector<vector<pair<int,int>>> penalties;
-vector<string> penaltyStrings;
-vector<int> penaltiesStack;
-vector<int> penaltyCost;
+
+vector<vector<pair<int,int>>> penaltiesAndProbabilities;
+vector<string> penaltyAndPossibilityStrings;
+vector<int> penaltiesAndPossibilitiesStack;
+vector<int> penaltiesAndPossibilitiesCosts;
 
 // storing blacklisted values as ints so we can easily check before instantiating a bitset
 vector<int> blacklistedBinaries;
 
 ifstream attributesFile("inputs/attributes.txt");
 ifstream constraintsFile("inputs/constraints.txt");
-ifstream possibilisticFile("inputs/possibilistic.txt");
 ifstream qualitativeFile("inputs/qualitative.txt");
 
 /**
@@ -62,27 +62,27 @@ ifstream qualitativeFile("inputs/qualitative.txt");
  * @param which 0 for penalty, 1 for possibilistic
  */
 void logicProcessing(int which){
-    ifstream penaltyFile;
+    ifstream penaltyAndPossibilisticFile;
     if(which == 0){
-        penaltyFile.open("inputs/penalty.txt");
+        penaltyAndPossibilisticFile.open("inputs/penalty.txt");
     } else{
-        penaltyFile.open("inputs/possibilistic.txt");
+        penaltyAndPossibilisticFile.open("inputs/possibilistic.txt");
     }
     string rawInput = "";
     int penaltyStack = 0;
-    if (penaltyFile.is_open())
-        while(penaltyFile.good()) {
-            getline(penaltyFile, rawInput);
-            penaltyStrings.emplace_back(rawInput);
+    if (penaltyAndPossibilisticFile.is_open())
+        while(penaltyAndPossibilisticFile.good()) {
+            getline(penaltyAndPossibilisticFile, rawInput);
+            penaltyAndPossibilityStrings.emplace_back(rawInput);
             vector<pair<int, int>> cur;
             for (int i = 0; i < rawInput.size(); i++) {
                 int penalty=0;
                 switch (rawInput[i]) {
                     case ',':
-                        penaltiesStack.emplace_back(penaltyStack);
-                        penalties.emplace_back(cur);
+                        penaltiesAndPossibilitiesStack.emplace_back(penaltyStack);
+                        penaltiesAndProbabilities.emplace_back(cur);
                         penalty = stoi(rawInput.substr(i+1,rawInput.size()-1));
-                        penaltyCost.emplace_back(penalty);
+                        penaltiesAndPossibilitiesCosts.emplace_back(penalty);
                         penaltyStack++;
                         //cout << "Penalty: " << penalty << endl;
                         i = rawInput.size();
@@ -90,21 +90,21 @@ void logicProcessing(int which){
                     case '!':
                         //cout << "emplaced not, false: " << rawInput[i + 1] << endl;
                         cur.emplace_back(make_pair(rawInput[i + 1] - 48, 0));
-                        //penaltiesStack.emplace_back(penaltyStack);
+                        //penaltiesAndPossibilitiesStack.emplace_back(penaltyStack);
                         i++;
                         break;
                     case 'o':
-                        penalties.emplace_back(cur);
-                        penaltiesStack.emplace_back(penaltyStack);
+                        penaltiesAndProbabilities.emplace_back(cur);
+                        penaltiesAndPossibilitiesStack.emplace_back(penaltyStack);
                         cur.clear();
                         break;
                     case 'a':
-                        //penalties.push_back(cur);
+                        //penaltiesAndProbabilities.push_back(cur);
                         break;
                     default:
                         //cout << "penalty default, true: " << rawInput[i] << endl;
                         cur.emplace_back(make_pair(rawInput[i] - 48, 1));
-                        //penaltiesStack.emplace_back(penaltyStack);
+                        //penaltiesAndPossibilitiesStack.emplace_back(penaltyStack);
                         break;
 
                 }
@@ -112,7 +112,7 @@ void logicProcessing(int which){
             cur.clear();
             //cout << "----" << endl;
         }
-    penaltyFile.close();
+    penaltyAndPossibilisticFile.close();
 }
 static void activate (GtkApplication* app,gpointer user_data) {
     GtkWidget *window;
@@ -223,21 +223,21 @@ int main(int argc, char **argv) {
     if(!constraints.empty())
         blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
 
-    penaltiesFunction(attributeNames, penaltyStrings, blacklistedBinaries, penalties, penaltiesStack, penaltyCost);
+    penaltiesFunction(attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries, penaltiesAndProbabilities, penaltiesAndPossibilitiesStack, penaltiesAndPossibilitiesCosts);
 
-    penalties.clear();
-    penaltyStrings.clear();
-    penaltiesStack.clear();
-    penaltyCost.clear();
+    penaltiesAndProbabilities.clear();
+    penaltyAndPossibilityStrings.clear();
+    penaltiesAndPossibilitiesStack.clear();
+    penaltiesAndPossibilitiesCosts.clear();
 
     logicProcessing(1);
 
-    for(int i = 0; i < penalties.size(); i++){
-        for(int j = 0; j < penalties[i].size(); j++){
-            cout << penalties[i][j].first << ' ' << penalties[i][j].second << ' ' << penaltiesStack[i] << '\n';
+    for(int i = 0; i < penaltiesAndProbabilities.size(); i++){
+        for(int j = 0; j < penaltiesAndProbabilities[i].size(); j++){
+            cout << penaltiesAndProbabilities[i][j].first << ' ' << penaltiesAndProbabilities[i][j].second << ' ' << penaltiesAndPossibilitiesStack[i] << '\n';
         }
-        cout << "Penalty val = " << penaltyCost[penaltiesStack[i]] << endl;
+        cout << "Penalty val = " << penaltiesAndPossibilitiesCosts[penaltiesAndPossibilitiesStack[i]] << endl;
     }
-    possibilisticFunction(attributeNames, penaltyStrings, blacklistedBinaries, penalties, penaltiesStack, penaltyCost);
+    possibilisticFunction(attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries, penaltiesAndProbabilities, penaltiesAndPossibilitiesStack, penaltiesAndPossibilitiesCosts);
     return status;
 }

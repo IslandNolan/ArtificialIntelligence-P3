@@ -130,7 +130,7 @@ std::vector<int> blacklistFunction(int attributeCount, std::vector<std::vector<s
  * @param blacklist states to skip over
  * @param penalties penalty conditions to check for
  * @param penaltyStack which term belongs to which penalty
- * @param penaltyCosts costs of penalties
+ * @param penaltyCosts costs of penaltiesAndProbabilities
  */
 std::vector<std::vector<std::string>> penaltiesFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<std::string> penaltyStrings, std::vector<int> blacklist, std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyStack, std::vector<int> penaltyCosts) {
     std::vector<std::vector<std::string>> matrix(attributeNames.size()*attributeNames.size()-blacklist.size()+1, std::vector<std::string>(penaltyStack.size()+1));
@@ -180,7 +180,7 @@ std::vector<std::vector<std::string>> penaltiesFunction(std::unordered_map<std::
         }
         matrix[iteration][detected.size()+1] = std::to_string(total);
         std::cout << std::endl;
-        //matrix[i][penalties.size()-1] = std::to_string(total);
+        //matrix[i][penaltiesAndProbabilities.size()-1] = std::to_string(total);
         //std::cout << "Detect Test ";
         for(int j = 0; j < penaltyStack.size(); j++){
             //int ree = std:stoi
@@ -248,7 +248,7 @@ std::vector<std::vector<std::string>> possibilisticFunction(std::unordered_map<s
         }
         matrix[iteration][detected.size()+1] = std::to_string(total);
         std::cout << std::endl;
-        //matrix[i][penalties.size()-1] = std::to_string(total);
+        //matrix[i][penaltiesAndProbabilities.size()-1] = std::to_string(total);
         //std::cout << "Detect Test ";
         for(int j = 0; j < penaltyStack.size(); j++){
             //int ree = std:stoi
