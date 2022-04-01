@@ -16,12 +16,7 @@ include_directories(${LIB_INCLUDE})
 add_executable(Project3
   src/sources/main.cpp
   src/sources/utility.cpp
-  src/sources/intelliapp.cpp
-  src/sources/intelliappwin.cpp
-  src/sources/resources.c
   include/p3/p3.h
-  include/p3/intelliapp.h
-  include/p3/intelliappwin.h
 )
 
 target_link_libraries(Project3 PUBLIC ${GTKMM_LIBRARIES})
