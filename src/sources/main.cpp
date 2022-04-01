@@ -232,7 +232,6 @@ int main(int argc, char **argv) {
     //endregion
 
     logicProcessing(0);
-
     // if its empty it blacklists everything since the empty set fits in everything
     if(!constraints.empty())
         blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);

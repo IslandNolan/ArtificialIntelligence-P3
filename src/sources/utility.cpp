@@ -329,7 +329,6 @@ std::vector<std::vector<std::string>> qualitativeFunction(std::unordered_map<std
         }
         skip:;
     }
-
     std::cout << std::endl;
     for(int i = 0; i < attributeNames.size()*attributeNames.size()-blacklist.size()+1; i++){
         for(int j = 0; j <= distinctCols; j++){
