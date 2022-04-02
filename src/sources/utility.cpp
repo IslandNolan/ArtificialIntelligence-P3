@@ -358,13 +358,6 @@ std::vector<std::vector<std::string>> qualitativeFunction(std::unordered_map<std
  */
 std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::string>> matrix, int which){
     std::vector<std::vector<std::string>> toSend;
-    for(int i = 0; i < matrix.size(); i++){
-        for(int j = 0; j < matrix[i].size(); j++){
-            std::cout << matrix[i][j] << ' ';
-        }
-        std::cout << std::endl;
-    }
-    std::cout << "Fuck Fuck " << std::endl << std::endl;
     toSend.emplace_back(matrix[0]);
     if(which == 0){
         for(int i = 1; i < matrix.size(); i++) {

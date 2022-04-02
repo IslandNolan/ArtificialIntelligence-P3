@@ -7,8 +7,8 @@
 #define maxAttributes 10
 using namespace std;
 
-static unordered_map<string, pair<string, string>> attributeNames;
-static vector<vector<pair<int, int>>> constraints;
+unordered_map<string, pair<string, string>> attributeNames;
+vector<vector<pair<int, int>>> constraints;
 
 vector<vector<pair<int, int>>> penaltiesAndProbabilities;
 vector<string> penaltyAndPossibilityStrings;
@@ -39,18 +39,6 @@ ifstream file("inputs/constraints.txt");
  */
 
 /*
-    todo::atributes in binary
-
-    todo::Hard constraints (H) are represented as propositional formulas in the
-   Conjunc-tional Normal Form (CNF)
-
-    todo::preferences (T ) in the preference languages of penalty logic,
-   possibilistic logic, and qualitative choice logic. Formulas involved in the
-   preference theories (i.e., the φ’s and the ψ’s) are of CNF as well.
-
-    todo::Existence of feasible objects: decide whether there are feasible
-   objects w.r.t H, that is, whether there are models of H that are truth
-   assignments making H true.
 
     todo::Exemplification: generate, if possible, two random feasible objects,
    and show the preference between the two (strict preference or equivalence)
@@ -61,9 +49,7 @@ ifstream file("inputs/constraints.txt");
     todo::Omni-optimization: find all optimal objects w.r.t T
 */
 
-
-
-//region parse
+//region Parse
 
 void startProcessing(int which){
     switch(which){
@@ -72,18 +58,22 @@ void startProcessing(int which){
                     attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
                     penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
                     penaltiesAndPossibilitiesCosts);
+            feasbility(penaltiesResult, 0);
             break;
         case 1:
+
             possibilisticResult = possibilisticFunction(
                     attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
                     penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
                     penaltiesAndPossibilitiesCosts);
+            feasbility(possibilisticResult,1);
             break;
         case 2:
             qualitativeResult = qualitativeFunction(
                     attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
                     penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
                     penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
+            feasbility(qualitativeResult, 2);
             break;
     }
 }
@@ -190,7 +180,12 @@ void parseAttributes(string fileName) {
  */
 
 void logicProcessing(int which, string fileName) {
-
+    penaltiesAndProbabilities.clear();
+    penaltyAndPossibilityStrings.clear();
+    penaltiesAndPossibilitiesStack.clear();
+    penaltiesAndPossibilitiesCosts.clear();
+    qualitativeColumn.clear();
+    qualitativeCost.clear();
     ifstream file(fileName);
 
     string rawInput = "";
@@ -248,117 +243,6 @@ void logicProcessing(int which, string fileName) {
 
 int main(int argc, char **argv) {
     std::cout << "Hello, Gamer!" << std::endl;
-    /*
-    parseAttributes("inputs/attributes.txt");
-    if (!constraints.empty())
-        blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
-    parseConstraints("inputs/constraints.txt");
-
-// if its empty it blacklists everything since the empty set fits in//
-// everything
-    if (!constraints.empty())
-        blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
-
-    logicProcessing(0, "inputs/penalty.txt");
-    penaltiesResult = penaltiesFunction(
-            attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
-            penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
-            penaltiesAndPossibilitiesCosts);
-    //feasbility(penaltiesResult, 0);
-
-    penaltiesAndProbabilities.clear();
-    penaltyAndPossibilityStrings.clear();
-    penaltiesAndPossibilitiesStack.clear();
-    penaltiesAndPossibilitiesCosts.clear();
-    qualitativeColumn.clear();
-    qualitativeCost.clear();
-
-    logicProcessing(1, "inputs/possibilistic.txt");
-
-    possibilisticResult = possibilisticFunction(
-            attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
-            penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
-            penaltiesAndPossibilitiesCosts);
-
-    feasbility(possibilisticResult, 1);
-
-    penaltiesAndProbabilities.clear();
-    penaltyAndPossibilityStrings.clear();
-    penaltiesAndPossibilitiesStack.clear();
-    penaltiesAndPossibilitiesCosts.clear();
-    qualitativeColumn.clear();
-    qualitativeCost.clear();
-
-    logicProcessing(2, "inputs/qualitative.txt");
-
-    qualitativeResult = qualitativeFunction(
-            attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
-            penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
-            penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
-
-    feasbility(qualitativeResult, 2);
-*/
-/*
-// endregion
-
-logicProcessing(0);
-// if its empty it blacklists everything since the empty set fits in//
-// everything
-if (!constraints.empty())
-  blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
-
-penaltiesResult = penaltiesFunction(
-    attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
-    penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
-    penaltiesAndPossibilitiesCosts);
-
-penaltiesAndProbabilities.clear();
-penaltyAndPossibilityStrings.clear();
-penaltiesAndPossibilitiesStack.clear();
-penaltiesAndPossibilitiesCosts.clear();
-
-logicProcessing(1);
-
-for (int i = 0; i < penaltiesAndProbabilities.size(); i++) {
-  for (int j = 0; j < penaltiesAndProbabilities[i].size(); j++) {
-    cout << penaltiesAndProbabilities[i][j].first << ' '
-         << penaltiesAndProbabilities[i][j].second << ' '
-         << penaltiesAndPossibilitiesStack[i] << '\n';
-  }
-  cout << "Penalty val = "
-       << penaltiesAndPossibilitiesCosts[penaltiesAndPossibilitiesStack[i]]
-       << endl;
-}
-possibilisticResult = possibilisticFunction(
-    attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
-    penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
-    penaltiesAndPossibilitiesCosts);
-
-penaltiesAndProbabilities.clear();
-penaltyAndPossibilityStrings.clear();
-penaltiesAndPossibilitiesStack.clear();
-penaltiesAndPossibilitiesCosts.clear();
-qualitativeColumn.clear();
-
-logicProcessing(2);
-
-for (int i = 0; i < penaltiesAndProbabilities.size(); i++) {
-  for (int j = 0; j < penaltiesAndProbabilities[i].size(); j++) {
-    cout << penaltiesAndProbabilities[i][j].first << ' '
-         << penaltiesAndProbabilities[i][j].second << ' '
-         << penaltiesAndPossibilitiesStack[i] << '\n';
-  }
-  cout << "column = " << qualitativeColumn[i]
-       << " cost = " << qualitativeCost[i] << endl;
-}
-qualitativeResult = qualitativeFunction(
-    attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
-    penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
-    penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
-
-*/
     wininit(argc, argv);
-
-
     return 0;
 }
