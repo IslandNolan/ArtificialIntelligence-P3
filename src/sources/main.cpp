@@ -28,6 +28,8 @@ vector<int> blacklistedBinaries;
 ifstream attributesFile("inputs/attributes.txt");
 ifstream file("inputs/constraints.txt");
 
+int selection = 0; // 0 for penalty, 1 for possibilistic, 2 for qualitative
+
 /**
  * AI project 3
  * Francisco Romero, William Daniel Hiromoto, Nolan Boner
@@ -39,7 +41,9 @@ ifstream file("inputs/constraints.txt");
  */
 
 //region Parse
-
+void selected(int which){
+    selection = which;
+}
 void startProcessing(int which){
     switch(which){
         case 0:
@@ -65,13 +69,204 @@ void startProcessing(int which){
             break;
     }
 }
-
+/**
+ * When you press the feasibility button
+ */
+void bufferFeasability(){
+    vector<vector<string>> feasTest;
+    BufferFlush(getAttriBuff());
+    if (selection == 0){
+        feasTest = feasbility(penaltiesResult, 0);
+        for(int i = 0; i < feasTest.size(); i++){
+            for(int j = 0; j < feasTest[i].size(); j++){
+                stringstream science;
+                science << setw(30) << feasTest[i][j];
+                char daniel[50];
+                sprintf(daniel, "%-30s", feasTest[i][j].c_str());
+                printf("%-15s", feasTest[i][j].c_str());
+                BufferInsert(getAttriBuff(), daniel);
+            }
+            BufferInsert(getAttriBuff(), "\n");
+            cout << endl;
+        }
+    }
+    else if (selection == 1){
+        setprecision(1);
+        feasTest = feasbility(possibilisticResult, 1);
+        for(int i = 0; i < feasTest.size(); i++){
+            for(int j = 0; j < feasTest[i].size(); j++){
+                if(i > 0 && j > 0){
+                    if(feasTest[i][j] == "1")
+                        printf("%-15s", feasTest[i][j].c_str());
+                    else
+                        printf("%-15.2f", stod(feasTest[i][j]));
+                }
+                else
+                    printf("%-15s", feasTest[i][j].c_str());
+            }
+            cout << endl;
+        }
+    }
+    else{
+        feasTest = feasbility(qualitativeResult, 2);
+        for(int i = 0; i < feasTest.size(); i++){
+            for(int j = 0; j < feasTest[i].size(); j++){
+                printf("%-18s", feasTest[i][j].c_str());
+            }
+            cout << endl;
+        }
+    }
+}
+/**
+ * When you press the exemplification button
+ */
+void bufferExemplification(){
+    vector<vector<string>> feasTest;
+    BufferFlush(getAttriBuff());
+    if (selection == 0){
+        feasTest = exemplification(feasbility(penaltiesResult,0), 0);
+        for(int i = 0; i < feasTest.size(); i++){
+            for(int j = 0; j < feasTest[i].size(); j++){
+                stringstream science;
+                science << setw(30) << feasTest[i][j];
+                char daniel[50];
+                sprintf(daniel, "%-30s", feasTest[i][j].c_str());
+                printf("%-15s", feasTest[i][j].c_str());
+                BufferInsert(getAttriBuff(), daniel);
+            }
+            BufferInsert(getAttriBuff(), "\n");
+            cout << endl;
+        }
+    }
+    else if (selection == 1){
+        setprecision(1);
+        feasTest = exemplification(feasbility(possibilisticResult,1), 1);
+        for(int i = 0; i < feasTest.size(); i++){
+            for(int j = 0; j < feasTest[i].size(); j++){
+                if(i > 0 && j > 0){
+                    if(feasTest[i][j] == "1")
+                        printf("%-15s", feasTest[i][j].c_str());
+                    else
+                        printf("%-15.2f", stod(feasTest[i][j]));
+                }
+                else
+                    printf("%-15s", feasTest[i][j].c_str());
+            }
+            cout << endl;
+        }
+    }
+    else{
+        feasTest = exemplification(feasbility(qualitativeResult,2), 2);
+        for(int i = 0; i < feasTest.size(); i++){
+            for(int j = 0; j < feasTest[i].size(); j++){
+                printf("%-18s", feasTest[i][j].c_str());
+            }
+            cout << endl;
+        }
+    }
+}
+/**
+ * When you press the Optimization button
+ */
+void bufferOptimization(){
+    printf("\n Science\n");
+    vector<vector<string>> feasTest;
+    BufferFlush(getAttriBuff());
+    if (selection == 0){
+        feasTest = optimization(feasbility(penaltiesResult,0), 0);
+        for(int i = 0; i < feasTest.size(); i++){
+            for(int j = 0; j < feasTest[i].size(); j++){
+                stringstream science;
+                science << setw(30) << feasTest[i][j];
+                char daniel[50];
+                sprintf(daniel, "%-30s", feasTest[i][j].c_str());
+                printf("%-15s", feasTest[i][j].c_str());
+                BufferInsert(getAttriBuff(), daniel);
+            }
+            BufferInsert(getAttriBuff(), "\n");
+            cout << endl;
+        }
+    }
+    else if (selection == 1){
+        setprecision(1);
+        feasTest = optimization(feasbility(possibilisticResult,1), 1);
+        for(int i = 0; i < feasTest.size(); i++){
+            for(int j = 0; j < feasTest[i].size(); j++){
+                if(i > 0 && j > 0){
+                    if(feasTest[i][j] == "1")
+                        printf("%-15s", feasTest[i][j].c_str());
+                    else
+                        printf("%-15.2f", stod(feasTest[i][j]));
+                }
+                else
+                    printf("%-15s", feasTest[i][j].c_str());
+            }
+            cout << endl;
+        }
+    }
+    else{
+        feasTest = optimization(feasbility(qualitativeResult,2), 2);
+        for(int i = 0; i < feasTest.size(); i++){
+            for(int j = 0; j < feasTest[i].size(); j++){
+                printf("%-18s", feasTest[i][j].c_str());
+            }
+            cout << endl;
+        }
+    }
+}
+/**
+ * When you press the OmniOptimization button
+ */
+void bufferOmniOptimization(){
+    vector<vector<string>> feasTest;
+    BufferFlush(getAttriBuff());
+    if (selection == 0){
+        feasTest = omniOptimization(feasbility(penaltiesResult,0), 0);
+        for(int i = 0; i < feasTest.size(); i++){
+            for(int j = 0; j < feasTest[i].size(); j++){
+                stringstream science;
+                science << setw(30) << feasTest[i][j];
+                char daniel[50];
+                sprintf(daniel, "%-30s", feasTest[i][j].c_str());
+                printf("%-15s", feasTest[i][j].c_str());
+                BufferInsert(getAttriBuff(), daniel);
+            }
+            BufferInsert(getAttriBuff(), "\n");
+            cout << endl;
+        }
+    }
+    else if (selection == 1){
+        setprecision(1);
+        feasTest = omniOptimization(feasbility(possibilisticResult,1), 1);
+        for(int i = 0; i < feasTest.size(); i++){
+            for(int j = 0; j < feasTest[i].size(); j++){
+                if(i > 0 && j > 0){
+                    if(feasTest[i][j] == "1")
+                        printf("%-15s", feasTest[i][j].c_str());
+                    else
+                        printf("%-15.2f", stod(feasTest[i][j]));
+                }
+                else
+                    printf("%-15s", feasTest[i][j].c_str());
+            }
+            cout << endl;
+        }
+    }
+    else{
+        feasTest = omniOptimization(feasbility(qualitativeResult,2), 2);
+        for(int i = 0; i < feasTest.size(); i++){
+            for(int j = 0; j < feasTest[i].size(); j++){
+                printf("%-18s", feasTest[i][j].c_str());
+            }
+            cout << endl;
+        }
+    }
+}
 /**
  * Process attributes and store them in the gtk Buffer
  * @param fileName path to file to be parsed
  */
 void parseConstraints(string fileName){
-
     ifstream file(fileName);
     constraints.clear();
 
@@ -92,9 +287,6 @@ void parseConstraints(string fileName){
                         cur.emplace_back(std::stoi(to_string(rawInput[i])) - 48, 1);
                         it = attributeNames.begin();
                         advance(it, stoi(to_string(rawInput[i]-48)));
-                        for(auto const &pair: attributeNames){
-                            cout << "Science, Iterator at: " << it->second.first<< ' ' << it->second.second << endl;
-                        }
                         BufferInsert(getConstBuff(), it->second.second);
                         break;
                     case '!':
@@ -102,9 +294,6 @@ void parseConstraints(string fileName){
                         cur.emplace_back(std::stoi(to_string(rawInput[i + 1])) - 48, 0);
                         it = attributeNames.begin();
                         advance(it, stoi(to_string(rawInput[i+1]-48)));
-                        for(auto const &pair: attributeNames){
-                            cout << "Science, Iterator at: " << it->second.first<< ' ' << it->second.second << endl;
-                        }
                         BufferInsert(getConstBuff(), it->second.first);
                         i++;
                         break;
@@ -148,7 +337,6 @@ void parseConstraints(string fileName){
     */
   }
 
-
 /** Process attributes and store them in the gtk Buffer */
 void parseAttributes(string fileName) {
     ifstream file(fileName);
@@ -186,10 +374,9 @@ void parseAttributes(string fileName) {
 }
 
 /**
- * does logic and possibilistic parsing
+ * does logic and possibilistic and qualitative parsing
  * @param which 0 for penalty, 1 for possibilistic, 2 for qualitative
  */
-
 void logicProcessing(int which, string fileName) {
     penaltiesAndProbabilities.clear();
     penaltyAndPossibilityStrings.clear();
@@ -285,6 +472,7 @@ void frannyTesting(){
     exemplification(feasibilityResult,0);
     optimization(feasibilityResult,0);
     omniOptimization(feasibilityResult,0);
+    bufferFeasability();
     clearAll();
     *//*
     logicProcessing(1, "inputs/possibilistic.txt");
@@ -296,6 +484,7 @@ void frannyTesting(){
     exemplification(feasibilityResult,1);
     optimization(feasibilityResult,1);
     omniOptimization(feasibilityResult,1);
+    bufferFeasability();
     clearAll();
     */
     logicProcessing(2, "inputs/qualitative.txt");
@@ -307,6 +496,7 @@ void frannyTesting(){
     exemplification(feasibilityResult,2);
     optimization(feasibilityResult,2);
     omniOptimization(feasibilityResult,2);
+    bufferFeasability();
     clearAll();
 
 }

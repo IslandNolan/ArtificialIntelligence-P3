@@ -48,6 +48,10 @@ Glib::RefPtr<Gtk::TextBuffer> AttriBuff, ConstBuff, PrefBuff, FeasBuff,
 Glib::RefPtr<Gtk::TextBuffer> getAttriBuff() { return AttriBuff; }
 Glib::RefPtr<Gtk::TextBuffer> getConstBuff() { return ConstBuff; }
 Glib::RefPtr<Gtk::TextBuffer> getPrefBuff() { return PrefBuff; }
+Glib::RefPtr<Gtk::TextBuffer> getFeasBuff() { return FeasBuff; }
+Glib::RefPtr<Gtk::TextBuffer> getExemBuff() { return ExempBuff; }
+Glib::RefPtr<Gtk::TextBuffer> getOptiBuff() { return OptBuff; }
+Glib::RefPtr<Gtk::TextBuffer> getOmniBuff() { return OmniOpBuff; }
 // TODO: turn Attriview into a tree view
 //  The different view to display the text buffers
 Gtk::TextView *AttriView = nullptr, *ConstView = nullptr, *PrefView = nullptr;
@@ -184,6 +188,7 @@ void onAttributeUpload() {
   }
 }
 void onPenaltyFileUpload() {
+  selected(0);
   Gtk::FileChooserDialog dialog("Select Penalty File",
                                 Gtk::FILE_CHOOSER_ACTION_OPEN);
   // dialog.set_transient_for(*this);
@@ -227,6 +232,7 @@ void onPenaltyFileUpload() {
   }
 }
 void onPossibilisticUpload() {
+    selected(1);
     Gtk::FileChooserDialog dialog("Select Possibilistics File",
                                 Gtk::FILE_CHOOSER_ACTION_OPEN);
     // dialog.set_transient_for(*this);
@@ -268,6 +274,7 @@ void onPossibilisticUpload() {
     }
 }
 void onQualitativeUpload() {
+    selected(2);
   Gtk::FileChooserDialog dialog("Select Qualitative File",
                                 Gtk::FILE_CHOOSER_ACTION_OPEN);
   // dialog.set_transient_for(*this);
@@ -310,7 +317,22 @@ void onQualitativeUpload() {
   }
   }
 }
-
+void onFeasClick() {
+    std::cout << "Feas Clicked" << std::endl;
+    bufferFeasability();
+}
+void onExemClick() {
+    std::cout << "Example click" << std::endl;
+    bufferExemplification();
+}
+void onOptiClick() {
+    std::cout << "Optimal Clicked" << std::endl;
+    bufferOptimization();
+}
+void onOmniClick() {
+    std::cout << "Omni Optimal Clicked" << std::endl;
+    bufferOmniOptimization();
+}
 static void on_button_clicked() { std::cout << "BUTTON CLICKED" << std::endl; }
 
 // Pass argc and argv from Main
@@ -370,8 +392,7 @@ int wininit(int argc, char **argv) {
     files.pAttri->signal_clicked().connect(sigc::ptr_fun(onAttributeUpload));
     files.pConst->signal_clicked().connect(sigc::ptr_fun(onConstraintsUpload));
     files.pPenL->signal_clicked().connect(sigc::ptr_fun(onPenaltyFileUpload));
-    files.pPossL->signal_clicked().connect(
-        sigc::ptr_fun(onPossibilisticUpload));
+    files.pPossL->signal_clicked().connect(sigc::ptr_fun(onPossibilisticUpload));
     files.pQual->signal_clicked().connect(sigc::ptr_fun(onQualitativeUpload));
     // TODO: have manual buttons append text to their buffers
     // Connections to the Manual Button Entries
@@ -381,10 +402,10 @@ int wininit(int argc, char **argv) {
     but.pPossL->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
     but.pQual->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
     // Connections to the 4 functional buttons
-    fun.Omniopt->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
-    fun.Opt->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
-    fun.Exemp->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
-    fun.Feas->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
+    fun.Omniopt->signal_clicked().connect(sigc::ptr_fun(onOmniClick));
+    fun.Opt->signal_clicked().connect(sigc::ptr_fun(onOptiClick));
+    fun.Exemp->signal_clicked().connect(sigc::ptr_fun(onExemClick));
+    fun.Feas->signal_clicked().connect(sigc::ptr_fun(onFeasClick));
 
     // ScrollViews
     refBuilder->get_widget("ScrollWinAttriPrev", AttriScroll);

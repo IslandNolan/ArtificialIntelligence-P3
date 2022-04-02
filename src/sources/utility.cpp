@@ -143,8 +143,8 @@ std::vector<std::vector<std::string>> penaltiesFunction(std::unordered_map<std::
     matrix[0][0] = "state";
     for(int i = 0; i < penaltyStrings.size();i++){
         matrix[0][i+1] = penaltyStrings[i];
-        matrix[0][i+2] = "total penalty";;
     }
+    matrix[0][penaltyStrings.size()] = "total penalty";;
     int iteration = 0; // for first column to deal with blacklisting
     //std::cout << std::endl;
     for(int i = 0; i < attributeNames.size()*attributeNames.size()-blacklist.size(); i++){
