@@ -275,7 +275,7 @@ void frannyTesting(){
     optimization(feasibilityResult,0);
     omniOptimization(feasibilityResult,0);
     clearAll();
-    */
+    *//*
     logicProcessing(1, "inputs/possibilistic.txt");
     possibilisticResult = possibilisticFunction(
             attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
@@ -286,7 +286,7 @@ void frannyTesting(){
     optimization(feasibilityResult,1);
     omniOptimization(feasibilityResult,1);
     clearAll();
-    /*
+    */
     logicProcessing(2, "inputs/qualitative.txt");
     qualitativeResult = qualitativeFunction(
             attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
@@ -295,13 +295,14 @@ void frannyTesting(){
     feasibilityResult = feasbility(qualitativeResult, 2);
     exemplification(feasibilityResult,2);
     optimization(feasibilityResult,2);
+    omniOptimization(feasibilityResult,2);
     clearAll();
-    */
+
 }
 
 int main(int argc, char **argv) {
     std::cout << "Hello, Gamer!" << std::endl;
-    frannyTesting();
+    //frannyTesting();
     wininit(argc, argv);
     return 0;
 }

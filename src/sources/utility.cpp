@@ -568,7 +568,6 @@ std::vector<std::vector<std::string>> omniOptimization(std::vector<std::vector<s
             }
         }
     }
-    /*
     else if(which == 2){
         for(int i = 1; i < matrix.size(); i++){
             int cur = 0;
@@ -577,20 +576,21 @@ std::vector<std::vector<std::string>> omniOptimization(std::vector<std::vector<s
                     cur += std::stoi(matrix[i][j]);
                 }
             }
-            if(cur < bestValue && cur != 0){
-                best = i;
-                bestValue = cur;
+            if(cur < best && cur != 0){
+                best = cur;
+                bestSet = toSend;
+                bestSet.emplace_back(matrix[i]);
+            }
+            else if(cur == best){
+                bestSet.emplace_back(matrix[i]);
             }
         }
-        toSend.emplace_back(matrix[best]);
     }
-     */
-    toSend = bestSet;
     for(int i = 0; i < bestSet.size(); i++){
         for(int j = 0; j < bestSet[i].size(); j++){
             std::cout << bestSet[i][j] << ' ';
         }
         std::cout << std::endl;
     }
-    return toSend;
+    return bestSet;
 }
