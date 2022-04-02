@@ -25,7 +25,7 @@ Input Instructions:
  **Notes and Examples:**
  
  
- **Penalty:**
+ **Penalty:** penalty value comes after the comma
  
  
  !2a3o!2,9 == not 2 and 3 or not 2, penalty 9
