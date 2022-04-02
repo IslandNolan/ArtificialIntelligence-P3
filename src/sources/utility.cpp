@@ -482,7 +482,7 @@ std::vector<std::vector<std::string>> exemplification(std::vector<std::vector<st
 }
 
 /**
- * takes feasible data, the optimal
+ * takes feasible data, the optimal is returned
  * @param matrix data to analyze
  * @param which 0 for penalty, 1 for possibilistic, 2 for qualitative
  * @return matrix with top row still being the header, bottom being the optimal row
@@ -525,6 +525,70 @@ std::vector<std::vector<std::string>> optimization(std::vector<std::vector<std::
     for(int i = 0; i < toSend.size(); i++){
         for(int j = 0; j < toSend[i].size(); j++){
             std::cout << toSend[i][j] << ' ';
+        }
+        std::cout << std::endl;
+    }
+    return toSend;
+}
+
+/**
+ * takes feasible data, the optimal set is returned
+ * @param matrix data to analyze
+ * @param which 0 for penalty, 1 for possibilistic, 2 for qualitative
+ * @return matrix with top row still being the header, all below belonging to optimal set
+ */
+std::vector<std::vector<std::string>> omniOptimization(std::vector<std::vector<std::string>> matrix, int which){
+    std::cout << "Omni Optimization:\n";
+    std::vector<std::vector<std::string>> toSend;
+    toSend.emplace_back(matrix[0]);
+    int best = 9999;
+    std::vector<std::vector<std::string>> bestSet;
+    if(which == 0){
+        for(int i = 1; i < matrix.size(); i++){
+            if (std::stoi(matrix[i][matrix[i].size()-1]) < best){
+                best = stoi(matrix[i][matrix[i].size()-1]);
+                bestSet = toSend;
+                bestSet.emplace_back(matrix[i]);
+            }
+            else if (std::stoi(matrix[i][matrix[i].size()-1]) == best){
+                bestSet.emplace_back(matrix[i]);
+            }
+        }
+    }
+    else if(which == 1){
+        double bestDecimal = 0;
+        for(int i = 1; i < matrix.size(); i++){
+            if (std::stod(matrix[i][matrix[i].size()-1]) > bestDecimal){
+                bestDecimal = stod(matrix[i][matrix[i].size()-1]);
+                bestSet = toSend;
+                bestSet.emplace_back(matrix[i]);
+            }
+            else if (std::stod(matrix[i][matrix[i].size()-1]) == bestDecimal){
+                bestSet.emplace_back(matrix[i]);
+            }
+        }
+    }
+    /*
+    else if(which == 2){
+        for(int i = 1; i < matrix.size(); i++){
+            int cur = 0;
+            for(int j = 1; j < matrix[i].size(); j++){
+                if(matrix[i][j] != "inf"){
+                    cur += std::stoi(matrix[i][j]);
+                }
+            }
+            if(cur < bestValue && cur != 0){
+                best = i;
+                bestValue = cur;
+            }
+        }
+        toSend.emplace_back(matrix[best]);
+    }
+     */
+    toSend = bestSet;
+    for(int i = 0; i < bestSet.size(); i++){
+        for(int j = 0; j < bestSet[i].size(); j++){
+            std::cout << bestSet[i][j] << ' ';
         }
         std::cout << std::endl;
     }

@@ -273,9 +273,9 @@ void frannyTesting(){
     feasibilityResult = feasbility(penaltiesResult,0);
     exemplification(feasibilityResult,0);
     optimization(feasibilityResult,0);
+    omniOptimization(feasibilityResult,0);
     clearAll();
     */
-    /*
     logicProcessing(1, "inputs/possibilistic.txt");
     possibilisticResult = possibilisticFunction(
             attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
@@ -284,9 +284,9 @@ void frannyTesting(){
     feasibilityResult = feasbility(possibilisticResult, 1);
     exemplification(feasibilityResult,1);
     optimization(feasibilityResult,1);
+    omniOptimization(feasibilityResult,1);
     clearAll();
-    */
-
+    /*
     logicProcessing(2, "inputs/qualitative.txt");
     qualitativeResult = qualitativeFunction(
             attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
@@ -296,7 +296,7 @@ void frannyTesting(){
     exemplification(feasibilityResult,2);
     optimization(feasibilityResult,2);
     clearAll();
-
+    */
 }
 
 int main(int argc, char **argv) {
