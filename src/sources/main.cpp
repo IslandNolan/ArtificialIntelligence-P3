@@ -135,6 +135,9 @@ void parseConstraints(string fileName){
         for (int j = 0; j < constraints[i].size(); j++) {
             std::cout << constraints[i][j].first << ' ' <<
                       constraints[i][j].second << std::endl;
+            //TODO: Turn output back into english according to Project3 Guidelines
+            //auto it = attributeNames.begin();
+            //for (int i = 0; i <= constraints[i][j].first; i++) it++;
             BufferInsert(getConstBuff(), to_string(constraints[i][j].first));
             BufferInsert(getConstBuff(), " ");
             BufferInsert(getConstBuff(), to_string(constraints[i][j].second));
