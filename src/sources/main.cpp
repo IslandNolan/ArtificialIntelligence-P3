@@ -59,72 +59,13 @@ ifstream file("inputs/constraints.txt");
 
     todo::Omni-optimization: find all optimal objects w.r.t T
 */
-/**
- * does logic and possibilistic parsing
- * @param which 0 for penalty, 1 for possibilistic, 2 for qualitative
- */
-void logicProcessing(int which) {
-  ifstream penaltyAndPossibilisticFile;
-  if (which == 0) {
-    penaltyAndPossibilisticFile.open("inputs/penalty.txt");
-  } else if (which == 1) {
-    penaltyAndPossibilisticFile.open("inputs/possibilistic.txt");
-  } else {
-    penaltyAndPossibilisticFile.open("inputs/qualitative.txt");
-  }
-  string rawInput = "";
-  string col = "";
-  int penaltyStack = 0;
-  if (penaltyAndPossibilisticFile.is_open())
-    while (penaltyAndPossibilisticFile.good()) {
-      getline(penaltyAndPossibilisticFile, rawInput);
-      penaltyAndPossibilityStrings.emplace_back(rawInput);
-      vector<pair<int, int>> cur;
-      for (int i = 0; i < rawInput.size(); i++) {
-        int penalty = 0;
-        switch (rawInput[i]) {
-        case ',':
-          penaltiesAndPossibilitiesStack.emplace_back(penaltyStack);
-          penaltiesAndProbabilities.emplace_back(cur);
-          penalty = stoi(rawInput.substr(i + 1, rawInput.size() - 1));
-          penaltiesAndPossibilitiesCosts.emplace_back(penalty);
-          penaltyStack++;
-          col = "";
-          col += rawInput[i + 1];
-          qualitativeColumn.push_back(stoi(col));
-          if (which == 2)
-            qualitativeCost.push_back(
-                stoi(rawInput.substr(i + 2, rawInput.size() - 1)));
-          // cout << "Penalty: " << penalty << endl;
-          i = rawInput.size();
-          break;
-        case '!':
-          // cout << "emplaced not, false: " << rawInput[i + 1] << endl;
-          cur.emplace_back(make_pair(rawInput[i + 1] - 48, 0));
-          // penaltiesAndPossibilitiesStack.emplace_back(penaltyStack);
-          i++;
-          break;
-        case 'o':
-          penaltiesAndProbabilities.emplace_back(cur);
-          penaltiesAndPossibilitiesStack.emplace_back(penaltyStack);
-          cur.clear();
-          break;
-        case 'a':
-          // penaltiesAndProbabilities.push_back(cur);
-          break;
-        default:
-          // cout << "penalty default, true: " << rawInput[i] << endl;
-          cur.emplace_back(make_pair(rawInput[i] - 48, 1));
-          // penaltiesAndPossibilitiesStack.emplace_back(penaltyStack);
-          break;
-        }
-      }
-      cur.clear();
-      // cout << "----" << endl;
-    }
-  penaltyAndPossibilisticFile.close();
-}
 
+
+
+//region parse
+
+
+/** Process attributes and store them in the gtk Buffer */
 void parseConstraints(string fileName){
     string rawInput;
     ifstream file(fileName);
@@ -175,6 +116,8 @@ void parseConstraints(string fileName){
     }
   }
 
+
+/** Process attributes and store them in the gtk Buffer */
 void parseAttributes(string fileName) {
     ifstream file(fileName);
     string rawInput;
@@ -211,79 +154,137 @@ void parseAttributes(string fileName) {
     file.close();
 }
 
+/**
+ * does logic and possibilistic parsing
+ * @param which 0 for penalty, 1 for possibilistic, 2 for qualitative
+ */
 
+void logicProcessing(int which, string fileName) {
 
+    ifstream file(fileName);
 
+    string rawInput = "";
+    string col = "";
+    int penaltyStack = 0;
+    if (file.is_open())
+        while (file.good()) {
+            getline(file, rawInput);
+            penaltyAndPossibilityStrings.emplace_back(rawInput);
+            vector<pair<int, int>> cur;
+            for (int i = 0; i < rawInput.size(); i++) {
+                int penalty = 0;
+                switch (rawInput[i]) {
+                    case ',':
+                        penaltiesAndPossibilitiesStack.emplace_back(penaltyStack);
+                        penaltiesAndProbabilities.emplace_back(cur);
+                        penalty = stoi(rawInput.substr(i + 1, rawInput.size() - 1));
+                        penaltiesAndPossibilitiesCosts.emplace_back(penalty);
+                        penaltyStack++;
+                        col = "";
+                        col += rawInput[i + 1];
+                        qualitativeColumn.push_back(stoi(col));
+                        if (which == 2)
+                            qualitativeCost.push_back(
+                                    stoi(rawInput.substr(i + 2, rawInput.size() - 1)));
+                        // cout << "Penalty: " << penalty << endl;
+                        i = rawInput.size();
+                        break;
+                    case '!':
+                        // cout << "emplaced not, false: " << rawInput[i + 1] << endl;
+                        cur.emplace_back(make_pair(rawInput[i + 1] - 48, 0));
+                        // penaltiesAndPossibilitiesStack.emplace_back(penaltyStack);
+                        i++;
+                        break;
+                    case 'o':
+                        penaltiesAndProbabilities.emplace_back(cur);
+                        penaltiesAndPossibilitiesStack.emplace_back(penaltyStack);
+                        cur.clear();
+                        break;
+                    case 'a':
+                        // penaltiesAndProbabilities.push_back(cur);
+                        break;
+                    default:
+                        // cout << "penalty default, true: " << rawInput[i] << endl;
+                        cur.emplace_back(make_pair(rawInput[i] - 48, 1));
+                        // penaltiesAndPossibilitiesStack.emplace_back(penaltyStack);
+                        break;
+                }
+            }
+            cur.clear();
+        }
+    file.close();
+}
+//endregion
 
-  int main(int argc, char **argv) {
+int main(int argc, char **argv) {
     std::cout << "Hello, Gamer!" << std::endl;
 
-    // string task;
-    // getline(cin, task);
+// string task;
+// getline(cin, task);
 
-    // testing();
+// testing();
 
-    /*
-    // endregion
+/*
+// endregion
 
-    logicProcessing(0);
-    // if its empty it blacklists everything since the empty set fits in//
-    // everything
-    if (!constraints.empty())
-      blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
+logicProcessing(0);
+// if its empty it blacklists everything since the empty set fits in//
+// everything
+if (!constraints.empty())
+  blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
 
-    penaltiesResult = penaltiesFunction(
-        attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
-        penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
-        penaltiesAndPossibilitiesCosts);
+penaltiesResult = penaltiesFunction(
+    attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
+    penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
+    penaltiesAndPossibilitiesCosts);
 
-    penaltiesAndProbabilities.clear();
-    penaltyAndPossibilityStrings.clear();
-    penaltiesAndPossibilitiesStack.clear();
-    penaltiesAndPossibilitiesCosts.clear();
+penaltiesAndProbabilities.clear();
+penaltyAndPossibilityStrings.clear();
+penaltiesAndPossibilitiesStack.clear();
+penaltiesAndPossibilitiesCosts.clear();
 
-    logicProcessing(1);
+logicProcessing(1);
 
-    for (int i = 0; i < penaltiesAndProbabilities.size(); i++) {
-      for (int j = 0; j < penaltiesAndProbabilities[i].size(); j++) {
-        cout << penaltiesAndProbabilities[i][j].first << ' '
-             << penaltiesAndProbabilities[i][j].second << ' '
-             << penaltiesAndPossibilitiesStack[i] << '\n';
-      }
-      cout << "Penalty val = "
-           << penaltiesAndPossibilitiesCosts[penaltiesAndPossibilitiesStack[i]]
-           << endl;
-    }
-    possibilisticResult = possibilisticFunction(
-        attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
-        penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
-        penaltiesAndPossibilitiesCosts);
+for (int i = 0; i < penaltiesAndProbabilities.size(); i++) {
+  for (int j = 0; j < penaltiesAndProbabilities[i].size(); j++) {
+    cout << penaltiesAndProbabilities[i][j].first << ' '
+         << penaltiesAndProbabilities[i][j].second << ' '
+         << penaltiesAndPossibilitiesStack[i] << '\n';
+  }
+  cout << "Penalty val = "
+       << penaltiesAndPossibilitiesCosts[penaltiesAndPossibilitiesStack[i]]
+       << endl;
+}
+possibilisticResult = possibilisticFunction(
+    attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
+    penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
+    penaltiesAndPossibilitiesCosts);
 
-    penaltiesAndProbabilities.clear();
-    penaltyAndPossibilityStrings.clear();
-    penaltiesAndPossibilitiesStack.clear();
-    penaltiesAndPossibilitiesCosts.clear();
-    qualitativeColumn.clear();
+penaltiesAndProbabilities.clear();
+penaltyAndPossibilityStrings.clear();
+penaltiesAndPossibilitiesStack.clear();
+penaltiesAndPossibilitiesCosts.clear();
+qualitativeColumn.clear();
 
-    logicProcessing(2);
+logicProcessing(2);
 
-    for (int i = 0; i < penaltiesAndProbabilities.size(); i++) {
-      for (int j = 0; j < penaltiesAndProbabilities[i].size(); j++) {
-        cout << penaltiesAndProbabilities[i][j].first << ' '
-             << penaltiesAndProbabilities[i][j].second << ' '
-             << penaltiesAndPossibilitiesStack[i] << '\n';
-      }
-      cout << "column = " << qualitativeColumn[i]
-           << " cost = " << qualitativeCost[i] << endl;
-    }
-    qualitativeResult = qualitativeFunction(
-        attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
-        penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
-        penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
+for (int i = 0; i < penaltiesAndProbabilities.size(); i++) {
+  for (int j = 0; j < penaltiesAndProbabilities[i].size(); j++) {
+    cout << penaltiesAndProbabilities[i][j].first << ' '
+         << penaltiesAndProbabilities[i][j].second << ' '
+         << penaltiesAndPossibilitiesStack[i] << '\n';
+  }
+  cout << "column = " << qualitativeColumn[i]
+       << " cost = " << qualitativeCost[i] << endl;
+}
+qualitativeResult = qualitativeFunction(
+    attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
+    penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
+    penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
 
-    */
-  wininit(argc, argv);
+*/
+    wininit(argc, argv);
 
 
-  return 0;
+    return 0;
 }

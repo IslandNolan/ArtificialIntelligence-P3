@@ -32,5 +32,6 @@ std::vector<int> blacklistFunction(int attributeCount, std::vector<std::vector<s
 void parseAttributes(std::string fileName);
 void parseConstraints(std::string fileName);
 void BufferInsert(Glib::RefPtr<Gtk::TextBuffer> buff, std::string data);
+void logicProcessing(int, std::string fileName);
 
 #endif //PROJECT3_P3_H

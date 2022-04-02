@@ -122,7 +122,7 @@ void initButtons(Gtk::Builder *refBuilder, FUP files, MB but, FB fun) {
 }
 
 void onConstraintsUpload() {
-  Gtk::FileChooserDialog dialog("please choose a file",
+  Gtk::FileChooserDialog dialog("Select Constraints File",
                                 Gtk::FILE_CHOOSER_ACTION_OPEN);
   // dialog.set_transient_for(*this);
   // Add response buttons to the dialog:
@@ -164,7 +164,7 @@ void onConstraintsUpload() {
   }
 }
 void onAttributeUpload() {
-  Gtk::FileChooserDialog dialog("please choose a file",
+  Gtk::FileChooserDialog dialog("Select Attributes File",
                                 Gtk::FILE_CHOOSER_ACTION_OPEN);
   // dialog.set_transient_for(*this);
   // Add response buttons to the dialog:
@@ -192,6 +192,131 @@ void onAttributeUpload() {
     // Notice that this is a std::string, not a Glib::ustring.
     std::string filename = dialog.get_filename();
     parseAttributes(dialog.get_filename());
+    std::cout << "File selected: " << filename << std::endl;
+    break;
+  }
+  case (Gtk::RESPONSE_CANCEL): {
+    std::cout << "Cancel clicked." << std::endl;
+    break;
+  }
+  default: {
+    std::cout << "Unexpected button clicked." << std::endl;
+    break;
+  }
+  }
+}
+void onPenaltyFileUpload() {
+  Gtk::FileChooserDialog dialog("Select Penalty File",
+                                Gtk::FILE_CHOOSER_ACTION_OPEN);
+  // dialog.set_transient_for(*this);
+  // Add response buttons to the dialog:
+  dialog.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+  dialog.add_button("_Open", Gtk::RESPONSE_OK);
+
+  // Add filters, so that only certain file types can be selected:
+  // text only
+  auto filter_text = Gtk::FileFilter::create();
+  filter_text->set_name("Text files");
+  filter_text->add_mime_type("text/plain");
+  dialog.add_filter(filter_text);
+  // any file type
+  auto filter_any = Gtk::FileFilter::create();
+  filter_any->set_name("Any files");
+  filter_any->add_pattern("*");
+  dialog.add_filter(filter_any);
+
+  int result = dialog.run();
+  // Handle the response:
+  switch (result) {
+  case (Gtk::RESPONSE_OK): {
+    std::cout << "Open clicked." << std::endl;
+
+    // Notice that this is a std::string, not a Glib::ustring.
+    std::string filename = dialog.get_filename();
+    logicProcessing(0, filename);
+    std::cout << "File selected: " << filename << std::endl;
+    break;
+  }
+  case (Gtk::RESPONSE_CANCEL): {
+    std::cout << "Cancel clicked." << std::endl;
+    break;
+  }
+  default: {
+    std::cout << "Unexpected button clicked." << std::endl;
+    break;
+  }
+  }
+}
+void onPossibilisticUpload() {
+  Gtk::FileChooserDialog dialog("Select Possibilistics File",
+                                Gtk::FILE_CHOOSER_ACTION_OPEN);
+  // dialog.set_transient_for(*this);
+  // Add response buttons to the dialog:
+  dialog.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+  dialog.add_button("_Open", Gtk::RESPONSE_OK);
+
+  // Add filters, so that only certain file types can be selected:
+  // text only
+  auto filter_text = Gtk::FileFilter::create();
+  filter_text->set_name("Text files");
+  filter_text->add_mime_type("text/plain");
+  dialog.add_filter(filter_text);
+  // any file type
+  auto filter_any = Gtk::FileFilter::create();
+  filter_any->set_name("Any files");
+  filter_any->add_pattern("*");
+  dialog.add_filter(filter_any);
+
+  int result = dialog.run();
+  // Handle the response:
+  switch (result) {
+  case (Gtk::RESPONSE_OK): {
+    std::cout << "Open clicked." << std::endl;
+    // Notice that this is a std::string, not a Glib::ustring.
+    std::string filename = dialog.get_filename();
+    logicProcessing(1, filename);
+    std::cout << "File selected: " << filename << std::endl;
+    break;
+  }
+  case (Gtk::RESPONSE_CANCEL): {
+    std::cout << "Cancel clicked." << std::endl;
+    break;
+  }
+  default: {
+    std::cout << "Unexpected button clicked." << std::endl;
+    break;
+  }
+  }
+}
+void onQualitativeUpload() {
+  Gtk::FileChooserDialog dialog("Select Qualitative File",
+                                Gtk::FILE_CHOOSER_ACTION_OPEN);
+  // dialog.set_transient_for(*this);
+  // Add response buttons to the dialog:
+  dialog.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+  dialog.add_button("_Open", Gtk::RESPONSE_OK);
+
+  // Add filters, so that only certain file types can be selected:
+  // text only
+  auto filter_text = Gtk::FileFilter::create();
+  filter_text->set_name("Text files");
+  filter_text->add_mime_type("text/plain");
+  dialog.add_filter(filter_text);
+  // any file type
+  auto filter_any = Gtk::FileFilter::create();
+  filter_any->set_name("Any files");
+  filter_any->add_pattern("*");
+  dialog.add_filter(filter_any);
+
+  int result = dialog.run();
+  // Handle the response:
+  switch (result) {
+  case (Gtk::RESPONSE_OK): {
+    std::cout << "Open clicked." << std::endl;
+
+    // Notice that this is a std::string, not a Glib::ustring.
+    std::string filename = dialog.get_filename();
+    logicProcessing(2, filename);
     std::cout << "File selected: " << filename << std::endl;
     break;
   }
@@ -265,9 +390,10 @@ int wininit(int argc, char **argv) {
     // Connections to the File Upload Button Entries
     files.pAttri->signal_clicked().connect(sigc::ptr_fun(onAttributeUpload));
     files.pConst->signal_clicked().connect(sigc::ptr_fun(onConstraintsUpload));
-    files.pPenL->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
-    files.pPossL->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
-    files.pQual->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
+    files.pPenL->signal_clicked().connect(sigc::ptr_fun(onPenaltyFileUpload));
+    files.pPossL->signal_clicked().connect(
+        sigc::ptr_fun(onPossibilisticUpload));
+    files.pQual->signal_clicked().connect(sigc::ptr_fun(onQualitativeUpload));
     // TODO: have manual buttons append text to their buffers
     // Connections to the Manual Button Entries
     but.pAttri->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
