@@ -374,6 +374,9 @@ std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::st
                 toSend.emplace_back(fuck);
             }
         }
+    if(which == 1){
+        return toSend;
+    }
     for(int i = 0; i < toSend.size(); i++){
         for(int j = 0; j < toSend[i].size(); j++){
             std::cout << toSend[i][j] << ' ';

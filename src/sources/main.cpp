@@ -256,7 +256,23 @@ int main(int argc, char **argv) {
             attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
             penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
             penaltiesAndPossibilitiesCosts);
-    feasbility(penaltiesResult, 0);
+    //feasbility(penaltiesResult, 0);
+
+    penaltiesAndProbabilities.clear();
+    penaltyAndPossibilityStrings.clear();
+    penaltiesAndPossibilitiesStack.clear();
+    penaltiesAndPossibilitiesCosts.clear();
+    qualitativeColumn.clear();
+    qualitativeCost.clear();
+
+    logicProcessing(1, "inputs/possibilistic.txt");
+
+    possibilisticResult = possibilisticFunction(
+            attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
+            penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
+            penaltiesAndPossibilitiesCosts);
+
+    feasbility(possibilisticResult, 1);
 
 // string task;
 // getline(cin, task);
