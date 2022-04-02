@@ -369,13 +369,10 @@ std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::st
     if(which == 0){
         for(int i = 1; i < matrix.size(); i++)
             if(matrix[i][matrix[i].size()-2] != "0"){
-                std::vector<std::string> fuck = {matrix[i][0]};
-                for(int j = 0; j < toSend[i].size(); j++){
-                    //fuck.emplace_back()
-
-                }
+                std::vector<std::string> fuck = matrix[i];
+                fuck.erase(fuck.end()-1,fuck.end());
+                toSend.emplace_back(fuck);
             }
-            //toSend.emplace_back(matrix[i]);
         }
     for(int i = 0; i < toSend.size(); i++){
         for(int j = 0; j < toSend[i].size(); j++){

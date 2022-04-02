@@ -241,6 +241,22 @@ void logicProcessing(int which, string fileName) {
 
 int main(int argc, char **argv) {
     std::cout << "Hello, Gamer!" << std::endl;
+    parseAttributes("inputs/attributes.txt");
+    if (!constraints.empty())
+        blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
+    parseConstraints("inputs/constraints.txt");
+
+// if its empty it blacklists everything since the empty set fits in//
+// everything
+    if (!constraints.empty())
+        blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
+
+    logicProcessing(0, "inputs/penalty.txt");
+    penaltiesResult = penaltiesFunction(
+            attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
+            penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
+            penaltiesAndPossibilitiesCosts);
+    feasbility(penaltiesResult, 0);
 
 // string task;
 // getline(cin, task);
