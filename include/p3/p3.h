@@ -19,7 +19,9 @@ namespace p3 {
 }
 
 Glib::RefPtr<Gtk::TextBuffer> getAttriBuff();
+Glib::RefPtr<Gtk::TextBuffer> getConstBuff();
 void BufferFlush(Glib::RefPtr<Gtk::TextBuffer> buff);
+void BufferInsert(Glib::RefPtr<Gtk::TextBuffer> buff, std::string data);
 int wininit(int argc, char **argv);
 int checkOr(std::bitset<maxAttributes> toCheck, std::vector<std::vector<std::pair<int, int>>> values);
 int checkAnd(std::bitset<maxAttributes> toCheck, std::vector<std::pair<int, int>> values);
@@ -31,7 +33,6 @@ std::vector<std::vector<std::string>> qualitativeFunction(std::unordered_map<std
 std::vector<int> blacklistFunction(int attributeCount, std::vector<std::vector<std::pair<int,int>>> hardConstraints);
 void parseAttributes(std::string fileName);
 void parseConstraints(std::string fileName);
-void BufferInsert(Glib::RefPtr<Gtk::TextBuffer> buff, std::string data);
 void logicProcessing(int, std::string fileName);
 void startProcessing(int which);
 std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::string>> matrix, int which);

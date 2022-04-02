@@ -2,6 +2,7 @@
 #include <iostream>
 #include <p3/p3.h>
 #include <string.h>
+#include <string>
 
 #define maxAttributes 10
 using namespace std;
@@ -129,11 +130,15 @@ void parseConstraints(string fileName){
             // cout << "----" << endl;
         }
     file.close();
-
+    BufferFlush(getConstBuff());
     for (int i = 0; i < constraints.size(); i++) {
         for (int j = 0; j < constraints[i].size(); j++) {
             std::cout << constraints[i][j].first << ' ' <<
                       constraints[i][j].second << std::endl;
+            BufferInsert(getConstBuff(), to_string(constraints[i][j].first));
+            BufferInsert(getConstBuff(), " ");
+            BufferInsert(getConstBuff(), to_string(constraints[i][j].second));
+            BufferInsert(getConstBuff(), "\n");
         }
         std::cout << endl;
     }
