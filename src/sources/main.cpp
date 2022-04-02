@@ -81,60 +81,82 @@ void startProcessing(int which){
 
 /** Process attributes and store them in the gtk Buffer */
 void parseConstraints(string fileName){
-    string rawInput;
+
     ifstream file(fileName);
     constraints.clear();
+
+    BufferFlush(getConstBuff());
     if (file.is_open())
         while (file.good()) {
+            BufferInsert(getConstBuff(), "No ");
+            string rawInput;
             rawInput.clear();
-            getline(file, rawInput);
             vector<pair<int, int>> cur;
             cur.clear();
+            getline(file, rawInput);
+            auto it = attributeNames.begin();
 
             for (int i = 0; i < rawInput.size(); i++) {
                 switch (rawInput[i]) {
                     default:
                         // cout << "emplaced default, true: " << rawInput[i] << endl;
-                        // cout << "Science true: " << std::stoi(to_string(rawInput[i])) - 48
-                        // << endl;
                         cur.emplace_back(std::stoi(to_string(rawInput[i])) - 48, 1);
+                        it = attributeNames.begin();
+                        advance(it, stoi(to_string(rawInput[i]-48)));
+                        for(auto const &pair: attributeNames){
+                            cout << "Science, Iterator at: " << it->second.first<< ' ' << it->second.second << endl;
+                        }
+                        BufferInsert(getConstBuff(), it->second.second);
                         break;
                     case '!':
                         // cout << "emplaced not, false: " << rawInput[i + 1] << endl;
-                        // cout << "Science false: " << std::stoi(to_string(rawInput[i + 1]))
-                        // - 48 << endl;
                         cur.emplace_back(std::stoi(to_string(rawInput[i + 1])) - 48, 0);
+                        it = attributeNames.begin();
+                        advance(it, stoi(to_string(rawInput[i+1]-48)));
+                        for(auto const &pair: attributeNames){
+                            cout << "Science, Iterator at: " << it->second.first<< ' ' << it->second.second << endl;
+                        }
+                        BufferInsert(getConstBuff(), it->second.first);
                         i++;
                         break;
                     case 'o':
+                        BufferInsert(getConstBuff(), " Or ");
                         constraints.push_back(cur);
                         cur.clear();
                         break;
                     case 'a':
-                        // constraints.push_back(cur);
+                        BufferInsert(getConstBuff(), " And ");
                         break;
                 }
             }
             constraints.push_back(cur);
             cur.clear();
             // cout << "----" << endl;
+            BufferInsert(getConstBuff(), "\n");
         }
     file.close();
-    BufferFlush(getConstBuff());
+    /*
     for (int i = 0; i < constraints.size(); i++) {
         for (int j = 0; j < constraints[i].size(); j++) {
             std::cout << constraints[i][j].first << ' ' <<
                       constraints[i][j].second << std::endl;
             //TODO: Turn output back into english according to Project3 Guidelines
-            //auto it = attributeNames.begin();
-            //for (int i = 0; i <= constraints[i][j].first; i++) it++;
+
+            auto it = attributeNames.begin();
+            advance(it, constraints[i][j].first);
+            for(auto const &pair: attributeNames){
+                cout << "Science, Iterator at: " << it->second.first<< ' ' << it->second.second << endl;
+            }
+
             BufferInsert(getConstBuff(), to_string(constraints[i][j].first));
             BufferInsert(getConstBuff(), " ");
             BufferInsert(getConstBuff(), to_string(constraints[i][j].second));
             BufferInsert(getConstBuff(), "\n");
+
         }
         std::cout << endl;
     }
+     */
   }
 
 

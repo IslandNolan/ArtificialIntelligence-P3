@@ -123,23 +123,22 @@ void onConstraintsUpload() {
   int result = dialog.run();
   // Handle the response:
   switch (result) {
-  case (Gtk::RESPONSE_OK): {
-    std::cout << "Open clicked." << std::endl;
-
-    // Notice that this is a std::string, not a Glib::ustring.
-    std::string filename = dialog.get_filename();
-    parseConstraints(filename);
-    std::cout << "File selected: " << filename << std::endl;
-    break;
-  }
-  case (Gtk::RESPONSE_CANCEL): {
-    std::cout << "Cancel clicked." << std::endl;
-    break;
-  }
-  default: {
-    std::cout << "Unexpected button clicked." << std::endl;
-    break;
-  }
+      case (Gtk::RESPONSE_OK): {
+        std::cout << "Open clicked." << std::endl;
+        // Notice that this is a std::string, not a Glib::ustring.
+        std::string filename = dialog.get_filename();
+        parseConstraints(filename);
+        std::cout << "File selected: " << filename << std::endl;
+        break;
+      }
+      case (Gtk::RESPONSE_CANCEL): {
+        std::cout << "Cancel clicked." << std::endl;
+        break;
+      }
+      default: {
+        std::cout << "Unexpected button clicked." << std::endl;
+        break;
+      }
   }
 }
 void onAttributeUpload() {
@@ -397,6 +396,7 @@ int wininit(int argc, char **argv) {
     ConstScroll->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     PrefScroll->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     ResScroll->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+
     // TextViews
     refBuilder->get_widget("Attri_Prev", AttriView);
     refBuilder->get_widget("Const_Prev", ConstView);

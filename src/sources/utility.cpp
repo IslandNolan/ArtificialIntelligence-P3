@@ -366,11 +366,6 @@ std::vector<std::vector<std::string>> qualitativeFunction(std::unordered_map<std
     return matrix;
 }
 /**
- * 0 for penalty
- * 1 for possibilistic
- * 2 for qualitative
- */
-/**
  * takes data, returns only the feasable ones
  * @param matrix data to analyze
  * @param which 0 for penalty, 1 for possibilistic, 2 for qualitative
@@ -411,7 +406,7 @@ std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::st
         for(int j = 0; j < toSend[i].size(); j++){
             std::cout << toSend[i][j] << ' ';
             }
-            std::cout << std::endl;
+        std::cout << std::endl;
         }
     return toSend;
 }
