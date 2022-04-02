@@ -275,7 +275,7 @@ void frannyTesting(){
     optimization(feasibilityResult,0);
     clearAll();
 
-    /*
+
     logicProcessing(1, "inputs/possibilistic.txt");
     possibilisticResult = possibilisticFunction(
             attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
@@ -283,8 +283,9 @@ void frannyTesting(){
             penaltiesAndPossibilitiesCosts);
     feasibilityResult = feasbility(possibilisticResult, 1);
     exemplification(feasibilityResult,1);
+    optimization(feasibilityResult,1);
     clearAll();
-    */
+
     /*
     logicProcessing(2, "inputs/qualitative.txt");
     qualitativeResult = qualitativeFunction(

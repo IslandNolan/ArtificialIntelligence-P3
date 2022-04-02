@@ -389,7 +389,11 @@ std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::st
         }
     }
     if(which == 1){
-        return matrix;
+        for(int i = 1; i < matrix.size(); i++) {
+            std::vector <std::string> fuck = matrix[i];
+            fuck.erase(fuck.end() - 1, fuck.end());
+            toSend.emplace_back(fuck);
+        }
     }
     if(which == 2){
         for(int i = 1; i < matrix.size(); i++) {
@@ -498,14 +502,12 @@ std::vector<std::vector<std::string>> optimization(std::vector<std::vector<std::
         toSend.emplace_back(matrix[best]);
     }
     else if(which == 1){
-        if (std::stod(matrix[2][matrix[2].size()-1]) < std::stod(matrix[1][matrix[1].size()-1]))
-            frick.emplace_back("Top Row More Desirable");
-        else if (std::stod(matrix[2][matrix[2].size()-1]) > std::stod(matrix[1][matrix[1].size()-1]))
-            frick.emplace_back("Bottom Row More Desirable");
-        else
-            frick.emplace_back("Equivalent");
-
-        toSend.emplace_back(frick);
+        int best = 1;
+        for(int i = 2; i < matrix.size(); i++){
+            if (std::stod(matrix[i][matrix[i].size()-1]) > std::stod(matrix[best][matrix[best].size()-1]))
+                best = i;
+        }
+        toSend.emplace_back(matrix[best]);
     }
     else if(which == 2){
         double top = 0, bottom = 0;
