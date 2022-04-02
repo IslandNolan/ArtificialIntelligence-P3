@@ -28,5 +28,6 @@ std::vector<std::vector<std::string>> qualitativeFunction(std::unordered_map<std
 std::vector<int> blacklistFunction(int attributeCount, std::vector<std::vector<std::pair<int,int>>> hardConstraints);
 void parseAttributes(std::string fileName);
 void parseConstraints(std::string fileName);
+void logicProcessing(int, std::string fileName);
 
 #endif //PROJECT3_P3_H
