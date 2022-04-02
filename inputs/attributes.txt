@@ -2,7 +2,7 @@ appetizer: soup, salad
 entree: beef, fish
 drink: beer, wine
 dessert: cake, ice-cream
-lol: hotdog, icecream
-gg: gamer, non gamer
+snack: rootbeer-float, icecream
+videogame: spiderman, batman
 sex: male, female
-fuck: fuck, fuckingfuck
+phonebrand: apple, android
