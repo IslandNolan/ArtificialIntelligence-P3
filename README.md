@@ -1,5 +1,5 @@
 # Knowledge Based Intelligence System
-Francisco Romero, William Daniel Hiromoto, Nolan Boner
+Francisco, William, Nolan
 
 Input Instructions:
 
