@@ -491,10 +491,8 @@ std::vector<std::vector<std::string>> optimization(std::vector<std::vector<std::
     std::cout << "Optimization:\n";
     std::vector<std::vector<std::string>> toSend;
     toSend.emplace_back(matrix[0]);
-
-    std::vector<std::string> frick;
+    int best = 1;
     if(which == 0){
-        int best = 1;
         for(int i = 2; i < matrix.size(); i++){
             if (std::stoi(matrix[i][matrix[i].size()-1]) < std::stoi(matrix[best][matrix[best].size()-1]))
                 best = i;
@@ -502,7 +500,6 @@ std::vector<std::vector<std::string>> optimization(std::vector<std::vector<std::
         toSend.emplace_back(matrix[best]);
     }
     else if(which == 1){
-        int best = 1;
         for(int i = 2; i < matrix.size(); i++){
             if (std::stod(matrix[i][matrix[i].size()-1]) > std::stod(matrix[best][matrix[best].size()-1]))
                 best = i;
@@ -510,26 +507,20 @@ std::vector<std::vector<std::string>> optimization(std::vector<std::vector<std::
         toSend.emplace_back(matrix[best]);
     }
     else if(which == 2){
-        double top = 0, bottom = 0;
-        for(int i = 1; i < toSend[0].size(); i++) {
-            if(toSend[1][i] != "inf")
-                top += std::stod(toSend[1][i]);
-            if(toSend[2][i] != "inf")
-                bottom += std::stod(toSend[2][i]);
-            if (toSend[1][i] == "inf" && toSend[2][i] != "inf" || toSend[2][i] == "inf" && toSend[1][i] != "inf"){
-                frick.emplace_back("Incomparable");
-                goto skip;
+        int bestValue = 999;
+        for(int i = 1; i < matrix.size(); i++){
+            int cur = 0;
+            for(int j = 1; j < matrix[i].size(); j++){
+                if(matrix[i][j] != "inf"){
+                    cur += std::stoi(matrix[i][j]);
+                }
+            }
+            if(cur < bestValue && cur != 0){
+                best = i;
+                bestValue = cur;
             }
         }
-        if(top > bottom)
-            frick.emplace_back("Top More Desirable");
-        else if(top < bottom)
-            frick.emplace_back("Bottom Row More Desirable");
-        else
-            frick.emplace_back("Equivalent");
-
-        skip:;
-        toSend.emplace_back(frick);
+        toSend.emplace_back(matrix[best]);
     }
     for(int i = 0; i < toSend.size(); i++){
         for(int j = 0; j < toSend[i].size(); j++){
