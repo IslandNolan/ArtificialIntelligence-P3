@@ -11,7 +11,7 @@
 #include <gtkmm-3.0/gtkmm/textview.h>
 #include <iostream>
 #include <ostream>
-#include <p3/p3.h>
+#include "p3/p3.h"
 
 Gtk::ApplicationWindow *pAppWin = nullptr;
 
@@ -101,7 +101,51 @@ void initButtons(Gtk::Builder *refBuilder, FUP files, MB but, FB fun) {
   refBuilder->get_widget("Feasability_But", fun.Feas);
 }
 
-void on_button_file_clicked() {
+
+void onConstraintsUpload(){
+    Gtk::FileChooserDialog dialog("please choose a file",
+                                  Gtk::FILE_CHOOSER_ACTION_OPEN);
+    // dialog.set_transient_for(*this);
+    // Add response buttons to the dialog:
+    dialog.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+    dialog.add_button("_Open", Gtk::RESPONSE_OK);
+
+    // Add filters, so that only certain file types can be selected:
+    // text only
+    auto filter_text = Gtk::FileFilter::create();
+    filter_text->set_name("Text files");
+    filter_text->add_mime_type("text/plain");
+    dialog.add_filter(filter_text);
+    // any file type
+    auto filter_any = Gtk::FileFilter::create();
+    filter_any->set_name("Any files");
+    filter_any->add_pattern("*");
+    dialog.add_filter(filter_any);
+
+
+    int result = dialog.run();
+    // Handle the response:
+    switch (result) {
+        case (Gtk::RESPONSE_OK): {
+            std::cout << "Open clicked." << std::endl;
+
+            // Notice that this is a std::string, not a Glib::ustring.
+            std::string filename = dialog.get_filename();
+            parseConstraints(filename);
+            std::cout << "File selected: " << filename << std::endl;
+            break;
+        }
+        case (Gtk::RESPONSE_CANCEL): {
+            std::cout << "Cancel clicked." << std::endl;
+            break;
+        }
+        default: {
+            std::cout << "Unexpected button clicked." << std::endl;
+            break;
+        }
+    }
+}
+void onAttributeUpload() {
   Gtk::FileChooserDialog dialog("please choose a file",
                                 Gtk::FILE_CHOOSER_ACTION_OPEN);
   // dialog.set_transient_for(*this);
@@ -121,6 +165,7 @@ void on_button_file_clicked() {
   filter_any->add_pattern("*");
   dialog.add_filter(filter_any);
 
+
   int result = dialog.run();
   // Handle the response:
   switch (result) {
@@ -129,6 +174,7 @@ void on_button_file_clicked() {
 
     // Notice that this is a std::string, not a Glib::ustring.
     std::string filename = dialog.get_filename();
+    parseAttributes(dialog.get_filename());
     std::cout << "File selected: " << filename << std::endl;
     break;
   }
@@ -201,8 +247,8 @@ int wininit(int argc, char **argv) {
     // TODO: get file upload buttons to prompt for file upload
     // Connections to the File Upload Button Entries
     files.pAttri->signal_clicked().connect(
-        sigc::ptr_fun(on_button_file_clicked));
-    files.pConst->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
+        sigc::ptr_fun(onAttributeUpload));
+    files.pConst->signal_clicked().connect(sigc::ptr_fun(onConstraintsUpload));
     files.pPenL->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
     files.pPossL->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
     files.pQual->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));

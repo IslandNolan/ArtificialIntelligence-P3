@@ -25,7 +25,7 @@ vector<vector<string>> qualitativeResult;
 vector<int> blacklistedBinaries;
 
 ifstream attributesFile("inputs/attributes.txt");
-ifstream constraintsFile("inputs/constraints.txt");
+ifstream file("inputs/constraints.txt");
 
 /**
  * AI project 3
@@ -125,150 +125,157 @@ void logicProcessing(int which) {
   penaltyAndPossibilisticFile.close();
 }
 
-int main(int argc, char **argv) {
-  std::cout << "Hello, Gamer!" << std::endl;
+void parseConstraints(string fileName){
+    string rawInput;
+    ifstream file(fileName);
+    constraints.clear();
+    if (file.is_open())
+        while (file.good()) {
+            rawInput.clear();
+            getline(file, rawInput);
+            vector<pair<int, int>> cur;
+            cur.clear();
 
-  // string task;
-  // getline(cin, task);
-
-  // testing();
-  string rawInput;
-
-  // region Attributes
-  attributeNames.clear();
-  if (attributesFile.is_open())
-    while (attributesFile.good()) {
-      getline(attributesFile, rawInput);
-
-      regex vowels("[^-0-9a-zA-Z]+");
-      rawInput = regex_replace(rawInput, vowels, " ");
-
-      istringstream iss(rawInput);
-
-      string attribute, zero, one;
-      iss >> attribute >> zero >> one;
-      attributeNames[attribute] = make_pair(zero, one);
-
-      // cout << "recording: " << attribute << ' ' << zero << ' ' << one <<
-      // endl;
-    }
-  else
-    cout << "Couldnt open attributes file";
-  /*
-  for(auto it=attributeNames.begin(); it != attributeNames.end(); it++){
-      cout << "Key: " << it->first << "  Value: "  << it->second.first << "," <<
-  it->second.second <<  endl;
-  }
-  */
-  attributesFile.close();
-
-  // endregion
-
-  // region Constraints
-  constraints.clear();
-
-  if (constraintsFile.is_open())
-    while (constraintsFile.good()) {
-      rawInput.clear();
-      getline(constraintsFile, rawInput);
-      vector<pair<int, int>> cur;
-      cur.clear();
-
-      for (int i = 0; i < rawInput.size(); i++) {
-        switch (rawInput[i]) {
-        default:
-          // cout << "emplaced default, true: " << rawInput[i] << endl;
-          // cout << "Science true: " << std::stoi(to_string(rawInput[i])) - 48
-          // << endl;
-          cur.emplace_back(std::stoi(to_string(rawInput[i])) - 48, 1);
-          break;
-        case '!':
-          // cout << "emplaced not, false: " << rawInput[i + 1] << endl;
-          // cout << "Science false: " << std::stoi(to_string(rawInput[i + 1]))
-          // - 48 << endl;
-          cur.emplace_back(std::stoi(to_string(rawInput[i + 1])) - 48, 0);
-          i++;
-          break;
-        case 'o':
-          constraints.push_back(cur);
-          cur.clear();
-          break;
-        case 'a':
-          // constraints.push_back(cur);
-          break;
+            for (int i = 0; i < rawInput.size(); i++) {
+                switch (rawInput[i]) {
+                    default:
+                        // cout << "emplaced default, true: " << rawInput[i] << endl;
+                        // cout << "Science true: " << std::stoi(to_string(rawInput[i])) - 48
+                        // << endl;
+                        cur.emplace_back(std::stoi(to_string(rawInput[i])) - 48, 1);
+                        break;
+                    case '!':
+                        // cout << "emplaced not, false: " << rawInput[i + 1] << endl;
+                        // cout << "Science false: " << std::stoi(to_string(rawInput[i + 1]))
+                        // - 48 << endl;
+                        cur.emplace_back(std::stoi(to_string(rawInput[i + 1])) - 48, 0);
+                        i++;
+                        break;
+                    case 'o':
+                        constraints.push_back(cur);
+                        cur.clear();
+                        break;
+                    case 'a':
+                        // constraints.push_back(cur);
+                        break;
+                }
+            }
+            constraints.push_back(cur);
+            cur.clear();
+            // cout << "----" << endl;
         }
+    file.close();
+
+    for (int i = 0; i < constraints.size(); i++) {
+        for (int j = 0; j < constraints[i].size(); j++) {
+            std::cout << constraints[i][j].first << ' ' <<
+                      constraints[i][j].second << std::endl;
+        }
+        std::cout << endl;
+    }
+  }
+
+void parseAttributes(string fileName) {
+    ifstream file(fileName);
+    string rawInput;
+
+    attributeNames.clear();
+    if (file.is_open())
+        while (file.good()) {
+            getline(file, rawInput);
+
+            regex vowels("[^-0-9a-zA-Z]+");
+            rawInput = regex_replace(rawInput, vowels, " ");
+
+            istringstream iss(rawInput);
+
+            string attribute, zero, one;
+            iss >> attribute >> zero >> one;
+            attributeNames[attribute] = make_pair(zero, one);
+
+        }
+    else
+        cout << "Couldnt open attributes file";
+    for (auto it = attributeNames.begin(); it != attributeNames.end(); it++) {
+        cout << "Key: " << it->first << "  Value: " << it->second.first << "," <<
+             it->second.second << endl;
+    }
+    file.close();
+}
+
+
+
+
+
+  int main(int argc, char **argv) {
+    std::cout << "Hello, Gamer!" << std::endl;
+
+    // string task;
+    // getline(cin, task);
+
+    // testing();
+
+    /*
+    // endregion
+
+    logicProcessing(0);
+    // if its empty it blacklists everything since the empty set fits in//
+    // everything
+    if (!constraints.empty())
+      blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
+
+    penaltiesResult = penaltiesFunction(
+        attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
+        penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
+        penaltiesAndPossibilitiesCosts);
+
+    penaltiesAndProbabilities.clear();
+    penaltyAndPossibilityStrings.clear();
+    penaltiesAndPossibilitiesStack.clear();
+    penaltiesAndPossibilitiesCosts.clear();
+
+    logicProcessing(1);
+
+    for (int i = 0; i < penaltiesAndProbabilities.size(); i++) {
+      for (int j = 0; j < penaltiesAndProbabilities[i].size(); j++) {
+        cout << penaltiesAndProbabilities[i][j].first << ' '
+             << penaltiesAndProbabilities[i][j].second << ' '
+             << penaltiesAndPossibilitiesStack[i] << '\n';
       }
-      constraints.push_back(cur);
-      cur.clear();
-      // cout << "----" << endl;
+      cout << "Penalty val = "
+           << penaltiesAndPossibilitiesCosts[penaltiesAndPossibilitiesStack[i]]
+           << endl;
     }
-  constraintsFile.close();
-  /*
-  for (int i = 0; i < constraints.size(); i++){
-      for (int j = 0; j < constraints[i].size(); j++){
-          std::cout << constraints[i][j].first << ' ' <<
-  constraints[i][j].second << std::endl;
+    possibilisticResult = possibilisticFunction(
+        attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
+        penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
+        penaltiesAndPossibilitiesCosts);
+
+    penaltiesAndProbabilities.clear();
+    penaltyAndPossibilityStrings.clear();
+    penaltiesAndPossibilitiesStack.clear();
+    penaltiesAndPossibilitiesCosts.clear();
+    qualitativeColumn.clear();
+
+    logicProcessing(2);
+
+    for (int i = 0; i < penaltiesAndProbabilities.size(); i++) {
+      for (int j = 0; j < penaltiesAndProbabilities[i].size(); j++) {
+        cout << penaltiesAndProbabilities[i][j].first << ' '
+             << penaltiesAndProbabilities[i][j].second << ' '
+             << penaltiesAndPossibilitiesStack[i] << '\n';
       }
-      std::cout << endl;
-  }
-   */
-  // endregion
-
-  logicProcessing(0);
-  // if its empty it blacklists everything since the empty set fits in//
-  // everything
-  if (!constraints.empty())
-    blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
-
-  penaltiesResult = penaltiesFunction(
-      attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
-      penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
-      penaltiesAndPossibilitiesCosts);
-
-  penaltiesAndProbabilities.clear();
-  penaltyAndPossibilityStrings.clear();
-  penaltiesAndPossibilitiesStack.clear();
-  penaltiesAndPossibilitiesCosts.clear();
-
-  logicProcessing(1);
-
-  for (int i = 0; i < penaltiesAndProbabilities.size(); i++) {
-    for (int j = 0; j < penaltiesAndProbabilities[i].size(); j++) {
-      cout << penaltiesAndProbabilities[i][j].first << ' '
-           << penaltiesAndProbabilities[i][j].second << ' '
-           << penaltiesAndPossibilitiesStack[i] << '\n';
+      cout << "column = " << qualitativeColumn[i]
+           << " cost = " << qualitativeCost[i] << endl;
     }
-    cout << "Penalty val = "
-         << penaltiesAndPossibilitiesCosts[penaltiesAndPossibilitiesStack[i]]
-         << endl;
-  }
-  possibilisticResult = possibilisticFunction(
-      attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
-      penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
-      penaltiesAndPossibilitiesCosts);
+    qualitativeResult = qualitativeFunction(
+        attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
+        penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
+        penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
 
-  penaltiesAndProbabilities.clear();
-  penaltyAndPossibilityStrings.clear();
-  penaltiesAndPossibilitiesStack.clear();
-  penaltiesAndPossibilitiesCosts.clear();
-  qualitativeColumn.clear();
-
-  logicProcessing(2);
-
-  for (int i = 0; i < penaltiesAndProbabilities.size(); i++) {
-    for (int j = 0; j < penaltiesAndProbabilities[i].size(); j++) {
-      cout << penaltiesAndProbabilities[i][j].first << ' '
-           << penaltiesAndProbabilities[i][j].second << ' '
-           << penaltiesAndPossibilitiesStack[i] << '\n';
-    }
-    cout << "column = " << qualitativeColumn[i]
-         << " cost = " << qualitativeCost[i] << endl;
-  }
-  qualitativeResult = qualitativeFunction(
-      attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
-      penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
-      penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
-
+    */
   wininit(argc, argv);
+
+
   return 0;
 }
