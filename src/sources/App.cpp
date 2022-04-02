@@ -47,6 +47,7 @@ Glib::RefPtr<Gtk::TextBuffer> AttriBuff, ConstBuff, PrefBuff, FeasBuff,
     ExempBuff, OptBuff, OmniOpBuff;
 Glib::RefPtr<Gtk::TextBuffer> getAttriBuff() { return AttriBuff; }
 Glib::RefPtr<Gtk::TextBuffer> getConstBuff() { return ConstBuff; }
+Glib::RefPtr<Gtk::TextBuffer> getPrefBuff() { return PrefBuff; }
 // The different view to display the text buffers
 Gtk::TextView *AttriView = nullptr, *ConstView = nullptr, *PrefView = nullptr;
 

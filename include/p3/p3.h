@@ -20,6 +20,7 @@ namespace p3 {
 
 Glib::RefPtr<Gtk::TextBuffer> getAttriBuff();
 Glib::RefPtr<Gtk::TextBuffer> getConstBuff();
+Glib::RefPtr<Gtk::TextBuffer> getPrefBuff();
 void BufferFlush(Glib::RefPtr<Gtk::TextBuffer> buff);
 void BufferInsert(Glib::RefPtr<Gtk::TextBuffer> buff, std::string data);
 int wininit(int argc, char **argv);
