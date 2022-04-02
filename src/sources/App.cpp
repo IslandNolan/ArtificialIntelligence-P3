@@ -1,12 +1,12 @@
-#include "glibmm/refptr.h"
-#include "gtkmm/dialog.h"
-#include "gtkmm/enums.h"
-#include "gtkmm/filechooser.h"
-#include "gtkmm/filechooserdialog.h"
 #include "p3/p3.h"
-#include <gtkmm-3.0/gtkmm.h>
+#include <glibmm/refptr.h>
+//#include <gtkmm-3.0/gtkmm.h>
 #include <gtkmm-3.0/gtkmm/applicationwindow.h>
 #include <gtkmm-3.0/gtkmm/builder.h>
+#include <gtkmm-3.0/gtkmm/dialog.h>
+#include <gtkmm-3.0/gtkmm/enums.h>
+#include <gtkmm-3.0/gtkmm/filechooser.h>
+#include <gtkmm-3.0/gtkmm/filechooserdialog.h>
 #include <gtkmm-3.0/gtkmm/scrolledwindow.h>
 #include <gtkmm-3.0/gtkmm/textbuffer.h>
 #include <gtkmm-3.0/gtkmm/textview.h>
@@ -48,7 +48,8 @@ Glib::RefPtr<Gtk::TextBuffer> AttriBuff, ConstBuff, PrefBuff, FeasBuff,
 Glib::RefPtr<Gtk::TextBuffer> getAttriBuff() { return AttriBuff; }
 Glib::RefPtr<Gtk::TextBuffer> getConstBuff() { return ConstBuff; }
 Glib::RefPtr<Gtk::TextBuffer> getPrefBuff() { return PrefBuff; }
-// The different view to display the text buffers
+// TODO: turn Attriview into a tree view
+//  The different view to display the text buffers
 Gtk::TextView *AttriView = nullptr, *ConstView = nullptr, *PrefView = nullptr;
 
 Gtk::ScrolledWindow *AttriScroll = nullptr, *ConstScroll = nullptr,
@@ -97,29 +98,6 @@ void BufferFlush(Glib::RefPtr<Gtk::TextBuffer> buff) {
     std::cout << "FLUSHING BUFFER" << std::endl;
     buff->erase(buff->begin(), buff->end());
   }
-}
-
-void initButtons(Gtk::Builder *refBuilder, FUP files, MB but, FB fun) {
-  // Get the GtkBuilder-instantiated Button, and connect a signal handler:
-  // buttons for file upload
-  refBuilder->get_widget("Attri_FU_But", files.pAttri);
-  refBuilder->get_widget("Constraint_FU_But", files.pConst);
-  refBuilder->get_widget("Pen_FU_But", files.pPenL);
-  refBuilder->get_widget("Poss_FU_But", files.pPossL);
-  refBuilder->get_widget("Qual_FU_But", files.pQual);
-
-  // buttons for Manual Entry Append
-  refBuilder->get_widget("Attri_Man_But", but.pAttri);
-  refBuilder->get_widget("Constraint_Man_But", but.pConst);
-  refBuilder->get_widget("Pen_Man_But", but.pPenL);
-  refBuilder->get_widget("Poss_Man_But", but.pPossL);
-  refBuilder->get_widget("Qual_Man_But", but.pQual);
-
-  // 4 function buttons
-  refBuilder->get_widget("Omni_Opt_But", fun.Omniopt);
-  refBuilder->get_widget("Opt_But", fun.Opt);
-  refBuilder->get_widget("Exemplification_But", fun.Exemp);
-  refBuilder->get_widget("Feasability_But", fun.Feas);
 }
 
 void onConstraintsUpload() {
@@ -390,7 +368,6 @@ int wininit(int argc, char **argv) {
     refBuilder->get_widget("Exemplification_But", fun.Exemp);
     refBuilder->get_widget("Feasability_But", fun.Feas);
 
-    // TODO: get file upload buttons to prompt for file upload
     // Connections to the File Upload Button Entries
     files.pAttri->signal_clicked().connect(sigc::ptr_fun(onAttributeUpload));
     files.pConst->signal_clicked().connect(sigc::ptr_fun(onConstraintsUpload));
@@ -422,7 +399,7 @@ int wininit(int argc, char **argv) {
     ResScroll->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
     // TextViews
     refBuilder->get_widget("Attri_Prev", AttriView);
-    refBuilder->get_widget("Constraint_Prev", ConstView);
+    refBuilder->get_widget("Const_Prev", ConstView);
     refBuilder->get_widget("Pref_Prev", PrefView);
     AttriView->set_buffer(AttriBuff);
     AttriView->set_editable(false);

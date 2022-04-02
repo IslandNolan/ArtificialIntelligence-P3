@@ -1,6 +1,7 @@
 #define maxAttributes 10
 #include <bits/stdc++.h>
 #include <algorithm>
+#include <p3/p3.h>
 /**
  * Feed it a list of positions and bools, it will return true if all are true,
  * else returns false;
@@ -145,7 +146,7 @@ std::vector<std::vector<std::string>> penaltiesFunction(std::unordered_map<std::
         matrix[0][i+2] = "total penalty";;
     }
     int iteration = 0; // for first column to deal with blacklisting
-    std::cout << std::endl;
+    //std::cout << std::endl;
     for(int i = 0; i < attributeNames.size()*attributeNames.size()-blacklist.size(); i++){
 
         for(int j = 0; j < penaltyStack.size(); j++){
@@ -182,7 +183,7 @@ std::vector<std::vector<std::string>> penaltiesFunction(std::unordered_map<std::
             }
         }
         matrix[iteration][detected.size()+1] = std::to_string(total);
-        std::cout << std::endl;
+        //std::cout << std::endl;
         //matrix[i][penaltiesAndProbabilities.size()-1] = std::to_string(total);
         //std::cout << "Detect Test ";
         for(int j = 0; j < penaltyStack.size(); j++){
@@ -190,12 +191,17 @@ std::vector<std::vector<std::string>> penaltiesFunction(std::unordered_map<std::
         }
         skip:;
     }
+    std::string temp;
     for(int i = 0; i < attributeNames.size()*attributeNames.size()-blacklist.size()+1; i++){
         for(int j = 0; j < penaltyStack.size(); j++){
             std::cout << matrix[i][j] << ' ';
+            if (i==0 && j!=0) temp += matrix[i][j] + " ";
         }
         std::cout << std::endl;
     }
+    //TODO: Maybe convert to English?
+    BufferFlush(getPrefBuff());
+    BufferInsert(getPrefBuff(), temp);
     return matrix;
 }
 
@@ -219,7 +225,7 @@ std::vector<std::vector<std::string>> possibilisticFunction(std::unordered_map<s
         matrix[0][i+2] = "total desirabily";
     }
     int iteration = 0; // for first column to deal with blacklisting
-    std::cout << std::endl;
+    //std::cout << std::endl;
     for(int i = 0; i < attributeNames.size()*attributeNames.size()-blacklist.size(); i++){
 
         for(int j = 0; j < penaltyStack.size(); j++){
@@ -268,12 +274,16 @@ std::vector<std::vector<std::string>> possibilisticFunction(std::unordered_map<s
         }
         skip:;
     }
+    std::string temp;
     for(int i = 0; i < attributeNames.size()*attributeNames.size()-blacklist.size()+1; i++){
         for(int j = 0; j < penaltyStack.size(); j++){
             std::cout << matrix[i][j] << ' ';
+            if (i==0 && j!=0 && j!=penaltyStack.size()-1) temp += matrix[i][j] + " ";
         }
-        std::cout << std::endl;
+        //std::cout << std::endl;
     }
+    BufferFlush(getPrefBuff());
+    BufferInsert(getPrefBuff(), temp);
     return matrix;
 }
 
@@ -314,7 +324,7 @@ std::vector<std::vector<std::string>> qualitativeFunction(std::unordered_map<std
         std::cout << matrix[0][i] << ' ';
     }
     int iteration = 0; // for first column to deal with blacklisting
-    std::cout << std::endl;
+    //std::cout << std::endl;
 
     for(int i = 0; i < attributeNames.size()*attributeNames.size()-blacklist.size(); i++){
         matrix[i+1][0] = "binary";
@@ -342,13 +352,17 @@ std::vector<std::vector<std::string>> qualitativeFunction(std::unordered_map<std
         }
         skip:;
     }
-    std::cout << std::endl;
+    //std::cout << std::endl;
+    std::string temp;
     for(int i = 0; i < attributeNames.size()*attributeNames.size()-blacklist.size()+1; i++){
         for(int j = 0; j <= distinctCols; j++){
             std::cout << matrix[i][j] << ' ';
+            if (i==0 && j!=0) temp += matrix[i][j] + " ";
         }
         std::cout << std::endl;
     }
+    BufferFlush(getPrefBuff());
+    BufferInsert(getPrefBuff(), temp);
     return matrix;
 }
 /**
