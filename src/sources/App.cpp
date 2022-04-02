@@ -103,7 +103,7 @@ void initButtons(Gtk::Builder *refBuilder, FUP files, MB but, FB fun) {
 
 
 void onConstraintsUpload(){
-    Gtk::FileChooserDialog dialog("please choose a file",
+    Gtk::FileChooserDialog dialog("Select Constraints File",
                                   Gtk::FILE_CHOOSER_ACTION_OPEN);
     // dialog.set_transient_for(*this);
     // Add response buttons to the dialog:
@@ -146,7 +146,7 @@ void onConstraintsUpload(){
     }
 }
 void onAttributeUpload() {
-  Gtk::FileChooserDialog dialog("please choose a file",
+  Gtk::FileChooserDialog dialog("Select Attributes File",
                                 Gtk::FILE_CHOOSER_ACTION_OPEN);
   // dialog.set_transient_for(*this);
   // Add response buttons to the dialog:
@@ -189,7 +189,7 @@ void onAttributeUpload() {
   }
 }
 void onPenaltyFileUpload() {
-    Gtk::FileChooserDialog dialog("please choose a file",
+    Gtk::FileChooserDialog dialog("Select Penalty File",
                                   Gtk::FILE_CHOOSER_ACTION_OPEN);
     // dialog.set_transient_for(*this);
     // Add response buttons to the dialog:
@@ -232,7 +232,7 @@ void onPenaltyFileUpload() {
     }
 }
 void onPossibilisticUpload() {
-    Gtk::FileChooserDialog dialog("please choose a file",
+    Gtk::FileChooserDialog dialog("Select Possibilistics File",
                                   Gtk::FILE_CHOOSER_ACTION_OPEN);
     // dialog.set_transient_for(*this);
     // Add response buttons to the dialog:
@@ -275,7 +275,7 @@ void onPossibilisticUpload() {
     }
 }
 void onQualitativeUpload() {
-    Gtk::FileChooserDialog dialog("please choose a file",
+    Gtk::FileChooserDialog dialog("Select Qualitative File",
                                   Gtk::FILE_CHOOSER_ACTION_OPEN);
     // dialog.set_transient_for(*this);
     // Add response buttons to the dialog:
@@ -316,6 +316,7 @@ void onQualitativeUpload() {
             break;
         }
     }
+
 }
 
 
