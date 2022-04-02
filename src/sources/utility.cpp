@@ -367,15 +367,28 @@ std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::st
     std::cout << "Fuck Fuck " << std::endl << std::endl;
     toSend.emplace_back(matrix[0]);
     if(which == 0){
-        for(int i = 1; i < matrix.size(); i++)
-            if(matrix[i][matrix[i].size()-2] != "0"){
-                std::vector<std::string> fuck = matrix[i];
-                fuck.erase(fuck.end()-1,fuck.end());
+        for(int i = 1; i < matrix.size(); i++) {
+            if (matrix[i][matrix[i].size() - 2] != "0") {
+                std::vector <std::string> fuck = matrix[i];
+                fuck.erase(fuck.end() - 1, fuck.end());
                 toSend.emplace_back(fuck);
             }
         }
+    }
     if(which == 1){
         return toSend;
+    }
+    if(which == 2){
+        for(int i = 1; i < matrix.size(); i++) {
+            for(int j = 1; j < matrix[i].size(); j++){
+                if (matrix[i][j] != "inf"){
+                    std::vector <std::string> fuck = matrix[i];
+                    toSend.emplace_back(fuck);
+                    goto skip;
+                }
+            }
+            skip:;
+        }
     }
     for(int i = 0; i < toSend.size(); i++){
         for(int j = 0; j < toSend[i].size(); j++){

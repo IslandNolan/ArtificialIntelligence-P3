@@ -241,6 +241,7 @@ void logicProcessing(int which, string fileName) {
 
 int main(int argc, char **argv) {
     std::cout << "Hello, Gamer!" << std::endl;
+    /*
     parseAttributes("inputs/attributes.txt");
     if (!constraints.empty())
         blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
@@ -274,11 +275,22 @@ int main(int argc, char **argv) {
 
     feasbility(possibilisticResult, 1);
 
-// string task;
-// getline(cin, task);
+    penaltiesAndProbabilities.clear();
+    penaltyAndPossibilityStrings.clear();
+    penaltiesAndPossibilitiesStack.clear();
+    penaltiesAndPossibilitiesCosts.clear();
+    qualitativeColumn.clear();
+    qualitativeCost.clear();
 
-// testing();
+    logicProcessing(2, "inputs/qualitative.txt");
 
+    qualitativeResult = qualitativeFunction(
+            attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
+            penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
+            penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
+
+    feasbility(qualitativeResult, 2);
+*/
 /*
 // endregion
 
