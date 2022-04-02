@@ -427,41 +427,46 @@ std::vector<std::vector<std::string>> exemplification(std::vector<std::vector<st
 
     std::vector<std::string> frick;
     if(which == 0){
-        if (std::stoi(matrix[2][matrix[2].size()-1]) < std::stoi(matrix[1][matrix[1].size()-1])) {
+        if (std::stoi(matrix[2][matrix[2].size()-1]) < std::stoi(matrix[1][matrix[1].size()-1]))
             frick.emplace_back("Bottom Row Better");
-        }
-        else if (std::stoi(matrix[2][matrix[2].size()-1]) > std::stoi(matrix[1][matrix[1].size()-1]))  {
+        else if (std::stoi(matrix[2][matrix[2].size()-1]) > std::stoi(matrix[1][matrix[1].size()-1]))
             frick.emplace_back("Top Row Better");
-        }
-        else{
+        else
             frick.emplace_back("Equivalent");
-        }
+
         toSend.emplace_back(frick);
     }
     else if(which == 1){
-        if (std::stod(matrix[2][matrix[2].size()-1]) < std::stod(matrix[1][matrix[1].size()-1])) {
+        if (std::stod(matrix[2][matrix[2].size()-1]) < std::stod(matrix[1][matrix[1].size()-1]))
             frick.emplace_back("Top Row More Desirable");
-        }
-        else if (std::stod(matrix[2][matrix[2].size()-1]) > std::stod(matrix[1][matrix[1].size()-1]))  {
+        else if (std::stod(matrix[2][matrix[2].size()-1]) > std::stod(matrix[1][matrix[1].size()-1]))
             frick.emplace_back("Bottom Row More Desirable");
-        }
-        else{
+        else
             frick.emplace_back("Equivalent");
-        }
-        toSend.emplace_back(frick);
 
+        toSend.emplace_back(frick);
     }
     else if(which == 2){
-        for(int i = 1; i < matrix.size(); i++) {
-            for(int j = 1; j < matrix[i].size(); j++){
-                if (matrix[i][j] != "inf"){
-                    std::vector <std::string> fuck = matrix[i];
-                    toSend.emplace_back(fuck);
-                    goto skip;
-                }
+        double top = 0, bottom = 0;
+        for(int i = 1; i < toSend[0].size(); i++) {
+            if(toSend[1][i] != "inf")
+                top += std::stod(toSend[1][i]);
+            if(toSend[2][i] != "inf")
+                bottom += std::stod(toSend[2][i]);
+            if (toSend[1][i] == "inf" && toSend[2][i] != "inf" || toSend[2][i] == "inf" && toSend[1][i] != "inf"){
+                frick.emplace_back("Incomparable");
+                goto skip;
             }
-            skip:;
         }
+        if(top > bottom)
+            frick.emplace_back("Bottom Row More Desirable");
+        else if(top < bottom)
+            frick.emplace_back("Top Row More Desirable");
+        else
+            frick.emplace_back("Equivalent");
+
+        skip:;
+        toSend.emplace_back(frick);
     }
     for(int i = 0; i < toSend.size(); i++){
         for(int j = 0; j < toSend[i].size(); j++){
