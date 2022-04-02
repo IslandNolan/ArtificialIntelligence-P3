@@ -240,9 +240,63 @@ void logicProcessing(int which, string fileName) {
     file.close();
 }
 //endregion
+/**
+ * Clears all reused variables, to be used before processing a new function
+ * Doesnt clear attributes and constraints
+ */
+void clearAll(){
+    penaltiesAndProbabilities.clear();
+    penaltyAndPossibilityStrings.clear();
+    penaltiesAndPossibilitiesStack.clear();
+    penaltiesAndPossibilitiesCosts.clear();
+    qualitativeColumn.clear();
+    qualitativeCost.clear();
+}
+/**
+ * For Francisco to test stuff. Dont delete it Nolan!!!!
+ */
+void frannyTesting(){
+    parseAttributes("inputs/attributes.txt");
+    if (!constraints.empty())
+        blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
+    parseConstraints("inputs/constraints.txt");
+    if (!constraints.empty())
+        blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
+    vector<vector<string>> feasibilityResult;
+
+    /*
+    logicProcessing(0, "inputs/penalty.txt");
+    penaltiesResult = penaltiesFunction(
+            attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
+            penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
+            penaltiesAndPossibilitiesCosts);
+    feasibilityResult = feasbility(penaltiesResult,0);
+    exemplification(feasibilityResult,0);
+    clearAll();
+    */
+
+    logicProcessing(1, "inputs/possibilistic.txt");
+    possibilisticResult = possibilisticFunction(
+            attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
+            penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
+            penaltiesAndPossibilitiesCosts);
+    feasibilityResult = feasbility(possibilisticResult, 1);
+    //exemplification(feasibilityResult,1);
+    clearAll();
+
+    /*
+    logicProcessing(2, "inputs/qualitative.txt");
+    qualitativeResult = qualitativeFunction(
+            attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
+            penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
+            penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
+    feasbility(qualitativeResult, 2);
+    */
+}
 
 int main(int argc, char **argv) {
     std::cout << "Hello, Gamer!" << std::endl;
+    //frannyTesting();
     wininit(argc, argv);
     return 0;
 }

@@ -280,7 +280,7 @@ std::vector<std::vector<std::string>> possibilisticFunction(std::unordered_map<s
             std::cout << matrix[i][j] << ' ';
             if (i==0 && j!=0 && j!=penaltyStack.size()-1) temp += matrix[i][j] + " ";
         }
-        //std::cout << std::endl;
+        std::cout << std::endl;
     }
     BufferFlush(getPrefBuff());
     BufferInsert(getPrefBuff(), temp);
@@ -370,6 +370,12 @@ std::vector<std::vector<std::string>> qualitativeFunction(std::unordered_map<std
  * 1 for possibilistic
  * 2 for qualitative
  */
+/**
+ * takes data, returns only the feasable ones
+ * @param matrix data to analyze
+ * @param which 0 for penalty, 1 for possibilistic, 2 for qualitative
+ * @return the feasability matrix
+ */
 std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::string>> matrix, int which){
     std::vector<std::vector<std::string>> toSend;
     toSend.emplace_back(matrix[0]);
@@ -403,5 +409,64 @@ std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::st
             }
             std::cout << std::endl;
         }
+    return toSend;
+}
+
+/**
+ * takes feasible data, picks two at random, with the the highest ontop unless equal
+ * @param matrix data to analyze
+ * @param which 0 for penalty, 1 for possibilistic, 2 for qualitative
+ * @return the top column same as others, next two are the example rows
+ */
+std::vector<std::vector<std::string>> exemplification(std::vector<std::vector<std::string>> matrix, int which){
+    std::cout << "Exemplification:\n";
+    std::vector<std::vector<std::string>> toSend;
+    toSend.emplace_back(matrix[0]);
+    toSend.emplace_back(matrix[1]);
+    toSend.emplace_back(matrix[2]);
+
+    std::vector<std::string> frick;
+    if(which == 0){
+        if (std::stoi(matrix[2][matrix[2].size()-1]) < std::stoi(matrix[1][matrix[1].size()-1])) {
+            frick.emplace_back("Bottom Row Better");
+        }
+        else if (std::stoi(matrix[2][matrix[2].size()-1]) > std::stoi(matrix[1][matrix[1].size()-1]))  {
+            frick.emplace_back("Top Row Better");
+        }
+        else{
+            frick.emplace_back("Equivalent");
+        }
+        toSend.emplace_back(frick);
+    }
+    else if(which == 1){
+        if (std::stod(matrix[2][matrix[2].size()-1]) < std::stod(matrix[1][matrix[1].size()-1])) {
+            frick.emplace_back("Top Row More Desirable");
+        }
+        else if (std::stod(matrix[2][matrix[2].size()-1]) > std::stod(matrix[1][matrix[1].size()-1]))  {
+            frick.emplace_back("Bottom Row More Desirable");
+        }
+        else{
+            frick.emplace_back("Equivalent");
+        }
+        toSend.emplace_back(frick);
+    }
+    else if(which == 2){
+        for(int i = 1; i < matrix.size(); i++) {
+            for(int j = 1; j < matrix[i].size(); j++){
+                if (matrix[i][j] != "inf"){
+                    std::vector <std::string> fuck = matrix[i];
+                    toSend.emplace_back(fuck);
+                    goto skip;
+                }
+            }
+            skip:;
+        }
+    }
+    for(int i = 0; i < toSend.size(); i++){
+        for(int j = 0; j < toSend[i].size(); j++){
+            std::cout << toSend[i][j] << ' ';
+        }
+        std::cout << std::endl;
+    }
     return toSend;
 }

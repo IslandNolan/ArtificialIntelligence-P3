@@ -37,4 +37,5 @@ void parseConstraints(std::string fileName);
 void logicProcessing(int, std::string fileName);
 void startProcessing(int which);
 std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::string>> matrix, int which);
+std::vector<std::vector<std::string>> exemplification(std::vector<std::vector<std::string>> matrix, int which);
 #endif //PROJECT3_P3_H
