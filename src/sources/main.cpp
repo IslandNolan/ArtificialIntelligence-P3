@@ -196,9 +196,17 @@ void parseAttributes(string fileName) {
         }
     else
         cout << "Couldnt open attributes file";
+    BufferFlush(getAttriBuff());
     for (auto it = attributeNames.begin(); it != attributeNames.end(); it++) {
         cout << "Key: " << it->first << "  Value: " << it->second.first << "," <<
              it->second.second << endl;
+        BufferInsert(getAttriBuff(), "Key: ");
+        BufferInsert(getAttriBuff(), it->first);
+        BufferInsert(getAttriBuff(), " Value: ");
+        BufferInsert(getAttriBuff(), it->second.first);
+        BufferInsert(getAttriBuff(), ",");
+        BufferInsert(getAttriBuff(), it->second.second);
+        BufferInsert(getAttriBuff(), "\n");
     }
     file.close();
 }

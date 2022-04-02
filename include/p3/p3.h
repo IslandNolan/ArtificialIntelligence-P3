@@ -17,6 +17,9 @@ namespace p3 {
     class App;
     class main;
 }
+
+Glib::RefPtr<Gtk::TextBuffer> getAttriBuff();
+void BufferFlush(Glib::RefPtr<Gtk::TextBuffer> buff);
 int wininit(int argc, char **argv);
 int checkOr(std::bitset<maxAttributes> toCheck, std::vector<std::vector<std::pair<int, int>>> values);
 int checkAnd(std::bitset<maxAttributes> toCheck, std::vector<std::pair<int, int>> values);
@@ -28,5 +31,6 @@ std::vector<std::vector<std::string>> qualitativeFunction(std::unordered_map<std
 std::vector<int> blacklistFunction(int attributeCount, std::vector<std::vector<std::pair<int,int>>> hardConstraints);
 void parseAttributes(std::string fileName);
 void parseConstraints(std::string fileName);
+void BufferInsert(Glib::RefPtr<Gtk::TextBuffer> buff, std::string data);
 
 #endif //PROJECT3_P3_H
