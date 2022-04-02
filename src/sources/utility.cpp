@@ -459,9 +459,70 @@ std::vector<std::vector<std::string>> exemplification(std::vector<std::vector<st
             }
         }
         if(top > bottom)
-            frick.emplace_back("Bottom Row More Desirable");
+            frick.emplace_back("Top More Desirable");
         else if(top < bottom)
+            frick.emplace_back("Bottom Row More Desirable");
+        else
+            frick.emplace_back("Equivalent");
+
+        skip:;
+        toSend.emplace_back(frick);
+    }
+    for(int i = 0; i < toSend.size(); i++){
+        for(int j = 0; j < toSend[i].size(); j++){
+            std::cout << toSend[i][j] << ' ';
+        }
+        std::cout << std::endl;
+    }
+    return toSend;
+}
+
+/**
+ * takes feasible data, the optimal
+ * @param matrix data to analyze
+ * @param which 0 for penalty, 1 for possibilistic, 2 for qualitative
+ * @return matrix with top row still being the header, bottom being the optimal row
+ */
+std::vector<std::vector<std::string>> optimization(std::vector<std::vector<std::string>> matrix, int which){
+    std::cout << "Optimization:\n";
+    std::vector<std::vector<std::string>> toSend;
+    toSend.emplace_back(matrix[0]);
+
+    std::vector<std::string> frick;
+    if(which == 0){
+        int best = 1;
+        for(int i = 2; i < matrix.size(); i++){
+            if (std::stoi(matrix[i][matrix[i].size()-1]) < std::stoi(matrix[best][matrix[best].size()-1]))
+                best = i;
+        }
+        toSend.emplace_back(matrix[best]);
+    }
+    else if(which == 1){
+        if (std::stod(matrix[2][matrix[2].size()-1]) < std::stod(matrix[1][matrix[1].size()-1]))
             frick.emplace_back("Top Row More Desirable");
+        else if (std::stod(matrix[2][matrix[2].size()-1]) > std::stod(matrix[1][matrix[1].size()-1]))
+            frick.emplace_back("Bottom Row More Desirable");
+        else
+            frick.emplace_back("Equivalent");
+
+        toSend.emplace_back(frick);
+    }
+    else if(which == 2){
+        double top = 0, bottom = 0;
+        for(int i = 1; i < toSend[0].size(); i++) {
+            if(toSend[1][i] != "inf")
+                top += std::stod(toSend[1][i]);
+            if(toSend[2][i] != "inf")
+                bottom += std::stod(toSend[2][i]);
+            if (toSend[1][i] == "inf" && toSend[2][i] != "inf" || toSend[2][i] == "inf" && toSend[1][i] != "inf"){
+                frick.emplace_back("Incomparable");
+                goto skip;
+            }
+        }
+        if(top > bottom)
+            frick.emplace_back("Top More Desirable");
+        else if(top < bottom)
+            frick.emplace_back("Bottom Row More Desirable");
         else
             frick.emplace_back("Equivalent");
 

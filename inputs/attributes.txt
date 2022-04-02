@@ -2,7 +2,3 @@ appetizer: soup, salad
 entree: beef, fish
 drink: beer, wine
 dessert: cake, ice-cream
-snack: rootbeer-float, icecream
-videogame: spiderman, batman
-sex: male, female
-phonebrand: apple, android
