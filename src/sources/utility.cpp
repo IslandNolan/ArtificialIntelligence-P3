@@ -124,14 +124,17 @@ std::vector<int> blacklistFunction(int attributeCount, std::vector<std::vector<s
     }
     return blacklist;
 }
-/**
- * Calculates Penalty Logic
- * @param attributeNames names of attributes, for later displaying in a pretty format
- * @param blacklist states to skip over
- * @param penalties penalty conditions to check for
- * @param penaltyStack which term belongs to which penalty
- * @param penaltyCosts costs of penaltiesAndProbabilities
- */
+
+ /**
+  * Calculates Penalty Logic
+  * @param attributeNames names of attributes, for later displaying in a pretty format
+  * @param penaltyStrings propositional function, to display later
+  * @param blacklist states to skip over
+  * @param penalties penalty conditions to check for
+  * @param penaltyStack which term belongs to which penalty
+  * @param penaltyCosts costs of penaltiesAndProbabilities
+  * @return returns the matrix, to be formatted by william daniel hiromoto for display
+  */
 std::vector<std::vector<std::string>> penaltiesFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<std::string> penaltyStrings, std::vector<int> blacklist, std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyStack, std::vector<int> penaltyCosts) {
     std::vector<std::vector<std::string>> matrix(attributeNames.size()*attributeNames.size()-blacklist.size()+1, std::vector<std::string>(penaltyStack.size()+1));
     std::string toInsert;
@@ -196,6 +199,16 @@ std::vector<std::vector<std::string>> penaltiesFunction(std::unordered_map<std::
     return matrix;
 }
 
+/**
+ * Calculates possibilistic Logic
+ * @param attributeNames names of attributes, for later displaying in a pretty format
+ * @param penaltyStrings propositional function, to display later
+ * @param blacklist states to skip over
+ * @param penalties penalty conditions to check for
+ * @param penaltyStack which term belongs to which penalty
+ * @param penaltyCosts cost for ith term
+ * @return returns the matrix, to be formatted by william daniel hiromoto for display
+ */
 std::vector<std::vector<std::string>> possibilisticFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<std::string> penaltyStrings, std::vector<int> blacklist, std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyStack, std::vector<int> penaltyCosts) {
     std::vector<std::vector<std::string>> matrix(attributeNames.size()*attributeNames.size()-blacklist.size()+1, std::vector<std::string>(penaltyStack.size()+1));
     std::string toInsert;
@@ -263,17 +276,18 @@ std::vector<std::vector<std::string>> possibilisticFunction(std::unordered_map<s
     }
     return matrix;
 }
+
 /**
- * nolan DONT TOUCH THIS REEEE
- * @param attributeNames
- * @param penaltyStrings
- * @param blacklist
- * @param penalties
- * @param penaltyStack
- * @param penaltyCosts
- * @param qualitativeColumn
- * @param qualitativeCost
- * @return
+ * Calculates qualitative Logic
+ * @param attributeNames names of attributes, for later displaying in a pretty format
+ * @param penaltyStrings propositional function, to display later
+ * @param blacklist states to skip over
+ * @param penalties penalty conditions to check for
+ * @param penaltyStack which term belongs to which penalty
+ * @param penaltyCosts costs of penaltiesAndProbabilities
+ * @param qualitativeColumn which line goes to which column
+ * @param qualitativeCost cost of i line
+ * @return returns the matrix, to be formatted by william daniel hiromoto for display
  */
 std::vector<std::vector<std::string>> qualitativeFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<std::string> penaltyStrings, std::vector<int> blacklist, std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyStack, std::vector<int> penaltyCosts, std::vector<int> qualitativeColumn, std::vector<int> qualitativeCost) {
     std::unordered_set<int> distinct;
@@ -312,7 +326,6 @@ std::vector<std::vector<std::string>> qualitativeFunction(std::unordered_map<std
     }
     for(int i = 0; i < attributeNames.size()*attributeNames.size();i++){
         std::bitset<maxAttributes> state(i);
-        std::string s = state.to_string();
         int total = 0;
         // should have made a set to check if xyz is blacklisted but have this spaghetti insteal
         for(int j : blacklist)
@@ -337,4 +350,38 @@ std::vector<std::vector<std::string>> qualitativeFunction(std::unordered_map<std
         std::cout << std::endl;
     }
     return matrix;
+}
+/**
+ * 0 for penalty
+ * 1 for possibilistic
+ * 2 for qualitative
+ */
+std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::string>> matrix, int which){
+    std::vector<std::vector<std::string>> toSend;
+    for(int i = 0; i < matrix.size(); i++){
+        for(int j = 0; j < matrix[i].size(); j++){
+            std::cout << matrix[i][j] << ' ';
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "Fuck Fuck " << std::endl << std::endl;
+    toSend.emplace_back(matrix[0]);
+    if(which == 0){
+        for(int i = 1; i < matrix.size(); i++)
+            if(matrix[i][matrix[i].size()-2] != "0"){
+                std::vector<std::string> fuck = {matrix[i][0]};
+                for(int j = 0; j < toSend[i].size(); j++){
+                    //fuck.emplace_back()
+
+                }
+            }
+            //toSend.emplace_back(matrix[i]);
+        }
+    for(int i = 0; i < toSend.size(); i++){
+        for(int j = 0; j < toSend[i].size(); j++){
+            std::cout << toSend[i][j] << ' ';
+            }
+            std::cout << std::endl;
+        }
+    return toSend;
 }

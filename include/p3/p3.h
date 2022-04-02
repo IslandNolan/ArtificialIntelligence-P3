@@ -29,5 +29,5 @@ std::vector<int> blacklistFunction(int attributeCount, std::vector<std::vector<s
 void parseAttributes(std::string fileName);
 void parseConstraints(std::string fileName);
 void logicProcessing(int, std::string fileName);
-
+std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::string>> matrix, int which);
 #endif //PROJECT3_P3_H
