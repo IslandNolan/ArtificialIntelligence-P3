@@ -38,17 +38,6 @@ ifstream file("inputs/constraints.txt");
  * read inputs from a file.
  */
 
-/*
-
-    todo::Exemplification: generate, if possible, two random feasible objects,
-   and show the preference between the two (strict preference or equivalence)
-   w.r.t T .
-
-    todo::Optimization: find an optimal object w.r.t T .
-
-    todo::Omni-optimization: find all optimal objects w.r.t T
-*/
-
 //region Parse
 
 void startProcessing(int which){
@@ -61,7 +50,6 @@ void startProcessing(int which){
             feasbility(penaltiesResult, 0);
             break;
         case 1:
-
             possibilisticResult = possibilisticFunction(
                     attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
                     penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
@@ -78,8 +66,10 @@ void startProcessing(int which){
     }
 }
 
-
-/** Process attributes and store them in the gtk Buffer */
+/**
+ * Process attributes and store them in the gtk Buffer
+ * @param fileName path to file to be parsed
+ */
 void parseConstraints(string fileName){
 
     ifstream file(fileName);
@@ -88,7 +78,6 @@ void parseConstraints(string fileName){
     BufferFlush(getConstBuff());
     if (file.is_open())
         while (file.good()) {
-            BufferInsert(getConstBuff(), "No ");
             string rawInput;
             rawInput.clear();
             vector<pair<int, int>> cur;
@@ -156,7 +145,7 @@ void parseConstraints(string fileName){
         }
         std::cout << endl;
     }
-     */
+    */
   }
 
 
