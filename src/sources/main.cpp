@@ -6,8 +6,8 @@
 #define maxAttributes 10
 using namespace std;
 
-unordered_map<string, pair<string, string>> attributeNames;
-vector<vector<pair<int, int>>> constraints;
+static unordered_map<string, pair<string, string>> attributeNames;
+static vector<vector<pair<int, int>>> constraints;
 
 vector<vector<pair<int, int>>> penaltiesAndProbabilities;
 vector<string> penaltyAndPossibilityStrings;
@@ -63,6 +63,29 @@ ifstream file("inputs/constraints.txt");
 
 
 //region parse
+
+void startProcessing(int which){
+    switch(which){
+        case 0:
+            penaltiesResult = penaltiesFunction(
+                    attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
+                    penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
+                    penaltiesAndPossibilitiesCosts);
+            break;
+        case 1:
+            possibilisticResult = possibilisticFunction(
+                    attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
+                    penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
+                    penaltiesAndPossibilitiesCosts);
+            break;
+        case 2:
+            qualitativeResult = qualitativeFunction(
+                    attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
+                    penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
+                    penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
+            break;
+    }
+}
 
 
 /** Process attributes and store them in the gtk Buffer */
