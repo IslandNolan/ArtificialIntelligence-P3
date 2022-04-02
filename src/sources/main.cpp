@@ -281,7 +281,7 @@ void frannyTesting(){
             penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
             penaltiesAndPossibilitiesCosts);
     feasibilityResult = feasbility(possibilisticResult, 1);
-    //exemplification(feasibilityResult,1);
+    exemplification(feasibilityResult,1);
     clearAll();
 
     /*

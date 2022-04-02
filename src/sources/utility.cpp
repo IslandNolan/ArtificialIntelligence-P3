@@ -389,7 +389,7 @@ std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::st
         }
     }
     if(which == 1){
-        return toSend;
+        return matrix;
     }
     if(which == 2){
         for(int i = 1; i < matrix.size(); i++) {
@@ -449,6 +449,7 @@ std::vector<std::vector<std::string>> exemplification(std::vector<std::vector<st
             frick.emplace_back("Equivalent");
         }
         toSend.emplace_back(frick);
+
     }
     else if(which == 2){
         for(int i = 1; i < matrix.size(); i++) {
