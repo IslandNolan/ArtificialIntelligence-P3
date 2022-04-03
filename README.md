@@ -1,52 +1,36 @@
 # Knowledge Based Intelligence System
-Francisco, William, Nolan
+######Project 3 by: Francisco, Nolan, Daniel
 
-Input Instructions:
+##Build Instructions:
+****
+###Dependencies (Linux Fedora):
 
-
- **general:**
- 
- 
- **!** == not
- 
- 
- **a** == and
- 
- 
- **o** == or
- 
- 
- **0-9** == variable names
-  
-  
- **,** == delineates penalties/desirability/quality and propositional logic
-  
- 
- **Notes and Examples:**
- 
- 
- **Penalty:** penalty value comes after the comma
- 
- 
- !2a3o!2,9 == not 2 and 3 or not 2, penalty 9
-  
- 
- **Possibilistic:** dont add a period infront of the desirability, simply adding a '9' is equivalent to saying .9 desirabily. same syntax as penalty
- 
- 
- !2a3o!2,9 == not 2 and 3 or not 2, desirability .9
+    - cmake           (v3.21+)
+    - cmake-gui       (any)
+    - gtkmm30         (v30+)
+    - gtkmm30-devel   (v30+)
+    - gtk3.0          (v3+)  
+    - ninja-build     (v1.10+)
+    - clang           (v14.0.0+)
+    
+    Package Names were taken from the deafault Fedora 35 Repositories.
 
 
- **Qualitative:** Have > be represented with a new line. Instead of <-, convert to cnf. The two digits after the comma refer to which function that portion belongs to, along with the desirability of that portion
- 
- 
- 1a3a2,11 = 1 and 3 and 2, desirability of 1, belongs to first function
+###Build
+####(Build Instructions are not available on MacOS, or Windows)
+
+1. Clone this Project
+2. Launch cmake-gui and create the Ninja-Build config file
+   1. ![img_1.png](img_1.png)
+   2. Enable the option: CMAKE >> CMAKE_EXPORT_COMPILE_COMMANDS
+   3. Click ```Configure```, Then ```Generate```
+   4. If you see that the Configure, and Generate Commands have completed successfully, Close this window and proceed to step 3.
+3. Run the Command "```$ProjectRoot~ cmake build .```"
+4. Launch the ```./compile.sh``` to build and automatically run the program.
 
 
- !1a!3a2,12 = not 1 and not 3 and not 2, desirability of 2, belongs to first function
- 
- 
- previous two examples provide the syntax for: *1a3a2 > !1a!3a2 <-* 
 
 
- !2,33 = not 2, desirability of 3, belongs to third function
+
+
+

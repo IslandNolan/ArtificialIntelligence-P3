@@ -81,6 +81,7 @@ void BufferFlush(Glib::RefPtr<Gtk::TextBuffer> buff) {
     std::cout << "buffers not initalized" << std::endl;
     return;
   } else {
+
     std::cout << "FLUSHING BUFFER" << std::endl;
     buff->erase(buff->begin(), buff->end());
   }
