@@ -1,8 +1,5 @@
 #include <bits/stdc++.h>
-#include <iostream>
 #include <p3/p3.h>
-#include <string.h>
-#include <string>
 #define maxAttributes 10
 using namespace std;
 
@@ -174,8 +171,11 @@ void bufferExemplification(){
         feasTest = exemplification(feasbility(qualitativeResult,2), 2);
         for(int i = 0; i < feasTest.size(); i++){
             for(int j = 0; j < feasTest[i].size(); j++){
+                sprintf(daniel, "%-25s", feasTest[i][j].c_str());
+                BufferInsert(getResultBuff(), daniel);
                 printf("%-18s", feasTest[i][j].c_str());
             }
+            BufferInsert(getResultBuff(), "\n");
             cout << endl;
         }
     }
@@ -230,8 +230,11 @@ void bufferOptimization(){
         feasTest = optimization(feasbility(qualitativeResult,2), 2);
         for(int i = 0; i < feasTest.size(); i++){
             for(int j = 0; j < feasTest[i].size(); j++){
+                sprintf(daniel, "%-25s", feasTest[i][j].c_str());
+                BufferInsert(getResultBuff(), daniel);
                 printf("%-18s", feasTest[i][j].c_str());
             }
+            BufferInsert(getResultBuff(), "\n");
             cout << endl;
         }
     }
@@ -285,8 +288,11 @@ void bufferOmniOptimization(){
         feasTest = omniOptimization(feasbility(qualitativeResult,2), 2);
         for(int i = 0; i < feasTest.size(); i++){
             for(int j = 0; j < feasTest[i].size(); j++){
+                sprintf(daniel, "%-25s", feasTest[i][j].c_str());
+                BufferInsert(getResultBuff(), daniel);
                 printf("%-18s", feasTest[i][j].c_str());
             }
+            BufferInsert(getResultBuff(), "\n");
             cout << endl;
         }
     }
