@@ -1,9 +1,9 @@
 # Knowledge Based Intelligence System
-######Project 3 by: Francisco, Nolan, Daniel
+##### Project 3 by: Francisco, Nolan, Daniel
 
-##Build Instructions:
-****
-###Dependencies (Linux Fedora):
+## Build Instructions: 
+
+### Dependencies (Linux Fedora):
 
     - cmake           (v3.21+)
     - cmake-gui       (any)
@@ -16,8 +16,8 @@
     Package Names were taken from the deafault Fedora 35 Repositories.
 
 
-###Build
-####(Build Instructions are not available on MacOS, or Windows)
+### Build
+#### (Build Instructions are not available on MacOS, or Windows)
 
 1. Clone this Project
 2. Launch cmake-gui and create the Ninja-Build config file
