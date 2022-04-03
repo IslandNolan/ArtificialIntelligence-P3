@@ -485,7 +485,7 @@ void frannyTesting(){
     omniOptimization(feasibilityResult,1);
     //bufferFeasability();
     clearAll();
-    */
+    *//*
     logicProcessing(2, "inputs/qualitative.txt");
     qualitativeResult = qualitativeFunction(
             attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
@@ -497,7 +497,7 @@ void frannyTesting(){
     omniOptimization(feasibilityResult,2);
     //bufferFeasability();
     clearAll();
-
+    */
 }
 
 int main(int argc, char **argv) {
