@@ -16,6 +16,8 @@ include_directories(${LIB_INCLUDE})
 add_executable(Project3
   src/sources/main.cpp
   src/sources/utility.cpp
+  src/sources/File.cpp
+  src/sources/Wigets.cpp
   src/sources/App.cpp
   include/p3/p3.h
 )
