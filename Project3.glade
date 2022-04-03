@@ -236,11 +236,15 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="margin-end">5</property>
                     <property name="label" translatable="yes">Knowledge Based Intelligence System
 
 CAP4620, Artificial Intelligence Project 3.
 
 https://github.com/IslandNolan/project3-Liu</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Comic Sans MS 10"/>
+                    </attributes>
                   </object>
                   <packing>
                     <property name="expand">True</property>
