@@ -491,11 +491,11 @@ void frannyTesting(){
             attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
             penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
             penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
-    feasibilityResult = feasbility(qualitativeResult, 2);
-    exemplification(feasibilityResult,2);
-    optimization(feasibilityResult,2);
-    omniOptimization(feasibilityResult,2);
-    bufferFeasability();
+    //feasibilityResult = feasbility(qualitativeResult, 2);
+    //exemplification(feasibilityResult,2);
+    //optimization(feasibilityResult,2);
+    //omniOptimization(feasibilityResult,2);
+    //bufferFeasability();
     clearAll();
 
 }
