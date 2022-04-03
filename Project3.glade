@@ -280,19 +280,6 @@
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">-1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="opacity">0</property>
-                    <property name="label" translatable="yes">label</property>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
                     <property name="pack-type">end</property>
                     <property name="position">0</property>
                   </packing>
@@ -363,6 +350,22 @@
                     <property name="fill">True</property>
                     <property name="pack-type">end</property>
                     <property name="position">5</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Knowledge Based Intelligence System
+
+CAP4620, Artificial Intelligence Project 3.
+
+https://github.com/IslandNolan/project3-Liu</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">6</property>
                   </packing>
                 </child>
               </object>
@@ -449,11 +452,15 @@
                           <object class="GtkLabel" id="Attri_Prev_Lab">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
+                            <property name="margin-right">20</property>
+                            <property name="margin-start">10</property>
+                            <property name="margin-end">6</property>
                             <property name="label" translatable="yes">Attributes    </property>
+                            <property name="justify">center</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
-                            <property name="fill">True</property>
+                            <property name="fill">False</property>
                             <property name="position">1</property>
                           </packing>
                         </child>
@@ -477,6 +484,7 @@
                               <object class="GtkTextView" id="Attri_Prev">
                                 <property name="visible">True</property>
                                 <property name="can-focus">True</property>
+                                <property name="editable">False</property>
                               </object>
                             </child>
                           </object>
@@ -513,8 +521,11 @@
                           <object class="GtkLabel" id="Constraint_Prev_Lab">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
+                            <property name="margin-start">10</property>
+                            <property name="margin-end">2</property>
                             <property name="label" translatable="yes">Hard 
 Constraints  </property>
+                            <property name="justify">center</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -542,6 +553,7 @@ Constraints  </property>
                               <object class="GtkTextView" id="Const_Prev">
                                 <property name="visible">True</property>
                                 <property name="can-focus">True</property>
+                                <property name="editable">False</property>
                               </object>
                             </child>
                           </object>
@@ -578,7 +590,10 @@ Constraints  </property>
                           <object class="GtkLabel" id="Pref_Prev_Lab">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
+                            <property name="margin-start">10</property>
+                            <property name="margin-end">3</property>
                             <property name="label" translatable="yes">Preferences</property>
+                            <property name="justify">center</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -606,6 +621,7 @@ Constraints  </property>
                               <object class="GtkTextView" id="Pref_Prev">
                                 <property name="visible">True</property>
                                 <property name="can-focus">True</property>
+                                <property name="editable">False</property>
                               </object>
                             </child>
                           </object>
@@ -680,6 +696,9 @@ Constraints  </property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="enable-grid-lines">both</property>
+                            <child internal-child="selection">
+                              <object class="GtkTreeSelection"/>
+                            </child>
                           </object>
                         </child>
                       </object>
