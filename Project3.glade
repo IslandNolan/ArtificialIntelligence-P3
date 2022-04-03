@@ -332,6 +332,7 @@ Constraints</property>
                       <object class="GtkScrolledWindow" id="ScrollWinAttriPrev">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
+                        <property name="tooltip-text" translatable="yes">Attribute: False, True</property>
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
                         <property name="shadow-type">in</property>
@@ -357,6 +358,7 @@ Constraints</property>
                         <property name="height-request">79</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
+                        <property name="tooltip-text" translatable="yes">What to Exclude from Processessing</property>
                         <property name="shadow-type">in</property>
                         <child>
                           <object class="GtkTextView" id="Const_Prev">

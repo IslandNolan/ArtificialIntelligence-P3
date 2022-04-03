@@ -395,6 +395,7 @@ void parseAttributes(string fileName) {
     else
         cout << "Couldnt open attributes file";
     BufferFlush(getAttriBuff());
+    BufferInsert(getAttriBuff(), "Attribute: False, True\n----------------------\n");
     for (auto it = attributeNames.begin(); it != attributeNames.end(); it++) {
         cout << "Key: " << it->first << "  Value: " << it->second.first << "," <<
              it->second.second << endl;
