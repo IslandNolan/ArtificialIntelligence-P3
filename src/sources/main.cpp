@@ -3,7 +3,6 @@
 #include <p3/p3.h>
 #include <string.h>
 #include <string>
-
 #define maxAttributes 10
 using namespace std;
 
@@ -73,19 +72,20 @@ void startProcessing(int which){
  */
 void bufferFeasability(){
     vector<vector<string>> feasTest;
-    BufferFlush(getAttriBuff());
+    BufferFlush(getResultBuff());
     if (selection == 0){
         feasTest = feasbility(penaltiesResult, 0);
         for(int i = 0; i < feasTest.size(); i++){
             for(int j = 0; j < feasTest[i].size(); j++){
                 stringstream science;
-                science << setw(30) << feasTest[i][j];
+                science << setw(15) << feasTest[i][j];
                 char daniel[50];
-                sprintf(daniel, "%-30s", feasTest[i][j].c_str());
+                sprintf(daniel, "%-15s", feasTest[i][j].c_str());
                 printf("%-15s", feasTest[i][j].c_str());
-                BufferInsert(getAttriBuff(), daniel);
+
+                BufferInsert(getResultBuff(), daniel);
             }
-            BufferInsert(getAttriBuff(), "\n");
+            BufferInsert(getResultBuff(), "\n");
             cout << endl;
         }
     }
@@ -129,7 +129,7 @@ void bufferExemplification(){
                 stringstream science;
                 science << setw(30) << feasTest[i][j];
                 char daniel[50];
-                sprintf(daniel, "%-30s", feasTest[i][j].c_str());
+                sprintf(daniel, "%-15s", feasTest[i][j].c_str());
                 printf("%-15s", feasTest[i][j].c_str());
                 BufferInsert(getAttriBuff(), daniel);
             }
@@ -178,7 +178,7 @@ void bufferOptimization(){
                 stringstream science;
                 science << setw(30) << feasTest[i][j];
                 char daniel[50];
-                sprintf(daniel, "%-30s", feasTest[i][j].c_str());
+                sprintf(daniel, "%-15s", feasTest[i][j].c_str());
                 printf("%-15s", feasTest[i][j].c_str());
                 BufferInsert(getAttriBuff(), daniel);
             }
@@ -226,7 +226,7 @@ void bufferOmniOptimization(){
                 stringstream science;
                 science << setw(30) << feasTest[i][j];
                 char daniel[50];
-                sprintf(daniel, "%-30s", feasTest[i][j].c_str());
+                sprintf(daniel, "%-15s", feasTest[i][j].c_str());
                 printf("%-15s", feasTest[i][j].c_str());
                 BufferInsert(getAttriBuff(), daniel);
             }
@@ -502,6 +502,10 @@ void frannyTesting(){
 
 int main(int argc, char **argv) {
     std::cout << "Hello, Gamer!" << std::endl;
+    //Glib::RefPtr<Gtk::TextBuffer> AttriBuff = Gtk::TextBuffer::create();
+    //GtkTextTag reee;
+    //GtkTextBuffer reeee;
+
     //frannyTesting();
     wininit(argc, argv);
     return 0;
