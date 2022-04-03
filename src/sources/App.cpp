@@ -23,15 +23,6 @@ struct FileUp {
   Gtk::Button *pQual = nullptr;
 };
 typedef struct FileUp FUP;
-struct ManBut {
-  Gtk::Button *pAttri = nullptr;
-  Gtk::Button *pConst = nullptr;
-  Gtk::Button *pPenL = nullptr;
-  Gtk::Button *pPossL = nullptr;
-  Gtk::Button *pQual = nullptr;
-};
-
-typedef struct ManBut MB;
 
 struct FuncBut {
   Gtk::Button *Feas = nullptr;
@@ -59,6 +50,7 @@ Gtk::TextView *AttriView = nullptr, *ConstView = nullptr, *PrefView = nullptr;
 Gtk::ScrolledWindow *AttriScroll = nullptr, *ConstScroll = nullptr,
                     *PrefScroll = nullptr, *ResScroll = nullptr;
 bool init = false;
+
 void initBuffers() {
   std::cout << "INITALIZING BUFFERS" << std::endl;
   AttriBuff = Gtk::TextBuffer::create();
@@ -70,7 +62,6 @@ void initBuffers() {
   OmniOpBuff = Gtk::TextBuffer::create();
   init = true;
 }
-
 void BufferTestInit() {
   if (!init) {
     std::cout << "BUFFERS NOT INITALIZED" << std::endl;
@@ -93,7 +84,6 @@ void BufferInsert(Glib::RefPtr<Gtk::TextBuffer> buff, std::string data) {
     buff->insert(buff->end(), data);
   }
 }
-
 void BufferFlush(Glib::RefPtr<Gtk::TextBuffer> buff) {
   if (!init) {
     std::cout << "buffers not initalized" << std::endl;
@@ -103,7 +93,6 @@ void BufferFlush(Glib::RefPtr<Gtk::TextBuffer> buff) {
     buff->erase(buff->begin(), buff->end());
   }
 }
-
 void onConstraintsUpload() {
   Gtk::FileChooserDialog dialog("Select Constraints File",
                                 Gtk::FILE_CHOOSER_ACTION_OPEN);
@@ -333,7 +322,6 @@ void onOmniClick() {
     std::cout << "Omni Optimal Clicked" << std::endl;
     bufferOmniOptimization();
 }
-static void on_button_clicked() { std::cout << "BUTTON CLICKED" << std::endl; }
 
 // Pass argc and argv from Main
 int wininit(int argc, char **argv) {
@@ -343,7 +331,6 @@ int wininit(int argc, char **argv) {
   // Initalize a Builder that will generate the UI later
   auto refBuilder = Gtk::Builder::create();
   FUP files;
-  MB but;
   FB fun;
   // AttriBuff = Gtk::TextBuffer::create();
   // AttriBuff->set_text("AttriBuff working");
@@ -375,13 +362,6 @@ int wininit(int argc, char **argv) {
     refBuilder->get_widget("Poss_FU_But", files.pPossL);
     refBuilder->get_widget("Qual_FU_But", files.pQual);
 
-    // buttons for Manual Entry Append
-    refBuilder->get_widget("Attri_Man_But", but.pAttri);
-    refBuilder->get_widget("Constraint_Man_But", but.pConst);
-    refBuilder->get_widget("Pen_Man_But", but.pPenL);
-    refBuilder->get_widget("Poss_Man_But", but.pPossL);
-    refBuilder->get_widget("Qual_Man_But", but.pQual);
-
     // 4 function buttons
     refBuilder->get_widget("Omni_Opt_But", fun.Omniopt);
     refBuilder->get_widget("Opt_But", fun.Opt);
@@ -395,12 +375,7 @@ int wininit(int argc, char **argv) {
     files.pPossL->signal_clicked().connect(sigc::ptr_fun(onPossibilisticUpload));
     files.pQual->signal_clicked().connect(sigc::ptr_fun(onQualitativeUpload));
     // TODO: have manual buttons append text to their buffers
-    // Connections to the Manual Button Entries
-    but.pAttri->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
-    but.pConst->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
-    but.pPenL->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
-    but.pPossL->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
-    but.pQual->signal_clicked().connect(sigc::ptr_fun(on_button_clicked));
+
     // Connections to the 4 functional buttons
     fun.Omniopt->signal_clicked().connect(sigc::ptr_fun(onOmniClick));
     fun.Opt->signal_clicked().connect(sigc::ptr_fun(onOptiClick));
@@ -422,11 +397,9 @@ int wininit(int argc, char **argv) {
     refBuilder->get_widget("Const_Prev", ConstView);
     refBuilder->get_widget("Pref_Prev", PrefView);
     AttriView->set_buffer(AttriBuff);
-    AttriView->set_editable(false);
     ConstView->set_buffer(ConstBuff);
-    ConstView->set_editable(false);
     PrefView->set_buffer(PrefBuff);
-    PrefView->set_editable(false);
+
     // TODO: Add treeview and plug it for results viewing
   }
 

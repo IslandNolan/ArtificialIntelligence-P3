@@ -51,22 +51,21 @@ void startProcessing(int which){
                     attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
                     penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
                     penaltiesAndPossibilitiesCosts);
-            feasbility(penaltiesResult, 0);
             break;
         case 1:
             possibilisticResult = possibilisticFunction(
                     attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
                     penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
                     penaltiesAndPossibilitiesCosts);
-            feasbility(possibilisticResult,1);
             break;
         case 2:
             qualitativeResult = qualitativeFunction(
                     attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
                     penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
                     penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
-            feasbility(qualitativeResult, 2);
             break;
+
+
     }
 }
 /**

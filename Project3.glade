@@ -15,7 +15,6 @@
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="column-spacing">15</property>
             <property name="row-homogeneous">True</property>
             <child>
               <object class="GtkBox">
@@ -139,130 +138,7 @@
               <packing>
                 <property name="left-attach">0</property>
                 <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="orientation">vertical</property>
-                    <child>
-                      <object class="GtkLabel" id="Man_Label">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">Manual</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="Attri_Man_But">
-                        <property name="label" translatable="yes">Attributes</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="Constraint_Man_But">
-                        <property name="label" translatable="yes">Hard Constraints</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="orientation">vertical</property>
-                    <child>
-                      <object class="GtkLabel" id="Pref_Lab_Man">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">Preferences</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="Pen_Man_But">
-                        <property name="label" translatable="yes">Penalty Logic</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="Poss_Man_But">
-                        <property name="label" translatable="yes">Possibilistic Logic</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="Qual_Man_But">
-                        <property name="label" translatable="yes">Qualitative Logic</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="left-attach">2</property>
-                <property name="top-attach">0</property>
+                <property name="width">3</property>
               </packing>
             </child>
             <child>
@@ -375,16 +251,6 @@ https://github.com/IslandNolan/project3-Liu</property>
                 <property name="width">3</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkSeparator">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-              </object>
-              <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -452,8 +318,10 @@ https://github.com/IslandNolan/project3-Liu</property>
                           <object class="GtkLabel" id="Attri_Prev_Lab">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
+                            <property name="halign">center</property>
+                            <property name="valign">center</property>
                             <property name="margin-right">20</property>
-                            <property name="margin-start">10</property>
+                            <property name="margin-start">13</property>
                             <property name="margin-end">6</property>
                             <property name="label" translatable="yes">Attributes    </property>
                             <property name="justify">center</property>
@@ -521,8 +389,10 @@ https://github.com/IslandNolan/project3-Liu</property>
                           <object class="GtkLabel" id="Constraint_Prev_Lab">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="margin-start">10</property>
-                            <property name="margin-end">2</property>
+                            <property name="halign">center</property>
+                            <property name="valign">center</property>
+                            <property name="margin-start">12</property>
+                            <property name="margin-end">3</property>
                             <property name="label" translatable="yes">Hard 
 Constraints  </property>
                             <property name="justify">center</property>
@@ -590,7 +460,9 @@ Constraints  </property>
                           <object class="GtkLabel" id="Pref_Prev_Lab">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="margin-start">10</property>
+                            <property name="halign">center</property>
+                            <property name="valign">center</property>
+                            <property name="margin-start">13</property>
                             <property name="margin-end">3</property>
                             <property name="label" translatable="yes">Preferences</property>
                             <property name="justify">center</property>
