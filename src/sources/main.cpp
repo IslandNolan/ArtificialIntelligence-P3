@@ -87,7 +87,6 @@ void bufferFeasability(){
         }
     }
     else if (selection == 1){
-        setprecision(1);
         feasTest = feasbility(possibilisticResult, 1);
         for(int i = 0; i < feasTest.size(); i++){
             for(int j = 0; j < feasTest[i].size(); j++){
@@ -131,36 +130,43 @@ void bufferFeasability(){
  */
 void bufferExemplification(){
     vector<vector<string>> feasTest;
-    BufferFlush(getAttriBuff());
+    BufferFlush(getResultBuff());
+    char daniel[50];
     if (selection == 0){
         feasTest = exemplification(feasbility(penaltiesResult,0), 0);
         for(int i = 0; i < feasTest.size(); i++){
             for(int j = 0; j < feasTest[i].size(); j++){
-                stringstream science;
-                science << setw(30) << feasTest[i][j];
-                char daniel[50];
-                sprintf(daniel, "%-15s", feasTest[i][j].c_str());
                 printf("%-15s", feasTest[i][j].c_str());
-                BufferInsert(getAttriBuff(), daniel);
+                sprintf(daniel, "%-15s", feasTest[i][j].c_str());
+                BufferInsert(getResultBuff(), daniel);
             }
-            BufferInsert(getAttriBuff(), "\n");
+            BufferInsert(getResultBuff(), "\n");
             cout << endl;
         }
     }
     else if (selection == 1){
-        setprecision(1);
-        feasTest = exemplification(feasbility(possibilisticResult,1), 1);
+        feasTest = exemplification(possibilisticResult, 1);
         for(int i = 0; i < feasTest.size(); i++){
             for(int j = 0; j < feasTest[i].size(); j++){
                 if(i > 0 && j > 0){
-                    if(feasTest[i][j] == "1")
+                    if(feasTest[i][j] == "1"){
+                        sprintf(daniel, "%-15s", feasTest[i][j].c_str());
+                        BufferInsert(getResultBuff(), daniel);
                         printf("%-15s", feasTest[i][j].c_str());
-                    else
+                    }
+                    else{
+                        sprintf(daniel, "%-15s", feasTest[i][j].c_str());
+                        BufferInsert(getResultBuff(), daniel);
                         printf("%-15.2f", stod(feasTest[i][j]));
+                    }
                 }
-                else
+                else{
+                    sprintf(daniel, "%-15s", feasTest[i][j].c_str());
+                    BufferInsert(getResultBuff(), daniel);
                     printf("%-15s", feasTest[i][j].c_str());
+                }
             }
+            BufferInsert(getResultBuff(), "\n");
             cout << endl;
         }
     }
@@ -180,36 +186,43 @@ void bufferExemplification(){
 void bufferOptimization(){
     printf("\n Science\n");
     vector<vector<string>> feasTest;
-    BufferFlush(getAttriBuff());
+    BufferFlush(getResultBuff());
+    char daniel[50];
     if (selection == 0){
         feasTest = optimization(feasbility(penaltiesResult,0), 0);
         for(int i = 0; i < feasTest.size(); i++){
             for(int j = 0; j < feasTest[i].size(); j++){
-                stringstream science;
-                science << setw(30) << feasTest[i][j];
-                char daniel[50];
-                sprintf(daniel, "%-15s", feasTest[i][j].c_str());
                 printf("%-15s", feasTest[i][j].c_str());
-                BufferInsert(getAttriBuff(), daniel);
+                sprintf(daniel, "%-15s", feasTest[i][j].c_str());
+                BufferInsert(getResultBuff(), daniel);
             }
-            BufferInsert(getAttriBuff(), "\n");
+            BufferInsert(getResultBuff(), "\n");
             cout << endl;
         }
     }
     else if (selection == 1){
-        setprecision(1);
-        feasTest = optimization(feasbility(possibilisticResult,1), 1);
+        feasTest = optimization(possibilisticResult, 1);
         for(int i = 0; i < feasTest.size(); i++){
             for(int j = 0; j < feasTest[i].size(); j++){
                 if(i > 0 && j > 0){
-                    if(feasTest[i][j] == "1")
+                    if(feasTest[i][j] == "1"){
+                        sprintf(daniel, "%-15s", feasTest[i][j].c_str());
+                        BufferInsert(getResultBuff(), daniel);
                         printf("%-15s", feasTest[i][j].c_str());
-                    else
+                    }
+                    else{
+                        sprintf(daniel, "%-15s", feasTest[i][j].c_str());
+                        BufferInsert(getResultBuff(), daniel);
                         printf("%-15.2f", stod(feasTest[i][j]));
+                    }
                 }
-                else
+                else{
+                    sprintf(daniel, "%-15s", feasTest[i][j].c_str());
+                    BufferInsert(getResultBuff(), daniel);
                     printf("%-15s", feasTest[i][j].c_str());
+                }
             }
+            BufferInsert(getResultBuff(), "\n");
             cout << endl;
         }
     }
@@ -228,36 +241,43 @@ void bufferOptimization(){
  */
 void bufferOmniOptimization(){
     vector<vector<string>> feasTest;
-    BufferFlush(getAttriBuff());
+    BufferFlush(getResultBuff());
+    char daniel[50];
     if (selection == 0){
         feasTest = omniOptimization(feasbility(penaltiesResult,0), 0);
         for(int i = 0; i < feasTest.size(); i++){
             for(int j = 0; j < feasTest[i].size(); j++){
-                stringstream science;
-                science << setw(30) << feasTest[i][j];
-                char daniel[50];
-                sprintf(daniel, "%-15s", feasTest[i][j].c_str());
                 printf("%-15s", feasTest[i][j].c_str());
-                BufferInsert(getAttriBuff(), daniel);
+                sprintf(daniel, "%-15s", feasTest[i][j].c_str());
+                BufferInsert(getResultBuff(), daniel);
             }
-            BufferInsert(getAttriBuff(), "\n");
+            BufferInsert(getResultBuff(), "\n");
             cout << endl;
         }
     }
     else if (selection == 1){
-        setprecision(1);
-        feasTest = omniOptimization(feasbility(possibilisticResult,1), 1);
+        feasTest = omniOptimization(possibilisticResult, 1);
         for(int i = 0; i < feasTest.size(); i++){
             for(int j = 0; j < feasTest[i].size(); j++){
                 if(i > 0 && j > 0){
-                    if(feasTest[i][j] == "1")
+                    if(feasTest[i][j] == "1"){
+                        sprintf(daniel, "%-15s", feasTest[i][j].c_str());
+                        BufferInsert(getResultBuff(), daniel);
                         printf("%-15s", feasTest[i][j].c_str());
-                    else
+                    }
+                    else{
+                        sprintf(daniel, "%-15s", feasTest[i][j].c_str());
+                        BufferInsert(getResultBuff(), daniel);
                         printf("%-15.2f", stod(feasTest[i][j]));
+                    }
                 }
-                else
+                else{
+                    sprintf(daniel, "%-15s", feasTest[i][j].c_str());
+                    BufferInsert(getResultBuff(), daniel);
                     printf("%-15s", feasTest[i][j].c_str());
+                }
             }
+            BufferInsert(getResultBuff(), "\n");
             cout << endl;
         }
     }
