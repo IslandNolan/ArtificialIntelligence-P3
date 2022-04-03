@@ -135,7 +135,6 @@ std::vector<int> blacklistFunction(int attributeCount, std::vector<std::vector<s
 std::vector<std::vector<std::string>> penaltiesFunction(std::unordered_map<std::string, std::pair<std::string,std::string>> attributeNames, std::vector<std::string> penaltyStrings, std::vector<int> blacklist, std::vector<std::vector<std::pair<int,int>>> penalties, std::vector<int> penaltyStack, std::vector<int> penaltyCosts) {
     std::vector<std::vector<std::string>> matrix(attributeNames.size()*attributeNames.size()-blacklist.size()+1, std::vector<std::string>(penaltyStrings.size()+2));
     std::string toInsert;
-    std::cout << "science size: " << penaltyStrings.size() << std::endl;
     matrix[0][0] = "state";
     for(int i = 0; i < penaltyStrings.size();i++){
         matrix[0][i+1] = penaltyStrings[i];
@@ -300,7 +299,6 @@ std::vector<std::string> columnHeaders(distinctCols, "");
 for(int i = 0; i < qualitativeColumn.size(); i++){
 columnHeaders[qualitativeColumn[i]-1] += penaltyStrings[i].substr(0,penaltyStrings[i].size()-3) + '>';
 }
-std::cout << "science distinct size: " << distinctCols << std::endl;
 
 std::vector<std::vector<std::string>> matrix(attributeNames.size()*attributeNames.size()-blacklist.size()+1, std::vector<std::string>(distinctCols+1));
 
@@ -364,6 +362,7 @@ return matrix;
  * @return the feasability matrix
  */
 std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::string>> matrix, int which){
+    std::cout << "Feasibility\n";
     std::vector<std::vector<std::string>> toSend;
     toSend.emplace_back(matrix[0]);
     if(which == 0){
@@ -394,9 +393,9 @@ std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::st
     }
     for(int i = 0; i < toSend.size(); i++){
         for(int j = 0; j < toSend[i].size(); j++){
-            std::cout << toSend[i][j] << ' ';
+            //std::cout << toSend[i][j] << ' ';
         }
-        std::cout << std::endl;
+        //std::cout << std::endl;
     }
     return toSend;
 }
@@ -421,7 +420,7 @@ std::vector<std::vector<std::string>> exemplification(std::vector<std::vector<st
         std::uniform_int_distribution<std::mt19937::result_type> reee(1,matrix.size()-1);
         chosen = reee(rng);
         toSend.emplace_back(matrix[chosen]);
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 100; i++){
             std::mt19937 rng(dev());
             std::uniform_int_distribution<std::mt19937::result_type> reee(1,matrix.size()-1);
             chosen2 = reee(rng);
@@ -429,7 +428,6 @@ std::vector<std::vector<std::string>> exemplification(std::vector<std::vector<st
                 toSend.emplace_back(matrix[chosen2]);
                 break;
             }
-            std::cout << "Science: " << reee(rng) << std::endl;
         }
     }
 
@@ -478,9 +476,9 @@ std::vector<std::vector<std::string>> exemplification(std::vector<std::vector<st
     }
     for(int i = 0; i < toSend.size(); i++){
         for(int j = 0; j < toSend[i].size(); j++){
-            std::cout << toSend[i][j] << ' ';
+            //std::cout << toSend[i][j] << ' ';
         }
-        std::cout << std::endl;
+        //std::cout << std::endl;
     }
     return toSend;
 }
@@ -528,9 +526,9 @@ std::vector<std::vector<std::string>> optimization(std::vector<std::vector<std::
     }
     for(int i = 0; i < toSend.size(); i++){
         for(int j = 0; j < toSend[i].size(); j++){
-            std::cout << toSend[i][j] << ' ';
+            //std::cout << toSend[i][j] << ' ';
         }
-        std::cout << std::endl;
+        //std::cout << std::endl;
     }
     return toSend;
 }
@@ -592,9 +590,9 @@ std::vector<std::vector<std::string>> omniOptimization(std::vector<std::vector<s
     }
     for(int i = 0; i < bestSet.size(); i++){
         for(int j = 0; j < bestSet[i].size(); j++){
-            std::cout << bestSet[i][j] << ' ';
+            //std::cout << bestSet[i][j] << ' ';
         }
-        std::cout << std::endl;
+        //std::cout << std::endl;
     }
     return bestSet;
 }
