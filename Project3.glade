@@ -4,6 +4,8 @@
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkApplicationWindow" id="Intelligent Application">
     <property name="name">Main Window</property>
+    <property name="width-request">740</property>
+    <property name="height-request">480</property>
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Knowledge Based Intelligence System</property>
     <child>
@@ -282,252 +284,176 @@ https://github.com/IslandNolan/project3-Liu</property>
                 <property name="margin-start">8</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkBox">
+                  <!-- n-columns=3 n-rows=7 -->
+                  <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="orientation">vertical</property>
+                    <property name="margin-start">8</property>
+                    <property name="margin-end">8</property>
+                    <property name="margin-bottom">8</property>
                     <child>
-                      <object class="GtkLabel" id="Prev_Lab">
+                      <object class="GtkLabel" id="Attri_Prev_Lab">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Attributes</property>
+                        <property name="justify">center</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="Constraint_Prev_Lab">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Hard
+Constraints</property>
+                        <property name="justify">center</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="Pref_Prev_Lab">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Preferences</property>
+                        <property name="justify">center</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">5</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkScrolledWindow" id="ScrollWinAttriPrev">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="hexpand">True</property>
+                        <property name="vexpand">True</property>
+                        <property name="shadow-type">in</property>
+                        <property name="propagate-natural-height">True</property>
+                        <child>
+                          <object class="GtkTextView" id="Attri_Prev">
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="editable">False</property>
+                            <property name="cursor-visible">False</property>
+                            <property name="accepts-tab">False</property>
+                            <property name="monospace">True</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="left-attach">2</property>
+                        <property name="top-attach">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkScrolledWindow" id="ScrollWinConstPrev">
+                        <property name="height-request">79</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="shadow-type">in</property>
+                        <child>
+                          <object class="GtkTextView" id="Const_Prev">
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="editable">False</property>
+                            <property name="cursor-visible">False</property>
+                            <property name="accepts-tab">False</property>
+                            <property name="monospace">True</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="left-attach">2</property>
+                        <property name="top-attach">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkScrolledWindow" id="ScrollWinPrefPrev">
+                        <property name="height-request">67</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="shadow-type">in</property>
+                        <child>
+                          <object class="GtkTextView" id="Pref_Prev">
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="editable">False</property>
+                            <property name="cursor-visible">False</property>
+                            <property name="accepts-tab">False</property>
+                            <property name="monospace">True</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="left-attach">2</property>
+                        <property name="top-attach">5</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSeparator">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">6</property>
+                        <property name="width">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSeparator">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="vexpand">False</property>
+                        <property name="orientation">vertical</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">0</property>
+                        <property name="height">6</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSeparator">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">4</property>
+                        <property name="width">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSeparator">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">2</property>
+                        <property name="width">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="Preview_Label">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="hexpand">True</property>
                         <property name="label" translatable="yes">Preview</property>
+                        <property name="justify">center</property>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkSeparator">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="margin-end">8</property>
-                        <child>
-                          <object class="GtkLabel" id="Attri_Prev_Lab">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="halign">center</property>
-                            <property name="valign">center</property>
-                            <property name="margin-right">20</property>
-                            <property name="margin-start">13</property>
-                            <property name="margin-end">6</property>
-                            <property name="label" translatable="yes">Attributes    </property>
-                            <property name="justify">center</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkSeparator">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkScrolledWindow" id="ScrollWinAttriPrev">
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="shadow-type">in</property>
-                            <child>
-                              <object class="GtkTextView" id="Attri_Prev">
-                                <property name="visible">True</property>
-                                <property name="can-focus">True</property>
-                                <property name="editable">False</property>
-                                <property name="cursor-visible">False</property>
-                                <property name="accepts-tab">False</property>
-                                <property name="monospace">True</property>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">True</property>
-                            <property name="fill">True</property>
-                            <property name="position">3</property>
-                          </packing>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkSeparator">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="margin-end">8</property>
-                        <child>
-                          <object class="GtkLabel" id="Constraint_Prev_Lab">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="halign">center</property>
-                            <property name="valign">center</property>
-                            <property name="margin-start">12</property>
-                            <property name="margin-end">3</property>
-                            <property name="label" translatable="yes">Hard
-Constraints  </property>
-                            <property name="justify">center</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkSeparator">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkScrolledWindow" id="ScrollWinConstPrev">
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="shadow-type">in</property>
-                            <child>
-                              <object class="GtkTextView" id="Const_Prev">
-                                <property name="visible">True</property>
-                                <property name="can-focus">True</property>
-                                <property name="editable">False</property>
-                                <property name="cursor-visible">False</property>
-                                <property name="accepts-tab">False</property>
-                                <property name="monospace">True</property>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">True</property>
-                            <property name="fill">True</property>
-                            <property name="position">3</property>
-                          </packing>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkSeparator">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">5</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="margin-end">8</property>
-                        <child>
-                          <object class="GtkLabel" id="Pref_Prev_Lab">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                            <property name="halign">center</property>
-                            <property name="valign">center</property>
-                            <property name="margin-start">13</property>
-                            <property name="margin-end">3</property>
-                            <property name="label" translatable="yes">Preferences</property>
-                            <property name="justify">center</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkSeparator">
-                            <property name="visible">True</property>
-                            <property name="can-focus">False</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkScrolledWindow" id="ScrollWinPrefPrev">
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="shadow-type">in</property>
-                            <child>
-                              <object class="GtkTextView" id="Pref_Prev">
-                                <property name="visible">True</property>
-                                <property name="can-focus">True</property>
-                                <property name="editable">False</property>
-                                <property name="cursor-visible">False</property>
-                                <property name="accepts-tab">False</property>
-                                <property name="monospace">True</property>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">True</property>
-                            <property name="fill">True</property>
-                            <property name="position">3</property>
-                          </packing>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">8</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkSeparator">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">9</property>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                        <property name="width">3</property>
                       </packing>
                     </child>
                   </object>
@@ -541,6 +467,7 @@ Constraints  </property>
                   <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="vexpand">True</property>
                     <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkLabel" id="Result_Label">
@@ -569,6 +496,7 @@ Constraints  </property>
                       <object class="GtkScrolledWindow" id="ScrollWinResPrev">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
+                        <property name="margin-start">8</property>
                         <property name="margin-end">8</property>
                         <property name="margin-bottom">9</property>
                         <property name="shadow-type">in</property>
