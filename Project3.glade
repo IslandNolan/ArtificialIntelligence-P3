@@ -353,6 +353,9 @@ https://github.com/IslandNolan/project3-Liu</property>
                                 <property name="visible">True</property>
                                 <property name="can-focus">True</property>
                                 <property name="editable">False</property>
+                                <property name="cursor-visible">False</property>
+                                <property name="accepts-tab">False</property>
+                                <property name="monospace">True</property>
                               </object>
                             </child>
                           </object>
@@ -393,7 +396,7 @@ https://github.com/IslandNolan/project3-Liu</property>
                             <property name="valign">center</property>
                             <property name="margin-start">12</property>
                             <property name="margin-end">3</property>
-                            <property name="label" translatable="yes">Hard 
+                            <property name="label" translatable="yes">Hard
 Constraints  </property>
                             <property name="justify">center</property>
                           </object>
@@ -424,6 +427,9 @@ Constraints  </property>
                                 <property name="visible">True</property>
                                 <property name="can-focus">True</property>
                                 <property name="editable">False</property>
+                                <property name="cursor-visible">False</property>
+                                <property name="accepts-tab">False</property>
+                                <property name="monospace">True</property>
                               </object>
                             </child>
                           </object>
@@ -494,6 +500,9 @@ Constraints  </property>
                                 <property name="visible">True</property>
                                 <property name="can-focus">True</property>
                                 <property name="editable">False</property>
+                                <property name="cursor-visible">False</property>
+                                <property name="accepts-tab">False</property>
+                                <property name="monospace">True</property>
                               </object>
                             </child>
                           </object>
@@ -564,13 +573,13 @@ Constraints  </property>
                         <property name="margin-bottom">9</property>
                         <property name="shadow-type">in</property>
                         <child>
-                          <object class="GtkTreeView" id="Result_TreeView">
+                          <object class="GtkTextView" id="Res_View">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
-                            <property name="enable-grid-lines">both</property>
-                            <child internal-child="selection">
-                              <object class="GtkTreeSelection"/>
-                            </child>
+                            <property name="editable">False</property>
+                            <property name="cursor-visible">False</property>
+                            <property name="accepts-tab">False</property>
+                            <property name="monospace">True</property>
                           </object>
                         </child>
                       </object>
