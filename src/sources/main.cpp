@@ -471,7 +471,7 @@ void frannyTesting(){
     exemplification(feasibilityResult,0);
     optimization(feasibilityResult,0);
     omniOptimization(feasibilityResult,0);
-    bufferFeasability();
+    //bufferFeasability();
     clearAll();
     *//*
     logicProcessing(1, "inputs/possibilistic.txt");
@@ -483,7 +483,7 @@ void frannyTesting(){
     exemplification(feasibilityResult,1);
     optimization(feasibilityResult,1);
     omniOptimization(feasibilityResult,1);
-    bufferFeasability();
+    //bufferFeasability();
     clearAll();
     */
     logicProcessing(2, "inputs/qualitative.txt");
@@ -491,10 +491,10 @@ void frannyTesting(){
             attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
             penaltiesAndProbabilities, penaltiesAndPossibilitiesStack,
             penaltiesAndPossibilitiesCosts, qualitativeColumn, qualitativeCost);
-    //feasibilityResult = feasbility(qualitativeResult, 2);
-    //exemplification(feasibilityResult,2);
-    //optimization(feasibilityResult,2);
-    //omniOptimization(feasibilityResult,2);
+    feasibilityResult = feasbility(qualitativeResult, 2);
+    exemplification(feasibilityResult,2);
+    optimization(feasibilityResult,2);
+    omniOptimization(feasibilityResult,2);
     //bufferFeasability();
     clearAll();
 

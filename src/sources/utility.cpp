@@ -384,7 +384,6 @@ std::vector<std::vector<std::string>> feasbility(std::vector<std::vector<std::st
     if(which == 1){
         for(int i = 1; i < matrix.size(); i++) {
             std::vector <std::string> fuck = matrix[i];
-            //fuck.erase(fuck.end() - 1, fuck.end());
             toSend.emplace_back(fuck);
         }
     }
