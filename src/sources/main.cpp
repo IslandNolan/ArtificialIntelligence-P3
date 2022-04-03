@@ -73,16 +73,13 @@ void startProcessing(int which){
 void bufferFeasability(){
     vector<vector<string>> feasTest;
     BufferFlush(getResultBuff());
+    char daniel[50];
     if (selection == 0){
         feasTest = feasbility(penaltiesResult, 0);
         for(int i = 0; i < feasTest.size(); i++){
             for(int j = 0; j < feasTest[i].size(); j++){
-                stringstream science;
-                science << setw(15) << feasTest[i][j];
-                char daniel[50];
-                sprintf(daniel, "%-15s", feasTest[i][j].c_str());
                 printf("%-15s", feasTest[i][j].c_str());
-
+                sprintf(daniel, "%-15s", feasTest[i][j].c_str());
                 BufferInsert(getResultBuff(), daniel);
             }
             BufferInsert(getResultBuff(), "\n");
@@ -95,14 +92,24 @@ void bufferFeasability(){
         for(int i = 0; i < feasTest.size(); i++){
             for(int j = 0; j < feasTest[i].size(); j++){
                 if(i > 0 && j > 0){
-                    if(feasTest[i][j] == "1")
+                    if(feasTest[i][j] == "1"){
+                        sprintf(daniel, "%-15s", feasTest[i][j].c_str());
+                        BufferInsert(getResultBuff(), daniel);
                         printf("%-15s", feasTest[i][j].c_str());
-                    else
+                    }
+                    else{
+                        sprintf(daniel, "%-15s", feasTest[i][j].c_str());
+                        BufferInsert(getResultBuff(), daniel);
                         printf("%-15.2f", stod(feasTest[i][j]));
+                    }
                 }
-                else
+                else{
+                    sprintf(daniel, "%-15s", feasTest[i][j].c_str());
+                    BufferInsert(getResultBuff(), daniel);
                     printf("%-15s", feasTest[i][j].c_str());
+                }
             }
+            BufferInsert(getResultBuff(), "\n");
             cout << endl;
         }
     }
@@ -110,8 +117,11 @@ void bufferFeasability(){
         feasTest = feasbility(qualitativeResult, 2);
         for(int i = 0; i < feasTest.size(); i++){
             for(int j = 0; j < feasTest[i].size(); j++){
+                sprintf(daniel, "%-25s", feasTest[i][j].c_str());
+                BufferInsert(getResultBuff(), daniel);
                 printf("%-18s", feasTest[i][j].c_str());
             }
+            BufferInsert(getResultBuff(), "\n");
             cout << endl;
         }
     }
