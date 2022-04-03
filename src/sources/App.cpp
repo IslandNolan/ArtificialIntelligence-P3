@@ -49,6 +49,7 @@ Gtk::ScrolledWindow *AttriScroll = nullptr, *ConstScroll = nullptr,
 bool init = false;
 
 void initBuffers() {
+
   std::cout << "INITALIZING BUFFERS" << std::endl;
   AttriBuff = Gtk::TextBuffer::create();
   ConstBuff = Gtk::TextBuffer::create();
