@@ -1,6 +1,7 @@
 #define maxAttributes 10
 #include <bits/stdc++.h>
 #include <p3/p3.h>
+#include <random>
 /**
  * Feed it a list of positions and bools, it will return true if all are true,
  * else returns false;
@@ -410,14 +411,33 @@ std::vector<std::vector<std::string>> exemplification(std::vector<std::vector<st
     std::cout << "Exemplification:\n";
     std::vector<std::vector<std::string>> toSend;
     toSend.emplace_back(matrix[0]);
-    toSend.emplace_back(matrix[1]);
-    toSend.emplace_back(matrix[2]);
+    std::random_device dev;
+    int chosen, chosen2;
+    if(matrix.size() == 3){
+        toSend.emplace_back(matrix[1]);
+        toSend.emplace_back(matrix[2]);
+    } else{
+        std::mt19937 rng(dev());
+        std::uniform_int_distribution<std::mt19937::result_type> reee(1,matrix.size()-1);
+        chosen = reee(rng);
+        toSend.emplace_back(matrix[chosen]);
+        for(int i = 0; i < 10; i++){
+            std::mt19937 rng(dev());
+            std::uniform_int_distribution<std::mt19937::result_type> reee(1,matrix.size()-1);
+            chosen2 = reee(rng);
+            if(chosen2 != chosen){
+                toSend.emplace_back(matrix[chosen2]);
+                break;
+            }
+            std::cout << "Science: " << reee(rng) << std::endl;
+        }
+    }
 
     std::vector<std::string> frick;
     if(which == 0){
-        if (std::stoi(matrix[2][matrix[2].size()-1]) < std::stoi(matrix[1][matrix[1].size()-1]))
+        if (std::stoi(matrix[chosen2][matrix[2].size()-1]) < std::stoi(matrix[chosen][matrix[1].size()-1]))
             frick.emplace_back("Bottom Row Better");
-        else if (std::stoi(matrix[2][matrix[2].size()-1]) > std::stoi(matrix[1][matrix[1].size()-1]))
+        else if (std::stoi(matrix[chosen2][matrix[2].size()-1]) > std::stoi(matrix[chosen][matrix[1].size()-1]))
             frick.emplace_back("Top Row Better");
         else
             frick.emplace_back("Equivalent");
@@ -425,9 +445,9 @@ std::vector<std::vector<std::string>> exemplification(std::vector<std::vector<st
         toSend.emplace_back(frick);
     }
     else if(which == 1){
-        if (std::stod(matrix[2][matrix[2].size()-1]) < std::stod(matrix[1][matrix[1].size()-1]))
+        if (std::stod(matrix[chosen2][matrix[2].size()-1]) < std::stod(matrix[chosen][matrix[1].size()-1]))
             frick.emplace_back("Top Row More Desirable");
-        else if (std::stod(matrix[2][matrix[2].size()-1]) > std::stod(matrix[1][matrix[1].size()-1]))
+        else if (std::stod(matrix[chosen2][matrix[2].size()-1]) > std::stod(matrix[chosen][matrix[1].size()-1]))
             frick.emplace_back("Bottom Row More Desirable");
         else
             frick.emplace_back("Equivalent");

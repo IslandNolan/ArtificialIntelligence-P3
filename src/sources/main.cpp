@@ -497,7 +497,7 @@ void frannyTesting(){
         blacklistedBinaries = blacklistFunction(attributeNames.size(), constraints);
     vector<vector<string>> feasibilityResult;
 
-    /*
+
     logicProcessing(0, "inputs/penalty.txt");
     penaltiesResult = penaltiesFunction(
             attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
@@ -505,11 +505,11 @@ void frannyTesting(){
             penaltiesAndPossibilitiesCosts);
     feasibilityResult = feasbility(penaltiesResult,0);
     exemplification(feasibilityResult,0);
-    optimization(feasibilityResult,0);
-    omniOptimization(feasibilityResult,0);
+    //optimization(feasibilityResult,0);
+    //omniOptimization(feasibilityResult,0);
     //bufferFeasability();
     clearAll();
-    *//*
+    /*
     logicProcessing(1, "inputs/possibilistic.txt");
     possibilisticResult = possibilisticFunction(
             attributeNames, penaltyAndPossibilityStrings, blacklistedBinaries,
@@ -538,11 +538,7 @@ void frannyTesting(){
 
 int main(int argc, char **argv) {
     std::cout << "Hello, Gamer!" << std::endl;
-    //Glib::RefPtr<Gtk::TextBuffer> AttriBuff = Gtk::TextBuffer::create();
-    //GtkTextTag reee;
-    //GtkTextBuffer reeee;
-
-    //frannyTesting();
+    frannyTesting();
     wininit(argc, argv);
     return 0;
 }
