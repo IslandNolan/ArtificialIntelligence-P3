@@ -149,13 +149,19 @@
               <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="margin-bottom">8</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="GtkTextView" id="StatView">
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="opacity">0</property>
-                    <property name="label" translatable="yes">label</property>
+                    <property name="can-focus">True</property>
+                    <property name="valign">center</property>
+                    <property name="margin-top">8</property>
+                    <property name="editable">False</property>
+                    <property name="justification">center</property>
+                    <property name="cursor-visible">False</property>
+                    <property name="accepts-tab">False</property>
+                    <property name="monospace">True</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -191,20 +197,6 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="Opt_But">
-                    <property name="label" translatable="yes">Optmization</property>
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="pack-type">end</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-                <child>
                   <object class="GtkButton" id="Exemplification_But">
                     <property name="label" translatable="yes">Exemplification</property>
                     <property name="visible">True</property>
@@ -216,6 +208,20 @@
                     <property name="fill">True</property>
                     <property name="pack-type">end</property>
                     <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="Opt_But">
+                    <property name="label" translatable="yes">Optmization</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack-type">end</property>
+                    <property name="position">4</property>
                   </packing>
                 </child>
                 <child>
