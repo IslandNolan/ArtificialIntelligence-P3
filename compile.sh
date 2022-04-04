@@ -1,5 +1,5 @@
 #/bin/bash
 
 cmake --build cmake-build-debug/
-./Project3
+./cmake-build-debug/Project3
 

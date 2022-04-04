@@ -5,6 +5,8 @@ using namespace std;
 
 unordered_map<string, pair<string, string>> attributeNames;
 vector<vector<pair<int, int>>> constraints;
+bool loadedAttri = false;
+bool selectedPref = false;
 
 vector<vector<pair<int, int>>> penaltiesAndProbabilities;
 vector<string> penaltyAndPossibilityStrings;
@@ -535,6 +537,18 @@ void frannyTesting(){
     //bufferFeasability();
     clearAll();
     */
+}
+bool getLoadedAttri(){
+    return loadedAttri;
+}
+bool getSelectedPref(){
+    return selectedPref;
+}
+void setSelectedPref(bool x){
+    selectedPref=x;
+}
+void setLoadedAttri(bool x){
+    loadedAttri=x;
 }
 
 int main(int argc, char **argv) {

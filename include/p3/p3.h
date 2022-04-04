@@ -26,10 +26,12 @@ Glib::RefPtr<Gtk::TextBuffer> getAttriBuff();
 Glib::RefPtr<Gtk::TextBuffer> getConstBuff();
 Glib::RefPtr<Gtk::TextBuffer> getPrefBuff();
 Glib::RefPtr<Gtk::TextBuffer> getResultBuff();
+Glib::RefPtr<Gtk::TextBuffer> getStatusBuff();
 Gtk::TextView *getAttriView();
 Gtk::TextView *getConstView();
 Gtk::TextView *getPrefView();
 Gtk::TextView *getResultView();
+
 void BufferFlush(Glib::RefPtr<Gtk::TextBuffer> buff);
 void BufferInsert(Glib::RefPtr<Gtk::TextBuffer> buff, std::string data);
 void BufferTestInit();
@@ -54,6 +56,10 @@ std::vector<std::vector<std::string>> exemplification(std::vector<std::vector<st
 std::vector<std::vector<std::string>> optimization(std::vector<std::vector<std::string>> matrix, int which);
 std::vector<std::vector<std::string>> omniOptimization(std::vector<std::vector<std::string>> matrix, int which);
 //Main.cpp
+void setSelectedPref(bool x);
+void setLoadedAttri(bool x);
+bool getSelectedPref();
+bool getLoadedAttri();
 void parseAttributes(std::string fileName);
 void parseConstraints(std::string fileName);
 void logicProcessing(int, std::string fileName);

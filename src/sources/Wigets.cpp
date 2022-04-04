@@ -1,11 +1,13 @@
 #include "p3/p3.h"
 
-Glib::RefPtr<Gtk::TextBuffer> AttriBuff, ConstBuff, PrefBuff, ResultBuff;
+Glib::RefPtr<Gtk::TextBuffer> AttriBuff, ConstBuff, PrefBuff, ResultBuff, StatusBuff;
 // Buffers for each kind of data to display to be sent to a text or tree view
 Glib::RefPtr<Gtk::TextBuffer> getAttriBuff() { return AttriBuff; }
 Glib::RefPtr<Gtk::TextBuffer> getConstBuff() { return ConstBuff; }
 Glib::RefPtr<Gtk::TextBuffer> getPrefBuff() { return PrefBuff; }
 Glib::RefPtr<Gtk::TextBuffer> getResultBuff() { return ResultBuff; }
+Glib::RefPtr<Gtk::TextBuffer> getStatusBuff() { return StatusBuff; }
+
 bool init = false;
 void initBuffers() {
 
@@ -14,6 +16,7 @@ void initBuffers() {
   ConstBuff = Gtk::TextBuffer::create();
   PrefBuff = Gtk::TextBuffer::create();
   ResultBuff = Gtk::TextBuffer::create();
+  StatusBuff = Gtk::TextBuffer::create();
   init = true;
 }
 void BufferTestInit() {

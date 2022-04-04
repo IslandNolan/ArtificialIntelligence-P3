@@ -30,29 +30,84 @@ struct FuncBut {
 
 typedef struct FuncBut FB;
 
-// TODO: turn Attriview into a tree view
-//  The different view to display the text buffers
 Gtk::TextView *AttriView = nullptr, *ConstView = nullptr, *PrefView = nullptr,
-              *ResultView = nullptr;
-/*
-Gtk::ScrolledWindow *AttriScroll = nullptr, *ConstScroll = nullptr,
-                    *PrefScroll = nullptr, *ResScroll = nullptr;
-*/
+              *ResultView = nullptr, *StatusView = nullptr;
+
 void onFeasClick() {
+
   std::cout << "Feas Clicked" << std::endl;
-  bufferFeasability();
+  if(!getLoadedAttri()) {
+      BufferFlush(getStatusBuff());
+      BufferInsert(getStatusBuff(),"Missing Attributes File.. ");
+      return;
+  }
+  else if(!getSelectedPref()){
+      BufferFlush(getStatusBuff());
+      BufferInsert(getStatusBuff(),"Missing Preferences File.. ");
+      return;
+  }
+  else{
+      BufferFlush(getStatusBuff());
+      BufferInsert(getStatusBuff(), "Generated Feasibility");
+      bufferFeasability();
+  }
 }
 void onExemClick() {
-  std::cout << "Example click" << std::endl;
-  bufferExemplification();
+    std::cout << "Exemplification Button Clicked.. " << std::endl;
+    if(!getLoadedAttri()) {
+        BufferFlush(getStatusBuff());
+        BufferInsert(getStatusBuff(),"Missing Attributes File.. ");
+        return;
+    }
+    else if(!getSelectedPref()){
+        BufferFlush(getStatusBuff());
+        BufferInsert(getStatusBuff(),"Missing Preferences File.. ");
+        return;
+    }
+    else {
+        BufferFlush(getStatusBuff());
+        BufferInsert(getStatusBuff(),"Generated Exemplification");
+        bufferExemplification();
+        return;
+    }
 }
 void onOptiClick() {
   std::cout << "Optimal Clicked" << std::endl;
-  bufferOptimization();
+    if(!getLoadedAttri()) {
+        BufferFlush(getStatusBuff());
+        BufferInsert(getStatusBuff(),"Missing Attributes File.. ");
+        return;
+    }
+    else if(!getSelectedPref()){
+        BufferFlush(getStatusBuff());
+        BufferInsert(getStatusBuff(),"Missing Preferences File.. ");
+        return;
+    }
+    else{
+        BufferFlush(getStatusBuff());
+        BufferInsert(getStatusBuff(),"Generated Optimal");
+        bufferOptimization();
+    }
 }
 void onOmniClick() {
-  std::cout << "Omni Optimal Clicked" << std::endl;
-  bufferOmniOptimization();
+
+  std::cout << "Omni-Optimal Clicked" << std::endl;
+
+    if(!getLoadedAttri()) {
+        BufferFlush(getStatusBuff());
+        BufferInsert(getStatusBuff(),"Missing Attributes File.. ");
+        return;
+    }
+    else if(!getSelectedPref()){
+        BufferFlush(getStatusBuff());
+        BufferInsert(getStatusBuff(),"Missing Preferences File.. ");
+        return;
+    }
+    else{
+        BufferFlush(getStatusBuff());
+        BufferInsert(getStatusBuff(),"Generated Omni-Optimal");
+        bufferOmniOptimization();
+    }
 }
 
 // Pass argc and argv from Main
@@ -62,11 +117,10 @@ int wininit(int argc, char **argv) {
   auto app = Gtk::Application::create(argc, argv, "org.gtkmm.IntelliApp");
   // Initalize a Builder that will generate the UI later
   auto refBuilder = Gtk::Builder::create();
-  FUP files;     // Struct contains all the file upload buttons
-  FB fun;        // struct contains all the function buttons
+  FUP files;
+  FB fun;
   initBuffers(); // initalize all the buffers
   // BufferTestInit(); // fill the buffers with test text
-  // Error Handling:
   try {
     // Tell the builder what UI to use
     refBuilder->add_from_file("Project3.glade");
@@ -82,8 +136,8 @@ int wininit(int argc, char **argv) {
   }
   // tell refBuilder what the parent window is
   refBuilder->get_widget("Intelligent Application", pAppWin);
-  pAppWin->set_default_size(800, 500);
   if (pAppWin) {
+
     // Get the GtkBuilder-instantiated Button, and connect a signal handler:
     // buttons for file upload
     refBuilder->get_widget("Attri_FU_But", files.pAttri);
@@ -105,7 +159,6 @@ int wininit(int argc, char **argv) {
     files.pPossL->signal_clicked().connect(
         sigc::ptr_fun(onPossibilisticUpload));
     files.pQual->signal_clicked().connect(sigc::ptr_fun(onQualitativeUpload));
-    // TODO: have manual buttons append text to their buffers
 
     // Connections to the 4 functional buttons
     fun.Omniopt->signal_clicked().connect(sigc::ptr_fun(onOmniClick));
@@ -118,11 +171,14 @@ int wininit(int argc, char **argv) {
     refBuilder->get_widget("Const_Prev", ConstView);
     refBuilder->get_widget("Pref_Prev", PrefView);
     refBuilder->get_widget("Res_View", ResultView);
+    refBuilder->get_widget("StatView", StatusView);
 
     AttriView->set_buffer(getAttriBuff());
     ConstView->set_buffer(getConstBuff());
     PrefView->set_buffer(getPrefBuff());
     ResultView->set_buffer(getResultBuff());
+    StatusView->set_buffer(getStatusBuff());
+
   }
 
   // Run the application
