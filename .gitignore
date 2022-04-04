@@ -2,3 +2,4 @@ cmake-build-debug
 src/.cache
 .cache
 vgcore.*
+src/sourcs/Project3.glade~

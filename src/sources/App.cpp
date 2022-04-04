@@ -36,78 +36,70 @@ Gtk::TextView *AttriView = nullptr, *ConstView = nullptr, *PrefView = nullptr,
 void onFeasClick() {
 
   std::cout << "Feas Clicked" << std::endl;
-  if(!getLoadedAttri()) {
-      BufferFlush(getStatusBuff());
-      BufferInsert(getStatusBuff(),"Missing Attributes File.. ");
-      return;
-  }
-  else if(!getSelectedPref()){
-      BufferFlush(getStatusBuff());
-      BufferInsert(getStatusBuff(),"Missing Preferences File.. ");
-      return;
-  }
-  else{
-      BufferFlush(getStatusBuff());
-      BufferInsert(getStatusBuff(), "Generated Feasibility");
-      bufferFeasability();
+  if (!getLoadedAttri()) {
+    BufferFlush(getStatusBuff());
+    BufferInsert(getStatusBuff(), "Missing Attributes File.. ");
+    return;
+  } else if (!getSelectedPref()) {
+    BufferFlush(getStatusBuff());
+    BufferInsert(getStatusBuff(), "Missing Preferences File.. ");
+    return;
+  } else {
+    BufferFlush(getStatusBuff());
+    BufferInsert(getStatusBuff(), "Generated Feasibility");
+    bufferFeasability();
   }
 }
 void onExemClick() {
-    std::cout << "Exemplification Button Clicked.. " << std::endl;
-    if(!getLoadedAttri()) {
-        BufferFlush(getStatusBuff());
-        BufferInsert(getStatusBuff(),"Missing Attributes File.. ");
-        return;
-    }
-    else if(!getSelectedPref()){
-        BufferFlush(getStatusBuff());
-        BufferInsert(getStatusBuff(),"Missing Preferences File.. ");
-        return;
-    }
-    else {
-        BufferFlush(getStatusBuff());
-        BufferInsert(getStatusBuff(),"Generated Exemplification");
-        bufferExemplification();
-        return;
-    }
+  std::cout << "Exemplification Button Clicked.. " << std::endl;
+  if (!getLoadedAttri()) {
+    BufferFlush(getStatusBuff());
+    BufferInsert(getStatusBuff(), "Missing Attributes File.. ");
+    return;
+  } else if (!getSelectedPref()) {
+    BufferFlush(getStatusBuff());
+    BufferInsert(getStatusBuff(), "Missing Preferences File.. ");
+    return;
+  } else {
+    BufferFlush(getStatusBuff());
+    BufferInsert(getStatusBuff(), "Generated Exemplification");
+    bufferExemplification();
+    return;
+  }
 }
 void onOptiClick() {
   std::cout << "Optimal Clicked" << std::endl;
-    if(!getLoadedAttri()) {
-        BufferFlush(getStatusBuff());
-        BufferInsert(getStatusBuff(),"Missing Attributes File.. ");
-        return;
-    }
-    else if(!getSelectedPref()){
-        BufferFlush(getStatusBuff());
-        BufferInsert(getStatusBuff(),"Missing Preferences File.. ");
-        return;
-    }
-    else{
-        BufferFlush(getStatusBuff());
-        BufferInsert(getStatusBuff(),"Generated Optimal");
-        bufferOptimization();
-    }
+  if (!getLoadedAttri()) {
+    BufferFlush(getStatusBuff());
+    BufferInsert(getStatusBuff(), "Missing Attributes File.. ");
+    return;
+  } else if (!getSelectedPref()) {
+    BufferFlush(getStatusBuff());
+    BufferInsert(getStatusBuff(), "Missing Preferences File.. ");
+    return;
+  } else {
+    BufferFlush(getStatusBuff());
+    BufferInsert(getStatusBuff(), "Generated Optimal");
+    bufferOptimization();
+  }
 }
 void onOmniClick() {
 
   std::cout << "Omni-Optimal Clicked" << std::endl;
 
-    if(!getLoadedAttri()) {
-        BufferFlush(getStatusBuff());
-        BufferInsert(getStatusBuff(),"Missing Attributes File.. ");
-        return;
-    }
-    else if(!getSelectedPref()){
-        BufferFlush(getStatusBuff());
-        BufferInsert(getStatusBuff(),"Missing Preferences File.. ");
-        return;
-    }
-    else{
-        BufferFlush(getStatusBuff());
-        BufferInsert(getStatusBuff(),"Generated Omni-Optimal");
-        bufferOmniOptimization();
-    }
+  if (!getLoadedAttri()) {
+    BufferFlush(getStatusBuff());
+    BufferInsert(getStatusBuff(), "Missing Attributes File.. ");
+    return;
+  } else if (!getSelectedPref()) {
+    BufferFlush(getStatusBuff());
+    BufferInsert(getStatusBuff(), "Missing Preferences File.. ");
+    return;
+  } else {
+    BufferFlush(getStatusBuff());
+    BufferInsert(getStatusBuff(), "Generated Omni-Optimal");
+    bufferOmniOptimization();
+  }
 }
 
 // Pass argc and argv from Main
@@ -116,11 +108,13 @@ int wininit(int argc, char **argv) {
   // Initalize a new application type
   auto app = Gtk::Application::create(argc, argv, "org.gtkmm.IntelliApp");
   // Initalize a Builder that will generate the UI later
-  auto refBuilder = Gtk::Builder::create();
-  FUP files;
-  FB fun;
+  auto refBuilder = Gtk::Builder::create_from_resource(
+      "/org/gtkmm/intelliapp/Project3.glade");
+  FUP files;     // Buttons for File Uploads
+  FB fun;        // Buttons for Functions
   initBuffers(); // initalize all the buffers
   // BufferTestInit(); // fill the buffers with test text
+  /*
   try {
     // Tell the builder what UI to use
     refBuilder->add_from_file("Project3.glade");
@@ -133,7 +127,7 @@ int wininit(int argc, char **argv) {
   } catch (const Gtk::BuilderError &ex) {
     std::cerr << "BuilderError: " << ex.what() << std::endl;
     return 1;
-  }
+  }*/
   // tell refBuilder what the parent window is
   refBuilder->get_widget("Intelligent Application", pAppWin);
   if (pAppWin) {
@@ -178,7 +172,6 @@ int wininit(int argc, char **argv) {
     PrefView->set_buffer(getPrefBuff());
     ResultView->set_buffer(getResultBuff());
     StatusView->set_buffer(getStatusBuff());
-
   }
 
   // Run the application

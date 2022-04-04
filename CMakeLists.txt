@@ -19,6 +19,7 @@ add_executable(Project3
   src/sources/File.cpp
   src/sources/Wigets.cpp
   src/sources/App.cpp
+  src/sources/resources.c
   include/p3/p3.h
 )
 
