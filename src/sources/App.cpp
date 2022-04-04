@@ -62,10 +62,11 @@ int wininit(int argc, char **argv) {
   auto app = Gtk::Application::create(argc, argv, "org.gtkmm.IntelliApp");
   // Initalize a Builder that will generate the UI later
   auto refBuilder = Gtk::Builder::create();
-  FUP files;
-  FB fun;
+  FUP files;     // Struct contains all the file upload buttons
+  FB fun;        // struct contains all the function buttons
   initBuffers(); // initalize all the buffers
   // BufferTestInit(); // fill the buffers with test text
+  // Error Handling:
   try {
     // Tell the builder what UI to use
     refBuilder->add_from_file("Project3.glade");
@@ -83,7 +84,6 @@ int wininit(int argc, char **argv) {
   refBuilder->get_widget("Intelligent Application", pAppWin);
   pAppWin->set_default_size(800, 500);
   if (pAppWin) {
-    // TODO: EVENT HANDLER STUBS HERE
     // Get the GtkBuilder-instantiated Button, and connect a signal handler:
     // buttons for file upload
     refBuilder->get_widget("Attri_FU_But", files.pAttri);
