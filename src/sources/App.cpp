@@ -107,7 +107,7 @@ int wininit(int argc, char **argv) {
   std::cout << "CREATING APPLICATION" << std::endl;
   // Initalize a new application type
   auto app = Gtk::Application::create(argc, argv, "org.gtkmm.IntelliApp");
-  // Initalize a Builder that will generate the UI later
+  // Initalize a Builder that will generate the UI later, using precompiled UI
   auto refBuilder = Gtk::Builder::create_from_resource(
       "/org/gtkmm/intelliapp/Project3.glade");
   FUP files;     // Struct contains all the file upload buttons
