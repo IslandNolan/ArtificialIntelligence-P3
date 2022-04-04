@@ -3,6 +3,11 @@
 #include <gtkmm-3.0/gtkmm/filechooserdialog.h>
 
 void onConstraintsUpload() {
+    if(!getLoadedAttri()) {
+        BufferFlush(getStatusBuff());
+        BufferInsert(getStatusBuff(),"Missing Attributes File");
+        return;
+    }
     Gtk::FileChooserDialog dialog("Select Constraints File",
                                   Gtk::FILE_CHOOSER_ACTION_OPEN);
     // dialog.set_transient_for(*this);
@@ -93,7 +98,7 @@ void onAttributeUpload() {
 void onPenaltyFileUpload() {
     if (!getLoadedAttri()) {
         BufferFlush(getStatusBuff());
-        BufferInsert(getStatusBuff(), "Missing Attributes File..");
+        BufferInsert(getStatusBuff(), "Missing Attributes File");
         return;
     }
 
@@ -148,7 +153,7 @@ void onPenaltyFileUpload() {
 void onPossibilisticUpload() {
     if(!getLoadedAttri()) {
         BufferFlush(getStatusBuff());
-        BufferInsert(getStatusBuff(),"Missing Attributes File..");
+        BufferInsert(getStatusBuff(),"Missing Attributes File");
         return;
     }
     selected(1);
