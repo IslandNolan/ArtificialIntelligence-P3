@@ -110,24 +110,10 @@ int wininit(int argc, char **argv) {
   // Initalize a Builder that will generate the UI later
   auto refBuilder = Gtk::Builder::create_from_resource(
       "/org/gtkmm/intelliapp/Project3.glade");
-  FUP files;     // Buttons for File Uploads
-  FB fun;        // Buttons for Functions
+  FUP files;     // Struct contains all the file upload buttons
+  FB fun;        // Struct contains all the function buttons
   initBuffers(); // initalize all the buffers
   // BufferTestInit(); // fill the buffers with test text
-  /*
-  try {
-    // Tell the builder what UI to use
-    refBuilder->add_from_file("Project3.glade");
-  } catch (const Glib::FileError &ex) {
-    std::cerr << "FileError: " << ex.what() << std::endl;
-    return 1;
-  } catch (const Glib::MarkupError &ex) {
-    std::cerr << "MarkupError: " << ex.what() << std::endl;
-    return 1;
-  } catch (const Gtk::BuilderError &ex) {
-    std::cerr << "BuilderError: " << ex.what() << std::endl;
-    return 1;
-  }*/
   // tell refBuilder what the parent window is
   refBuilder->get_widget("Intelligent Application", pAppWin);
   if (pAppWin) {
