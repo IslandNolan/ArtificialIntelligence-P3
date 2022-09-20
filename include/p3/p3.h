@@ -3,7 +3,6 @@
 
 #include <bitset>
 #include <vector>
-#include <gtkmm.h>
 
 #define maxAttributes 10
 #include <iostream>
