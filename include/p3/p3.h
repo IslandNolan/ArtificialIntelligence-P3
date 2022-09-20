@@ -7,10 +7,7 @@
 #define maxAttributes 10
 #include <iostream>
 #include <unordered_map>
-
-#include <gtkmm-3.0/gtkmm.h>
-#include <gtkmm-3.0/gtkmm/applicationwindow.h>
-#include <gtkmm-3.0/gtkmm/builder.h>
+#include <gtkmm.h>
 
 namespace p3 {
     class utility;
