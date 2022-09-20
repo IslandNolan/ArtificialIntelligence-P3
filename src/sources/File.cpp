@@ -1,6 +1,4 @@
 #include "p3/p3.h"
-#include <gtkmm-3.0/gtkmm/filechooser.h>
-#include <gtkmm-3.0/gtkmm/filechooserdialog.h>
 
 void onConstraintsUpload() {
     if(!getLoadedAttri()) {

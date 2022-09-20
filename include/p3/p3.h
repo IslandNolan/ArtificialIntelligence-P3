@@ -7,7 +7,9 @@
 #define maxAttributes 10
 #include <iostream>
 #include <unordered_map>
+#include <gtk/gtk.h>
 #include <gtkmm.h>
+
 
 namespace p3 {
     class utility;
