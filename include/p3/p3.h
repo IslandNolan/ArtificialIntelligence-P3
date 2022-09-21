@@ -5,7 +5,6 @@
 #include <iostream>
 #include <unordered_map>
 #include <gtk/gtk.h>
-#include <glibmm/refptr.h>
 #include <gtkmm/textbuffer.h>
 #include <gtkmm/textview.h>
 #include <gtkmm/filechooserdialog.h>
