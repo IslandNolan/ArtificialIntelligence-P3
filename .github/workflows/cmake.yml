@@ -22,7 +22,7 @@ jobs:
     
     - name: Install GTK
       #Install and configure gtk
-      run: sudo apt install libgtkmm-3.0-1v5 gir1.2-gtk-3.0 gtk-3-examples gtk-update-icon-cache libgail-3-0 libgail-3-dev libgail-3-doc libgtk-3-0 libgtk-3-bin libgtk-3-common libgtk-3-dev libgtk-3-doc
+      run: sudo apt install libgtkmm-3.0-1v5 gir1.2-gtk-3.0 gtk-3-examples gtk-update-icon-cache libgail-3-0 libgail-3-dev libgail-3-doc libgtk-3-0 libgtk-3-bin libgtk-3-common libgtk-3-dev libgtk-3-doc glibmm2.4
 
       
     - name: Configure CMake
