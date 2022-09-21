@@ -27,6 +27,6 @@ add_executable(Project3
   src/sources/App.cpp
   src/sources/resources.c
   include/p3/p3.h
-)
+        include/p3/gtkmmconfig.h)
 
 target_link_libraries(Project3 PUBLIC ${GTKMM_LIBRARIES})
