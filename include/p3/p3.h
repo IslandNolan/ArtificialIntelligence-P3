@@ -5,6 +5,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <gtk/gtk.h>
+#include <gtkmmconfig.h>
 #include <gtkmm-3.0/gtkmm/applicationwindow.h>
 #include <gtkmm-3.0/gtkmm/builder.h>
 #include <gtkmm-3.0/gtkmm/enums.h>
