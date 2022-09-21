@@ -1,7 +1,6 @@
-#define maxAttributes 10
-#include <bits/stdc++.h>
 #include <p3/p3.h>
-#include <random>
+
+#define maxAttributes 10
 /**
  * Feed it a list of positions and bools, it will return true if all are true,
  * else returns false;

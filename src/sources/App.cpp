@@ -1,13 +1,4 @@
 #include "p3/p3.h"
-#include <glibmm/refptr.h>
-#include <gtkmm-3.0/gtkmm/applicationwindow.h>
-#include <gtkmm-3.0/gtkmm/builder.h>
-//#include <gtkmm-3.0/gtkmm/dialog.h>
-#include <gtkmm-3.0/gtkmm/enums.h>
-#include <gtkmm-3.0/gtkmm/scrolledwindow.h>
-#include <gtkmm-3.0/gtkmm/textbuffer.h>
-#include <gtkmm-3.0/gtkmm/textview.h>
-#include <iostream>
 
 Gtk::ApplicationWindow *pAppWin = nullptr;
 

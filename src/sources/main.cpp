@@ -1,4 +1,3 @@
-#include <bits/stdc++.h>
 #include <p3/p3.h>
 
 #define maxAttributes 10

@@ -1,14 +1,25 @@
-#ifndef PROJECT3_P3_H
-#define PROJECT3_P3_H
-
 #include <bitset>
 #include <vector>
-
-#define maxAttributes 10
+#include <random>
+#include <bits/stdc++.h>
 #include <iostream>
 #include <unordered_map>
 #include <gtk/gtk.h>
-#include <gtkmm.h>
+#include <glibmm/refptr.h>
+#include <gtkmm/textbuffer.h>
+#include <gtkmm/textview.h>
+#include <gtkmm/filechooserdialog.h>
+#include <gtkmm-3.0/gtkmm/applicationwindow.h>
+#include <gtkmm-3.0/gtkmm/builder.h>
+#include <gtkmm-3.0/gtkmm/enums.h>
+#include <gtkmm-3.0/gtkmm/textview.h>
+#include <iostream>
+#include <gtkmm/button.h>
+#include <gtkmm/filechooserdialog.h>
+
+#ifndef PROJECT3_P3_H
+#define PROJECT3_P3_H
+#define maxAttributes 10
 
 
 namespace p3 {
