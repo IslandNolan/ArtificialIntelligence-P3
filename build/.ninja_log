@@ -1,0 +1,8 @@
+# ninja log v5
+2	252	1677102391602492253	CMakeFiles/ArtificialIntelligenceP3.dir/src/sources/resources.c.o	f0638fe0ed65c53c
+1	4162	1677102395510504902	CMakeFiles/ArtificialIntelligenceP3.dir/src/sources/Wigets.cpp.o	651af39e06d484aa
+1	4271	1677102395620505258	CMakeFiles/ArtificialIntelligenceP3.dir/src/sources/File.cpp.o	3430c32a611b1d34
+0	5224	1677102396572508339	CMakeFiles/ArtificialIntelligenceP3.dir/src/sources/utility.cpp.o	394ed82ca74463d8
+1	5256	1677102396606508449	CMakeFiles/ArtificialIntelligenceP3.dir/src/sources/App.cpp.o	a027388b40aacc71
+0	8167	1677102399512517854	CMakeFiles/ArtificialIntelligenceP3.dir/src/sources/main.cpp.o	61c0bf061de890d5
+8167	8638	1677102399982519375	ArtificialIntelligenceP3	b9a42a46eecc575d

@@ -6,27 +6,37 @@
 ### Dependencies (Linux Fedora):
 
     - cmake           (v3.21+)
-    - cmake-gui       (any)
-    - gtkmm30         (v30+)
-    - gtkmm30-devel   (v30+)
-    - gtk3.0          (v3+)  
+    - glib            (~)
+    - glib-devel      (~)
+    - glibmm2.4       (~)
+    - gtkmm30         (~)
+    - gtkmm30-devel   (~)
+    - gtk3            (v3+)  
     - ninja-build     (v1.10+)
-    - clang           (v14.0.0+)
     
-    Package Names were taken from the deafault Fedora 35 Repositories.
+    Packages are present in the Fedora 36 repositories.
+    The Naming Comvention will vary based on distribution.
 
 
 ### Build
 #### (Build Instructions are not available on MacOS, or Windows)
 
 1. Clone this Project
-2. Launch cmake-gui and create the Ninja-Build config file
-   1. ![img_1.png](img_1.png)
-   2. Enable the option: CMAKE >> CMAKE_EXPORT_COMPILE_COMMANDS
-   3. Click ```Configure```, Then ```Generate```
-   4. If you see that the Configure, and Generate Commands have completed successfully, Close this window and proceed to step 3.
-3. Run the Command "```$ProjectRoot~ cmake build .```"
-4. Launch the ```./compile.sh``` to build and automatically run the program.
+2. Install the listed dependencies
+    Fedora 36
+    ```
+    sudo dnf install --assumeyes \
+            cmake gtkmm30-devel gtkmm30 gtk3 \
+            ninja-build glib \
+            glib-devel \
+            glibmm2.4 
+    ```
+3. Generate Build files for C-Make: 
+    ```
+    cmake -S=. -B=build/ -G=Ninja
+    ```
+
+4. Launch ```compile.sh``` to build the program. The executable will be moved to the Project root if successful.
 
 
 

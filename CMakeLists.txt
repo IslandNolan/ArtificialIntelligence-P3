@@ -1,25 +1,16 @@
 cmake_minimum_required(VERSION 3.21)
 project(Project3 C CXX)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
-message(STATUS "----- GTK3_INCLUDE_DIRS: ${GTK3_INCLUDE_DIRS}")
-message(STATUS "----- GKT3_LIBRARIES: ${GTK3_LIBRARIES}")
-message(STATUS "----- GTK3_LINK_LIBRARIES: ${GTK3_LINK_LIBRARIES}")
-include_directories(${GTK3_INCLUDE_DIRS})
-link_directories(${GTK3_LIBRARY_DIRS})
+pkg_check_modules(GTK3 REQUIRED gtk+-3.0 glibmm-2.4 gtkmm-3.0 glib-2.0 gio-2.0)
+
 list(APPEND FC_DEP_LIBS ${GTK3_LIBRARIES})
-
-include_directories(${GTKMM_INCLUDE_DIRS})
-link_directories(${GTKMM_LIBRARY_DIRS})
-
-add_definitions(${GTKMM_CFLAGS_OTHER})
-
-find_path(LIB_INCLUDE  p3/p3.h p3/App.h ${CMAKE_SOURCE_DIR}/include)
+include_directories(${GTK3_INCLUDE_DIRS} ${GTKMM_INCLUDE_DIRS})
+find_path(LIB_INCLUDE  p3/p3.h p3/App.h ${CMAKE_SOURCE_DIR}/include )
 include_directories(${LIB_INCLUDE})
 
-add_executable(Project3
+add_executable(ArtificialIntelligenceP3
   src/sources/main.cpp
   src/sources/utility.cpp
   src/sources/File.cpp
@@ -29,4 +20,4 @@ add_executable(Project3
   include/p3/p3.h
         include/p3/gtkmmconfig.h)
 
-target_link_libraries(Project3 PUBLIC ${GTKMM_LIBRARIES})
+target_link_libraries(ArtificialIntelligenceP3 PUBLIC ${GTKMM_LIBRARIES} ${GLIB_LIBRARIES} ${GTK3_LIBRARIES})
