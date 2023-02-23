@@ -1,5 +1,7 @@
 cmake-build-debug
+build
 src/.cache
 .cache
 vgcore.*
 src/sourcs/Project3.glade~
+ArtificialIntelligenceP3

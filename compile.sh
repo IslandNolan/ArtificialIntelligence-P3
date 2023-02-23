@@ -6,6 +6,7 @@ cd ../..
 cmake --build build/
 cd build/
 cp ArtificialIntelligenceP3 ../
+cd ..
 
-echo "Success! Binary is Located at: Full Path here. "
+echo "Success! Binary is Located at: $(pwd)/ArtificialIntelligenceP3"
 
